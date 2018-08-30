@@ -19,5 +19,6 @@ private slots:
 	void open();
 
 private:
+	void ConfigureWindow();
 	Ui::VideoEditorClass ui;
 };

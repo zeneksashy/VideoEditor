@@ -9,16 +9,16 @@
 #include<Qtime>
 #include <QFileDialog>
 #include <QMessageBox>
+#include"MediaManager.h"
+
 VideoEditor::VideoEditor(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	setWindowFlags(Qt::Window
-		| Qt::WindowMinimizeButtonHint
-		| Qt::WindowMaximizeButtonHint
-		| Qt::WindowCloseButtonHint);
-	QMainWindow::showMaximized();
-	setAcceptDrops(true);
+	MediaManager::LoadWidget(ui.preview);
+	MediaManager::LoadWidget(ui.timeLine);
+
+	ConfigureWindow();
 }
 
 void VideoEditor::open()
@@ -33,7 +33,12 @@ void VideoEditor::open()
 	
 }
 
-
-
-
-
+void VideoEditor::ConfigureWindow()
+{
+	setWindowFlags(Qt::Window
+		| Qt::WindowMinimizeButtonHint
+		| Qt::WindowMaximizeButtonHint
+		| Qt::WindowCloseButtonHint);
+	QMainWindow::showMaximized();
+	setAcceptDrops(true);
+}

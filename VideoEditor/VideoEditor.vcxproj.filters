@@ -47,9 +47,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SmallTimeLineWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VideoEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,11 +65,11 @@
     <ClCompile Include="MediaManager.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="VideoLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="SmallTimeLineWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="VideoEditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -108,6 +105,9 @@
   <ItemGroup>
     <ClInclude Include="MediaManager.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

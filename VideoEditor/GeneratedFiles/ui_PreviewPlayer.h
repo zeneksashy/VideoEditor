@@ -23,7 +23,7 @@ QT_BEGIN_NAMESPACE
 class Ui_PreviewPlayer
 {
 public:
-    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout;
     QToolButton *playButton;
@@ -38,36 +38,40 @@ public:
     {
         if (PreviewPlayer->objectName().isEmpty())
             PreviewPlayer->setObjectName(QStringLiteral("PreviewPlayer"));
-        PreviewPlayer->resize(777, 415);
+        PreviewPlayer->resize(878, 406);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(PreviewPlayer->sizePolicy().hasHeightForWidth());
+        PreviewPlayer->setSizePolicy(sizePolicy);
         PreviewPlayer->setLayoutDirection(Qt::LeftToRight);
         PreviewPlayer->setStyleSheet(QStringLiteral(""));
-        gridLayoutWidget = new QWidget(PreviewPlayer);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 771, 411));
-        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout_2 = new QGridLayout(PreviewPlayer);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        playButton = new QToolButton(gridLayoutWidget);
+        playButton = new QToolButton(PreviewPlayer);
         playButton->setObjectName(QStringLiteral("playButton"));
 
         horizontalLayout->addWidget(playButton);
 
-        pauseButton = new QToolButton(gridLayoutWidget);
+        pauseButton = new QToolButton(PreviewPlayer);
         pauseButton->setObjectName(QStringLiteral("pauseButton"));
 
         horizontalLayout->addWidget(pauseButton);
 
-        stopButton = new QToolButton(gridLayoutWidget);
+        stopButton = new QToolButton(PreviewPlayer);
         stopButton->setObjectName(QStringLiteral("stopButton"));
 
         horizontalLayout->addWidget(stopButton);
 
-        timeLine = new QSlider(gridLayoutWidget);
+        timeLine = new QSlider(PreviewPlayer);
         timeLine->setObjectName(QStringLiteral("timeLine"));
         timeLine->setStyleSheet(QLatin1String("QSlider{\n"
 "background-color:rgb(104, 104, 104)\n"
@@ -97,7 +101,7 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        volumeSlider = new QSlider(gridLayoutWidget);
+        volumeSlider = new QSlider(PreviewPlayer);
         volumeSlider->setObjectName(QStringLiteral("volumeSlider"));
         volumeSlider->setStyleSheet(QLatin1String("QSlider{\n"
 "background-color: \"white\";\n"
@@ -111,7 +115,7 @@ public:
 
         horizontalLayout_2->addWidget(volumeSlider);
 
-        previewLabel = new QLabel(gridLayoutWidget);
+        previewLabel = new QLabel(PreviewPlayer);
         previewLabel->setObjectName(QStringLiteral("previewLabel"));
         previewLabel->setStyleSheet(QLatin1String("QLabel{\n"
 "background-color:\"black\";\n"
@@ -124,6 +128,9 @@ public:
 
 
         gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 1);
+
+
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
 
         retranslateUi(PreviewPlayer);

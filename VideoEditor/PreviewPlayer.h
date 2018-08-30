@@ -6,15 +6,16 @@
 #include "Player.h"
 #include<QMessageBox>
 #include<qmediaplayer.h>
+#include"VideoLoader.h"
 
-class PreviewPlayer : public QWidget
+class PreviewPlayer :public QWidget, public VideoLoader
 {
 	Q_OBJECT
 
 public:
 	PreviewPlayer(QWidget *parent = Q_NULLPTR);
 	~PreviewPlayer();
-	void loadVideo(QString path);
+	void loadVideo(QString path) override;
 private slots:
 	void updatePlayerUI(QImage img);
 	void onPlayButtonClicked();

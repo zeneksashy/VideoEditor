@@ -29,9 +29,9 @@ public:
     QScrollArea *scrollArea;
     QWidget *Content;
     QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout_2;
-    QFrame *frame;
+    QVBoxLayout *timeline;
     QFrame *frame_2;
+    QFrame *frame;
 
     void setupUi(QWidget *TimeLine)
     {
@@ -94,36 +94,26 @@ public:
 "}"));
         verticalLayoutWidget = new QWidget(Content);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 0, 1502, 291));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout_2->setSpacing(34);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setSizeConstraint(QLayout::SetMaximumSize);
-        verticalLayout_2->setContentsMargins(0, 1, 0, 0);
-        frame = new QFrame(verticalLayoutWidget);
-        frame->setObjectName(QStringLiteral("frame"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-        frame->setSizePolicy(sizePolicy2);
-        frame->setMinimumSize(QSize(50, 50));
-        frame->setStyleSheet(QStringLiteral(""));
-        frame->setFrameShape(QFrame::StyledPanel);
-        frame->setFrameShadow(QFrame::Raised);
-
-        verticalLayout_2->addWidget(frame);
-
+        verticalLayoutWidget->setGeometry(QRect(0, 0, 1502, 310));
+        timeline = new QVBoxLayout(verticalLayoutWidget);
+        timeline->setSpacing(2);
+        timeline->setContentsMargins(11, 11, 11, 11);
+        timeline->setObjectName(QStringLiteral("timeline"));
+        timeline->setSizeConstraint(QLayout::SetMaximumSize);
+        timeline->setContentsMargins(0, 1, 0, 0);
         frame_2 = new QFrame(verticalLayoutWidget);
         frame_2->setObjectName(QStringLiteral("frame_2"));
-        sizePolicy2.setHeightForWidth(frame_2->sizePolicy().hasHeightForWidth());
-        frame_2->setSizePolicy(sizePolicy2);
-        frame_2->setMinimumSize(QSize(1500, 50));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
 
-        verticalLayout_2->addWidget(frame_2);
+        timeline->addWidget(frame_2);
+
+        frame = new QFrame(verticalLayoutWidget);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+
+        timeline->addWidget(frame);
 
         scrollArea->setWidget(Content);
 

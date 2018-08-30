@@ -32,10 +32,11 @@ public:
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
+    QWidget *widget;
     PreviewPlayer *preview;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
-    TimeLine *widget;
+    TimeLine *timeLine;
     QMenuBar *menuBar;
     QMenu *menuFIle;
 
@@ -43,7 +44,7 @@ public:
     {
         if (VideoEditorClass->objectName().isEmpty())
             VideoEditorClass->setObjectName(QStringLiteral("VideoEditorClass"));
-        VideoEditorClass->resize(2000, 942);
+        VideoEditorClass->resize(1639, 942);
         VideoEditorClass->setMinimumSize(QSize(1200, 800));
         VideoEditorClass->setStyleSheet(QLatin1String("QMainWindow\n"
 "{\n"
@@ -56,7 +57,7 @@ public:
         centralWidget->setStyleSheet(QStringLiteral(""));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(3, 0, 1961, 991));
+        verticalLayoutWidget->setGeometry(QRect(3, 0, 1631, 991));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setSpacing(1);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -66,9 +67,18 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        widget = new QWidget(verticalLayoutWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setStyleSheet(QLatin1String("QWidget\n"
+"{\n"
+"background-color:\"white\";\n"
+"}"));
+
+        horizontalLayout_2->addWidget(widget);
+
         preview = new PreviewPlayer(verticalLayoutWidget);
         preview->setObjectName(QStringLiteral("preview"));
-        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(preview->sizePolicy().hasHeightForWidth());
@@ -94,20 +104,17 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        widget = new TimeLine(verticalLayoutWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy1);
-        widget->setMinimumSize(QSize(1400, 400));
-        widget->setStyleSheet(QLatin1String("QWidget\n"
+        timeLine = new TimeLine(verticalLayoutWidget);
+        timeLine->setObjectName(QStringLiteral("timeLine"));
+        sizePolicy.setHeightForWidth(timeLine->sizePolicy().hasHeightForWidth());
+        timeLine->setSizePolicy(sizePolicy);
+        timeLine->setMinimumSize(QSize(1400, 400));
+        timeLine->setStyleSheet(QLatin1String("QWidget\n"
 "{\n"
 "background-color:\"orange\";\n"
 "}"));
 
-        horizontalLayout->addWidget(widget, 0, Qt::AlignLeft|Qt::AlignBottom);
+        horizontalLayout->addWidget(timeLine, 0, Qt::AlignLeft|Qt::AlignBottom);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -115,7 +122,7 @@ public:
         VideoEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(VideoEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 2000, 21));
+        menuBar->setGeometry(QRect(0, 0, 1639, 21));
         menuFIle = new QMenu(menuBar);
         menuFIle->setObjectName(QStringLiteral("menuFIle"));
         VideoEditorClass->setMenuBar(menuBar);
