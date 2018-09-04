@@ -74,6 +74,9 @@
     <ClCompile Include="AudioRecognition.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioAnalyser.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -122,6 +125,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FastFourierTransform.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioAnalyser.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
