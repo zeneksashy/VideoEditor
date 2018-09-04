@@ -95,7 +95,8 @@ background-color:rgb(37, 37, 38)
 }
 QFrame
 {
-background-color: &quot;green&quot;;
+background-color:rgb(134, 95, 197)
+
 }</string>
         </property>
         <widget class="QWidget" name="verticalLayoutWidget">
@@ -109,7 +110,7 @@ background-color: &quot;green&quot;;
          </property>
          <layout class="QVBoxLayout" name="timeline">
           <property name="spacing">
-           <number>2</number>
+           <number>11</number>
           </property>
           <property name="sizeConstraint">
            <enum>QLayout::SetMaximumSize</enum>
@@ -117,26 +118,6 @@ background-color: &quot;green&quot;;
           <property name="topMargin">
            <number>1</number>
           </property>
-          <item>
-           <widget class="QFrame" name="frame_2">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </widget>

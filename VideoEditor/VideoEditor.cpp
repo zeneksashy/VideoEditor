@@ -28,7 +28,7 @@ void VideoEditor::open()
 		tr("Video Files (*.avi *.mpg *.mp4)"));
 	if (!filename.isEmpty())
 	{
-		ui.preview->loadVideo(filename);
+		ui.preview->loadFile(filename);
 	}
 	
 }

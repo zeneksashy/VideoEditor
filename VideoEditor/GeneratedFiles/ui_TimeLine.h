@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
@@ -30,8 +29,6 @@ public:
     QWidget *Content;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *timeline;
-    QFrame *frame_2;
-    QFrame *frame;
 
     void setupUi(QWidget *TimeLine)
     {
@@ -90,31 +87,18 @@ public:
 "}\n"
 "QFrame\n"
 "{\n"
-"background-color: \"green\";\n"
+"background-color:rgb(134, 95, 197)\n"
+"\n"
 "}"));
         verticalLayoutWidget = new QWidget(Content);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(0, 0, 1502, 310));
         timeline = new QVBoxLayout(verticalLayoutWidget);
-        timeline->setSpacing(2);
+        timeline->setSpacing(11);
         timeline->setContentsMargins(11, 11, 11, 11);
         timeline->setObjectName(QStringLiteral("timeline"));
         timeline->setSizeConstraint(QLayout::SetMaximumSize);
         timeline->setContentsMargins(0, 1, 0, 0);
-        frame_2 = new QFrame(verticalLayoutWidget);
-        frame_2->setObjectName(QStringLiteral("frame_2"));
-        frame_2->setFrameShape(QFrame::StyledPanel);
-        frame_2->setFrameShadow(QFrame::Raised);
-
-        timeline->addWidget(frame_2);
-
-        frame = new QFrame(verticalLayoutWidget);
-        frame->setObjectName(QStringLiteral("frame"));
-        frame->setFrameShape(QFrame::StyledPanel);
-        frame->setFrameShadow(QFrame::Raised);
-
-        timeline->addWidget(frame);
-
         scrollArea->setWidget(Content);
 
         horizontalLayout->addWidget(scrollArea);

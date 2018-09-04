@@ -5,6 +5,8 @@
 #include <algorithm>
 #include"MediaManager.h"
 #include"qmediaplayer.h"
+#include <QAudioFormat>
+#include <QAudioDecoder>
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)
 {
@@ -13,11 +15,33 @@ TimeLine::TimeLine(QWidget *parent)
 	layout.reset(new QHBoxLayout);
 }
 
-void TimeLine::loadVideo(QString path)
+void TimeLine::loadFile(QString path)
 {
-	auto mediaplayer = new QMediaPlayer;
-	mediaplayer->setMedia(QUrl::fromLocalFile(path));
-	auto size = mediaplayer->duration();
+	QMediaPlayer mediaplayer;
+	auto decoder = new QAudioDecoder;
+	decoder->setSourceFilename(path);
+	connect(decoder, SIGNAL(bufferReady()), this, SLOT(readBuffer()));
+	decoder->start();
+	auto data = decoder->read();
+	mediaplayer.setMedia(QUrl::fromLocalFile(path));
+	auto size = mediaplayer.duration();
+	if (mediaplayer.isVideoAvailable())
+	{
+
+	}
+	if (mediaplayer.isAudioAvailable())
+	{
+		auto decoder = new QAudioDecoder;
+		decoder->setSourceFilename(path);
+		connect(decoder, SIGNAL(bufferReady()), this, SLOT(readBuffer()));
+		decoder->start();
+		auto data = decoder->read();
+		data.sampleCount();
+		auto format = data.format();
+		format.sampleType();
+		recognzer.RrecognizeFrameType(format);
+
+	}
 	CreateFrame(size);
 }
 TimeLine::~TimeLine()
@@ -45,16 +69,17 @@ const QStringList TimeLine::supportedFormats = QStringList{ "audio/x-au","audio/
 const std::list<std::string> TimeLine::supportedFormats1 = std::list<std::string>{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3" };
 void TimeLine::CreateFrame(qint64 size)
 {
-	QWidget *frame = new QWidget;
+
+	QWidget *frame = new QWidget(ui.Content);
+	frame->setObjectName("2");
 	frame->setSizePolicy(
 		QSizePolicy::Preferred, QSizePolicy::Preferred);
 	QPalette pal = palette();
+	frame->setStyleSheet("background-color:red;");
 	frame->setVisible(true);
-	// set black background
-	pal.setColor(QPalette::Background, Qt::red);
-	frame->setAutoFillBackground(true);
-	frame->setPalette(pal);
+
 	ui.timeline->addWidget(frame);
+	ui.Content->show();
 }
 bool TimeLine::CheckMimeTypes(QMimeData& data)
 {

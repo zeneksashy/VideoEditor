@@ -68,6 +68,12 @@
     <ClCompile Include="VideoLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FastFourierTransform.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioRecognition.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -81,6 +87,12 @@
     </QtMoc>
     <QtMoc Include="TimeLine.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AudioRecognition.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Tester.cpp">
+      <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="VideoLoader.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastFourierTransform.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

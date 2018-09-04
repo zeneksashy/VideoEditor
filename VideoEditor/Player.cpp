@@ -15,7 +15,7 @@ Player::Player(QObject *parent)
 	mediaplayer.reset(new QMediaPlayer);
 	stop = true;
 }
-bool Player::loadVideo(QString filename) {
+bool Player::loadFile(QString filename) {
 	capture.open(filename.toStdString());
 	
 	if (capture.isOpened())

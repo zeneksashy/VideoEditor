@@ -8,7 +8,7 @@ class VideoLoader
 
 
 public:
-	virtual void loadVideo(QString) = 0;
+	virtual void loadFile(QString) = 0;
 	VideoLoader();
 	~VideoLoader();
 };

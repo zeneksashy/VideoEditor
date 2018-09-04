@@ -41,7 +41,7 @@ public:
 	//Destructor
 	~Player();
 	//Load a video from memory
-	bool loadVideo(QString filename);
+	bool loadFile(QString filename);
 	//Play the video
 	void Play();
 	//Stop the video

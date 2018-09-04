@@ -66,9 +66,9 @@ void PreviewPlayer::setVideoPosition(int pos)
 	player->setVideoPosition(pos);
 
 }
-void PreviewPlayer::loadVideo(QString path)
+void PreviewPlayer::loadFile(QString path)
 {
-	if (!player->loadVideo(path))
+	if (!player->loadFile(path))
 	{
 		QMessageBox msgBox;
 		msgBox.setText("The selected video could not be opened!");

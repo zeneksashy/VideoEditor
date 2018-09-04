@@ -23,13 +23,13 @@ void MediaManager::LoadWidget(VideoLoader* widget)
  {
 	 for each (auto widget in widgets)
 	 {
-		 widget->loadVideo(path);
+		 widget->loadFile(path);
 	 }
  }
 
  void MediaManager::LoadPlayer(QString path)
 {
-	if (!player.loadVideo(path))
+	if (!player.loadFile(path))
 	{
 		QMessageBox msgBox;
 		msgBox.setText("The selected video could not be opened!");

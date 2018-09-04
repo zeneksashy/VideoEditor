@@ -15,7 +15,7 @@ class PreviewPlayer :public QWidget, public VideoLoader
 public:
 	PreviewPlayer(QWidget *parent = Q_NULLPTR);
 	~PreviewPlayer();
-	void loadVideo(QString path) override;
+	void loadFile(QString path) override;
 private slots:
 	void updatePlayerUI(QImage img);
 	void onPlayButtonClicked();
