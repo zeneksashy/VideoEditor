@@ -8,7 +8,7 @@
 class FastFourierTransform
 {
 public:
-	FastFourierTransform(QAudioBuffer);
+	FastFourierTransform();
 	void Execute(std::valarray<std::complex<double>> &x);
 	void LoadData();
 

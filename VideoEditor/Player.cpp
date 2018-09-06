@@ -9,20 +9,30 @@
 #include <thread>        
 #include <chrono>   
 #include<qmediaplayer.h>
+#include <QFileDevice>
+#include<qiodevice.h>
+#include <qbuffer.h>
+#include<qfile.h>
+#include<qmediametadata.h>
 Player::Player(QObject *parent)
 	: QThread(parent)
 {
 	mediaplayer.reset(new QMediaPlayer);
 	stop = true;
 }
-bool Player::loadFile(QString filename) {
+bool Player::loadFile(QString filename) 
+{
 	capture.open(filename.toStdString());
-	
-	if (capture.isOpened())
+	if (CheckFile())
 	{
-		frameRate = (int)capture.get(CV_CAP_PROP_FPS);
-		delay = (1000 / frameRate);
 		mediaplayer->setMedia(QUrl::fromLocalFile(filename));
+	    audio = CheckAudio();
+		video = CheckVideo();
+		if(video)
+		{
+			frameRate = (int)capture.get(CV_CAP_PROP_FPS);
+			delay = (1000 / frameRate);
+		}
 		return true;
 	}
 	else
@@ -34,11 +44,35 @@ void Player::Play()
 		if (isStopped()) {
 			stop = false;
 		}
+		if(audio)
 		mediaplayer->play();
+		if(video)
 		start(LowPriority);
 	}
 }
+bool Player::CheckFile()
+{
+	if (capture.isOpened())
+		return true;
+	return false;
 
+}
+bool Player::CheckVideo()
+{
+	if (capture.read(frame))
+	{
+		return true;
+		capture.set(cv::CAP_PROP_POS_FRAMES, 0);
+	}
+	stop = true;
+	return false;
+}
+bool Player::CheckAudio()
+{
+	if (mediaplayer->error() == QMediaPlayer::NoError)
+		return true;
+	return false;
+}
 void Player::setVideoPosition(int pos)
 {
 	Pause();
@@ -68,12 +102,18 @@ void Player::Pause()
 	stop = true;
 }
 
-void Player::CaptureNextFrame()
+bool Player::CheckNextFrame()
 {
 	if (!capture.read(frame))
 	{
 		stop = true;
+		return false;
 	}
+	return true;
+}
+void Player::CaptureNextFrame()
+{
+	CheckNextFrame();
 	if (frame.channels() == 3) {
 		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
 		//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);

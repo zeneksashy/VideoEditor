@@ -1,17 +1,24 @@
 #include "AudioAnalyser.h"
-
+#include<valarray>
 #pragma region AudioAnalyser
 
-void AudioAnalyser::LoadData(AudioAnalyser& analyser)
+template<typename T>
+inline std::vector<std::complex<double>> AudioAnalyser<T>::LoadData(AudioAnalyser & analyser)
 {
+	const int bytesPerSample = format.sampleSize() * format.channelCount() / 8;// not sure if it depends on format or not
 	auto bufferlength = SpectrumLengthSamples * (format.sampleSize() / 8) * format.channelCount();
 	auto  spectrumBuffer = QByteArray::fromRawData(buffer.constData<char>(), bufferlength);
 	const char *ptr = spectrumBuffer.constData();
-	for (size_t i = 0; i < SpectrumLengthSamples; i++)
+	std::vector<std::complex<double>> complex;
+	for (size_t i = 0; i < buffer.frameCount(); i++)
 	{
 		const T pcmSample = *reinterpret_cast<const T*>(ptr);
-		
+		const double input = analyser.ConvertInput(pcmSample);
+		std::complex<double> temp(input);
+		complex.push_back(temp);
+		ptr += bytesPerSample;
 	}
+	return complex;
 }
 #pragma endregion
 #pragma region S8SAnalyser
@@ -20,9 +27,10 @@ S8SAudioAnalyser::~S8SAudioAnalyser()
 {
 }
 
-bool S8SAudioAnalyser::LoadData()
+ComplexVector S8SAudioAnalyser::LoadData()
 {
-	return false;
+	auto data = AudioAnalyser::LoadData(*this);
+	return data;
 }
 
 void S8SAudioAnalyser::Calculate()
@@ -30,52 +38,72 @@ void S8SAudioAnalyser::Calculate()
 }
 double S8SAudioAnalyser::ConvertInput(char data)
 {
-	return 0.0;
+	return double(data) / maxAmplitude;
 }
-double S8SAudioAnalyser::ConvertInput()
-{
-	return 0.0;
-}
+//double S8SAudioAnalyser::ConvertInput()
+//{
+//	return 0.0;
+//}
 #pragma endregion
 #pragma region S16SAnalyser
-bool S16SAudioAnalyser::LoadData()
+ComplexVector S16SAudioAnalyser::LoadData()
 {
-	return false;
+	auto data = AudioAnalyser::LoadData(*this);
+	return data;
 }
 
 void S16SAudioAnalyser::Calculate()
 {
 }
+double S16SAudioAnalyser::ConvertInput(short data)
+{
+	return double(data) / maxAmplitude;
+}
 #pragma endregion
 #pragma region S16UAudioAnalyser
-bool S16UAudioAnalyser::LoadData()
+ComplexVector S16UAudioAnalyser::LoadData()
 {
-	return false;
+	auto data = AudioAnalyser::LoadData(*this);
+	return data;
 }
 
 void S16UAudioAnalyser::Calculate()
 {
 }
+double S16UAudioAnalyser::ConvertInput(ushort data)
+{
+	return double(data) / maxAmplitude;
+}
 #pragma endregion
 #pragma region S8UAudioAnalyser
 
-bool S8UAudioAnalyser::LoadData()
+ComplexVector S8UAudioAnalyser::LoadData()
 {
-	return false;
+	auto data = AudioAnalyser::LoadData(*this);
+	return data;
 }
 
 void S8UAudioAnalyser::Calculate()
 {
 }
+double S8UAudioAnalyser::ConvertInput(uchar data)
+{
+	return double(data) / maxAmplitude;
+}
 #pragma endregion
 #pragma region S32FAudioAnalyser
 
-bool S32FAudioAnalyser::LoadData()
+ComplexVector S32FAudioAnalyser::LoadData()
 {
-	return false;
+	auto data = AudioAnalyser::LoadData(*this);
+	return data;
 }
 
 void S32FAudioAnalyser::Calculate()
 {
+}
+double S32FAudioAnalyser::ConvertInput(float)
+{
+	return 0.0;
 }
 #pragma endregion

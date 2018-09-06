@@ -21,7 +21,13 @@ private:
 	cv::VideoCapture capture;
 	cv::Mat RGBframe;
 	QImage img;
+	bool audio;
+	bool video;
+	bool CheckNextFrame();
 	void CaptureNextFrame();
+	bool CheckVideo();
+	bool CheckAudio();
+	bool CheckFile();
 	int delay;
 public  slots:
 	void setVideoPosition(int pos);
@@ -29,7 +35,6 @@ public  slots:
 signals:
 	//Signal to output frame to be displayed
 	void processedImage(const QImage &image);
-	
 protected:
 	void run();
 	void msleep(int ms);
@@ -44,6 +49,7 @@ public:
 	bool loadFile(QString filename);
 	//Play the video
 	void Play();
+	
 	//Stop the video
 	void Stop();
 	void Pause();

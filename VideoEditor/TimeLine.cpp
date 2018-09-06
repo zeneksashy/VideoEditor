@@ -18,11 +18,11 @@ TimeLine::TimeLine(QWidget *parent)
 void TimeLine::loadFile(QString path)
 {
 	QMediaPlayer mediaplayer;
-	auto decoder = new QAudioDecoder;
-	decoder->setSourceFilename(path);
-	connect(decoder, SIGNAL(bufferReady()), this, SLOT(readBuffer()));
-	decoder->start();
-	auto data = decoder->read();
+//	auto decoder = new QAudioDecoder;
+	//decoder->setSourceFilename(path);
+	//connect(decoder, SIGNAL(bufferReady()), this, SLOT(readBuffer()));
+//	decoder->start();
+	//auto data = decoder->read();
 	mediaplayer.setMedia(QUrl::fromLocalFile(path));
 	auto size = mediaplayer.duration();
 	if (mediaplayer.isVideoAvailable())

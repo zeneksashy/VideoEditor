@@ -2,12 +2,12 @@
 
 
 //add adudio recognisation and maybe do all stuff with converting audiobuffer
-FastFourierTransform::FastFourierTransform(QAudioBuffer buffer)
-{
-	this->buffer = buffer;
-	AudioRecognition recognize;
-	//frame = recognize.RrecognizeFrameType(buffer.format);
-}
+//FastFourierTransform::FastFourierTransform(QAudioBuffer buffer)
+//{
+////	this->buffer = buffer;
+//	//AudioRecognition recognize;
+//	//frame = recognize.RrecognizeFrameType(buffer.format);
+//}
 void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 {
 	// DFT
