@@ -134,6 +134,16 @@ void Player::msleep(int ms) {
 	std::this_thread::sleep_for(std::chrono::nanoseconds((ms % 1000) * 1000 * 1000));
 }
 
+bool Player::isAudioAvaible()
+{
+	return audio;
+}
+
+bool Player::isVideoAvaible()
+{
+	return video;
+}
+
 QMediaPlayer* Player::getMediaPlayer() const
 {
 	return mediaplayer.data();

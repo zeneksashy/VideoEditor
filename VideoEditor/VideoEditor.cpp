@@ -23,12 +23,14 @@ VideoEditor::VideoEditor(QWidget *parent)
 
 void VideoEditor::open()
 {
+	
 	QString filename = QFileDialog::getOpenFileName(this,
 		tr("Open Video"), ".",
 		tr("Video Files (*.avi *.mpg *.mp4)"));
 	if (!filename.isEmpty())
 	{
-		ui.preview->loadFile(filename);
+		MediaManager::LoadMedia(filename);
+	//	ui.preview->loadFile(filename);
 	}
 	
 }

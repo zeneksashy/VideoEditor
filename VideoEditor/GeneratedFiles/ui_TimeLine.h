@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
@@ -29,6 +30,8 @@ public:
     QWidget *Content;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *timeline;
+    QFrame *frame;
+    QFrame *frame_2;
 
     void setupUi(QWidget *TimeLine)
     {
@@ -99,6 +102,20 @@ public:
         timeline->setObjectName(QStringLiteral("timeline"));
         timeline->setSizeConstraint(QLayout::SetMaximumSize);
         timeline->setContentsMargins(0, 1, 0, 0);
+        frame = new QFrame(verticalLayoutWidget);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+
+        timeline->addWidget(frame);
+
+        frame_2 = new QFrame(verticalLayoutWidget);
+        frame_2->setObjectName(QStringLiteral("frame_2"));
+        frame_2->setFrameShape(QFrame::StyledPanel);
+        frame_2->setFrameShadow(QFrame::Raised);
+
+        timeline->addWidget(frame_2);
+
         scrollArea->setWidget(Content);
 
         horizontalLayout->addWidget(scrollArea);

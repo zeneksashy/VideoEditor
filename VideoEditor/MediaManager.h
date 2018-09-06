@@ -9,10 +9,12 @@ public:
 	//~MediaManager();
 	static void LoadWidget(VideoLoader*);
 	static void LoadMedia(QString);
+	//static Player getPlayer();
+	static  Player player;
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);
-	static  Player player;
+	
 	//static std::list<QWidget> widgets;
 	static QList<VideoLoader*>widgets;
 };

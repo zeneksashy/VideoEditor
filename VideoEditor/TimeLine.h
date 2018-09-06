@@ -5,6 +5,7 @@
 #include <QDragEnterEvent>
 #include"AudioRecognition.h"
 #include"VideoLoader.h"
+#include <QAudioDecoder>
 class TimeLine : public QWidget, public VideoLoader
 {
 	Q_OBJECT
@@ -13,10 +14,14 @@ public:
 	void loadFile(QString) override;
 	TimeLine(QWidget *parent = Q_NULLPTR);
 	~TimeLine();
+	
 	void dragEnterEvent(QDragEnterEvent* event);
 	void dropEvent(QDropEvent* e);
 
+private slots:
+	void readBuffer();
 private:
+	QScopedPointer<QAudioDecoder> decoder;
 	AudioRecognition recognzer;
 	void CreateVideoFrame(qint64);
 	void CreateAudioFrame(qint64);

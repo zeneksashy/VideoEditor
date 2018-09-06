@@ -19,6 +19,11 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 	LoadMediaToWidget(path);
 }
 
+ //Player MediaManager::getPlayer()
+ //{
+	// return &player;
+ //}
+
  void MediaManager::LoadMediaToWidget(QString path)
  {
 	 for each (auto widget in widgets)
@@ -29,6 +34,7 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 
  void MediaManager::LoadPlayer(QString path)
 {
+	 Player pl = new Player();
 	if (!player.loadFile(path))
 	{
 		QMessageBox msgBox;

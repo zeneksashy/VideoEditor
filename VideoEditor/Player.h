@@ -39,6 +39,8 @@ protected:
 	void run();
 	void msleep(int ms);
 public:
+	bool isAudioAvaible();
+	bool isVideoAvaible();
 	QMediaPlayer* getMediaPlayer() const;
 	void effect();
 	//Constructor

@@ -1,6 +1,6 @@
 #include "AudioRecognition.h"
 
-AudioRecognition::FrameTypes AudioRecognition::RrecognizeFrameType(QAudioFormat format)
+AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioBuffer buffer,QAudioFormat format)
 {
 	int size = format.sampleSize();
 	auto sample = format.sampleType();
@@ -9,41 +9,41 @@ AudioRecognition::FrameTypes AudioRecognition::RrecognizeFrameType(QAudioFormat 
 	case QAudioFormat::SignedInt:
 		if (size == 8)
 		{
-			return AudioRecognition::FrameTypes::S8S;
+			return new S8SAudioAnalyser(buffer, format);
 		}
 		else if (size == 16)
 		{
-			return AudioRecognition::FrameTypes::S16S;
+			return new S16SAudioAnalyser(buffer, format);
 		}
 		else
 		{
-			return AudioRecognition::FrameTypes::SOther;
+			//return AudioRecognition::FrameTypes::SOther;
 		}
 		break;
 	case QAudioFormat::UnSignedInt:
 		if (size == 8)
 		{
-			return AudioRecognition::FrameTypes::S8U;
+			return new S8UAudioAnalyser(buffer, format);
 		}
 		else if (size == 16)
 		{
-			return AudioRecognition::FrameTypes::S16U;
+			return new S16UAudioAnalyser(buffer, format);
 		}
 		else
 		{
-			return AudioRecognition::FrameTypes::UOther;
+			//return AudioRecognition::FrameTypes::UOther;
 		}
 		break;
 	case QAudioFormat::Float:
 		if (size == 32)
 		{
-			return AudioRecognition::FrameTypes::S32F;
+			return new S32FAudioAnalyser(buffer, format);
 		}
 		else
-			return	AudioRecognition::FrameTypes::FOther;
+			//return	AudioRecognition::FrameTypes::FOther;
 		break;
 	default:
-		return	AudioRecognition::FrameTypes::Other;
+		//return	AudioRecognition::FrameTypes::Other;
 		break;
 	}
 	//return QAudioFormat::SampleType();

@@ -18,36 +18,38 @@ TimeLine::TimeLine(QWidget *parent)
 void TimeLine::loadFile(QString path)
 {
 	QMediaPlayer mediaplayer;
-//	auto decoder = new QAudioDecoder;
-	//decoder->setSourceFilename(path);
-	//connect(decoder, SIGNAL(bufferReady()), this, SLOT(readBuffer()));
-//	decoder->start();
-	//auto data = decoder->read();
 	mediaplayer.setMedia(QUrl::fromLocalFile(path));
 	auto size = mediaplayer.duration();
-	if (mediaplayer.isVideoAvailable())
+	if (MediaManager::player.isVideoAvaible())
 	{
-
+		//createvideoframe
 	}
-	if (mediaplayer.isAudioAvailable())
+	if (MediaManager::player.isAudioAvaible())
 	{
-		auto decoder = new QAudioDecoder;
+		decoder.reset(new QAudioDecoder());
+		//auto decoder = new QAudioDecoder;
 		decoder->setSourceFilename(path);
-		connect(decoder, SIGNAL(bufferReady()), this, SLOT(readBuffer()));
+		connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 		decoder->start();
-		auto data = decoder->read();
-		data.sampleCount();
-		auto format = data.format();
-		format.sampleType();
-		recognzer.RrecognizeFrameType(format);
-
+		//createaudioframe
 	}
 	CreateFrame(size);
 }
 TimeLine::~TimeLine()
 {
 }
-
+//this should be in separate class
+void TimeLine::readBuffer()
+{
+	auto data = decoder->read();
+	int x = data.sampleCount();
+	auto arr = QByteArray::fromRawData(data.constData<char>(), 9600);
+	auto format = data.format();
+	auto size = format.sampleSize();//16
+	auto count = format.channelCount();//2
+	auto sample = format.sampleType();//signed int
+	recognzer.RrecognizeFrameType(data,format);
+}
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
 	if (e->mimeData()->hasUrls()) {
@@ -58,8 +60,6 @@ void TimeLine::dropEvent(QDropEvent * e)
 {
 	foreach(const QUrl &url, e->mimeData()->urls()) {
 		MediaManager::LoadMedia(url.toLocalFile());
-		//QString fileName = url.toLocalFile();
-
 		QMessageBox msgBox;
 		msgBox.setText("file dropped");
 		msgBox.exec();

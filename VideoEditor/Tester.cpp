@@ -46,7 +46,7 @@ class AudioAnalyserTest:public QObject
 
 private slots:
 	//gives 2557 and it should return 0.0780334473
-	void AudioAnalyserTest_ConvertDataS16S()
+	void ConvertDataS16S()
 	{
 		int multipler = 100000;
 		
@@ -57,20 +57,28 @@ private slots:
 		int actual = act * multipler;	// of rounding errors
 		QTRY_COMPARE(actual, expected);
 	}
-	void AudioAnalyserTest_LoadData_Empty()
+	void LoadData_Empty()
 	{
 		auto analyser = new S16SAudioAnalyser(buffer, format);
 		auto actual = analyser->LoadData();
 		auto expected = ComplexVector();
 		QTRY_COMPARE(actual.size(), expected.size());
 	}
-	void AudioAnalyserTest_LoadData()
+	void LoadData()
 	{
-		
-		auto analyser = new S16SAudioAnalyser(buffer, format);
+		QByteArray data;
+		format.setSampleSize(16);
+		format.setChannelCount(2);
+		format.setSampleType(QAudioFormat::SignedInt);
+		auto buff = new QAudioBuffer(data, format, 0);
+		auto analyser = new S16SAudioAnalyser(*buff, format);
 		auto actual = analyser->LoadData();
 		auto expected = ComplexVector();
 		QTRY_COMPARE(actual.size(), expected.size());
+	}
+	void CalculateData()
+	{
+
 	}
 private:
 	QAudioBuffer buffer;
