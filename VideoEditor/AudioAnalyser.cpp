@@ -20,12 +20,10 @@ inline std::vector<std::complex<double>> AudioAnalyser::LoadData(AudioAnalyser &
 	}
 	return complex;
 }
+
 #pragma endregion
 #pragma region S8SAnalyser
 
-S8SAudioAnalyser::~S8SAudioAnalyser()
-{
-}
 
 ComplexVector S8SAudioAnalyser::LoadData()
 {
@@ -40,10 +38,7 @@ double S8SAudioAnalyser::ConvertInput(QVariant data)
 {
 	return data.toDouble() / maxAmplitude;
 }
-//double S8SAudioAnalyser::ConvertInput()
-//{
-//	return 0.0;
-//}
+
 #pragma endregion
 #pragma region S16SAnalyser
 ComplexVector S16SAudioAnalyser::LoadData()

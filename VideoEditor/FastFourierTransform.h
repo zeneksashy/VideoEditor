@@ -15,6 +15,6 @@ public:
 private:
 	QAudioBuffer buffer;
 	QAudioFormat format;
-	AudioRecognition::FrameTypes frame;
+	//AudioRecognition::FrameTypes frame;
 };
 

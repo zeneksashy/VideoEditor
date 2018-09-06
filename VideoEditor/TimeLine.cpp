@@ -48,7 +48,7 @@ void TimeLine::readBuffer()
 	auto size = format.sampleSize();//16
 	auto count = format.channelCount();//2
 	auto sample = format.sampleType();//signed int
-	recognzer.RrecognizeFrameType(data,format);
+	recognizer.RrecognizeFrameType(data,format);
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {

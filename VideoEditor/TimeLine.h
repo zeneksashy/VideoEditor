@@ -22,7 +22,7 @@ private slots:
 	void readBuffer();
 private:
 	QScopedPointer<QAudioDecoder> decoder;
-	AudioRecognition recognzer;
+	AudioRecognition recognizer;
 	void CreateVideoFrame(qint64);
 	void CreateAudioFrame(qint64);
 	void CreateFrame(qint64 size);

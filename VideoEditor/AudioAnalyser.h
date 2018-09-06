@@ -4,6 +4,7 @@
 #include<complex>
 #include"FastFourierTransform.h"
 #include<QVariant>
+#include<memory>
 #define ComplexVector std::vector<std::complex<double>>
 template<int N> class PowerOfTwo
 {
@@ -22,8 +23,8 @@ public:
 	virtual ComplexVector LoadData()=0;
 	virtual void Calculate()=0;
 	virtual double ConvertInput(QVariant)=0;
-	
-	//virtual ~AudioAnalyser();
+
+
 protected:
 	QAudioBuffer buffer;
 	QAudioFormat format;
@@ -39,7 +40,6 @@ class S8SAudioAnalyser:public AudioAnalyser
 {
 public:
 	S8SAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
-	~S8SAudioAnalyser();
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
 	virtual void Calculate() override;
@@ -55,8 +55,8 @@ class S16SAudioAnalyser :public AudioAnalyser
 {
 public:
 	S16SAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
-	~S16SAudioAnalyser();
 	// Inherited via AudioAnalyser
+
 	virtual ComplexVector LoadData() override;
 
 	virtual void Calculate() override;
@@ -73,7 +73,6 @@ class S16UAudioAnalyser :public AudioAnalyser
 {
 public:
 	S16UAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
-	~S16UAudioAnalyser();
 
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
@@ -90,7 +89,6 @@ class S8UAudioAnalyser :public AudioAnalyser
 {
 public:
 	S8UAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
-	~S8UAudioAnalyser();
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
 
@@ -107,7 +105,6 @@ class S32FAudioAnalyser :public AudioAnalyser
 {
 public:
 	S32FAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
-	~S32FAudioAnalyser();
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
 
