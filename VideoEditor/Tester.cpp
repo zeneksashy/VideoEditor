@@ -110,6 +110,6 @@ private:
 };
 
 
-QTEST_MAIN(AudioAnalyserTest)
+//QTEST_MAIN(AudioAnalyserTest)
 
 #include "tester.moc"

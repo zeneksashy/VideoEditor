@@ -77,6 +77,9 @@
     <ClCompile Include="AudioAnalyser.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -97,6 +100,9 @@
     <QtMoc Include="Tester.cpp">
       <Filter>Source Files</Filter>
     </QtMoc>
+    <QtMoc Include="AudioFrame.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="VideoEditor.ui">
@@ -106,6 +112,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="TimeLine.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AudioFrame.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

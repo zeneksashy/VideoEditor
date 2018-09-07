@@ -21,13 +21,12 @@ class AudioAnalyser
 public:
 	AudioAnalyser(QAudioBuffer buffer,QAudioFormat format):format(format),buffer(buffer){}
 	virtual ComplexVector LoadData()=0;
-	virtual void Calculate()=0;
+	virtual std::valarray<std::complex<double>> Calculate()=0;
 	virtual double ConvertInput(QVariant)=0;
-
-
 protected:
 	QAudioBuffer buffer;
 	QAudioFormat format;
+	std::valarray<std::complex<double>> Calculate(AudioAnalyser&);
 	template <typename T>
 	ComplexVector LoadData(AudioAnalyser&);
 	static const int FFTLengthPowerOfTwo = 12;
@@ -42,7 +41,7 @@ public:
 	S8SAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
-	virtual void Calculate() override;
+	virtual std::valarray<std::complex<double>> Calculate() override;
 
 	// Inherited via AudioAnalyser
 	virtual double ConvertInput(QVariant) override;
@@ -59,7 +58,7 @@ public:
 
 	virtual ComplexVector LoadData() override;
 
-	virtual void Calculate() override;
+	virtual std::valarray<std::complex<double>> Calculate() override;
 
 	virtual double ConvertInput(QVariant) override;
 private:
@@ -77,7 +76,7 @@ public:
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
 
-	virtual void Calculate() override;
+	virtual std::valarray<std::complex<double>> Calculate() override;
 private:
 	const ushort maxValue = 65535;
 	const unsigned short maxAmplitude = maxValue;
@@ -92,7 +91,7 @@ public:
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
 
-	virtual void Calculate() override;
+	virtual std::valarray<std::complex<double>> Calculate() override;
 private:
 	const uchar maxValue = 255;
 	const unsigned char maxAmplitude = maxValue;
@@ -108,7 +107,7 @@ public:
 	// Inherited via AudioAnalyser
 	virtual ComplexVector LoadData() override;
 
-	virtual void Calculate() override;
+	virtual std::valarray<std::complex<double>> Calculate() override;
 private:
 	const char maxValue = 3321321 ;
 	const unsigned char maxAmplitude = maxValue;

@@ -7,12 +7,14 @@
 #include"qmediaplayer.h"
 #include <QAudioFormat>
 #include <QAudioDecoder>
+#include<complex>
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)
 {
 	setAcceptDrops(true);
-	ui.setupUi(this);
 	layout.reset(new QHBoxLayout);
+	ui.setupUi(this);
+	
 }
 
 void TimeLine::loadFile(QString path)
@@ -48,7 +50,9 @@ void TimeLine::readBuffer()
 	auto size = format.sampleSize();//16
 	auto count = format.channelCount();//2
 	auto sample = format.sampleType();//signed int
-	recognizer.RrecognizeFrameType(data,format);
+	analyser.reset(recognizer.RrecognizeFrameType(data,format));
+	auto values = analyser->Calculate();
+	auto val = values[2]._Val;
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
@@ -69,7 +73,6 @@ const QStringList TimeLine::supportedFormats = QStringList{ "audio/x-au","audio/
 const std::list<std::string> TimeLine::supportedFormats1 = std::list<std::string>{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3" };
 void TimeLine::CreateFrame(qint64 size)
 {
-
 	QWidget *frame = new QWidget(ui.Content);
 	frame->setObjectName("2");
 	frame->setSizePolicy(
@@ -77,7 +80,6 @@ void TimeLine::CreateFrame(qint64 size)
 	QPalette pal = palette();
 	frame->setStyleSheet("background-color:red;");
 	frame->setVisible(true);
-
 	ui.timeline->addWidget(frame);
 	ui.Content->show();
 }

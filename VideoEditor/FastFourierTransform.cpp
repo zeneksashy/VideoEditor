@@ -1,13 +1,7 @@
 #include "FastFourierTransform.h"
+#include<qmath.h>
 
 
-//add adudio recognisation and maybe do all stuff with converting audiobuffer
-//FastFourierTransform::FastFourierTransform(QAudioBuffer buffer)
-//{
-////	this->buffer = buffer;
-//	//AudioRecognition recognize;
-//	//frame = recognize.RrecognizeFrameType(buffer.format);
-//}
 void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 {
 	// DFT
@@ -52,58 +46,18 @@ void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 	}
 }
 
-const qint16  PCMS16MaxValue = 32767;
-const quint16 PCMS16MaxAmplitude = 32768; // because minimum is -32768
-qreal pcmToReal(qint16 pcm)
+std::vector<double> FastFourierTransform::CalculateAmplitude(std::valarray<std::complex<double>>& x)
 {
-	return qreal(pcm) / PCMS16MaxAmplitude;
+	std::vector<double> values;
+	for (size_t i = 0; i < x.size(); i++)
+	{
+		auto imaginary = x[i].imag();
+		auto real = x[i].real();
+		const auto magnitude = std::sqrt(real*real + imaginary * imaginary);
+		auto amplitude = 0.15 * qLn(magnitude);
+		amplitude = qMax(qreal(0.0), amplitude);
+		amplitude = qMin(qreal(1.0), amplitude);
+		values.push_back(amplitude);
+	}
+	return values;
 }
-//QVector<float> m_window;
-//QVector<float> m_input;
-//QVector<float> m_output;
-//void FastFourierTransform::LoadData()
-//{
-//	int bytesPerSample=2;
-//	
-//	const char *ptr = spectrumBuffer.constData();
-//	 auto numSamples = SpectrumLengthSamples;
-//	for (int i = 0; i < numSamples; ++i) {
-//		const signed short pcmSample = *reinterpret_cast<const qint16*>(ptr);
-//		// Scale down to range [-1.0, 1.0]
-//		const double realSample = pcmToReal(pcmSample);
-//		//const double windowedSample = realSample * m_window[i];
-//	//	m_input[i] = windowedSample;
-//		ptr += bytesPerSample;
-//	}
-////	auto data = buffer.data<double>();
-//	QAudioBuffer::S16U *frames = buffer.data<QAudioBuffer::S16U>();
-//	for (size_t i = 0; i < buffer.frameCount(); i++)
-//	{
-//		auto x = frames->average();
-//	}
-//	switch (frame)
-//	{
-//	case AudioRecognition::S8S:
-//
-//		break;
-//	case AudioRecognition::S16S:
-//		
-//		break;
-//	case AudioRecognition::S8U:
-//		break;
-//	case AudioRecognition::S16U:
-//		break;
-//	case AudioRecognition::S32F:
-//		break;
-//	case AudioRecognition::SOther:
-//		break;
-//	case AudioRecognition::UOther:
-//		break;
-//	case AudioRecognition::FOther:
-//		break;
-//	case AudioRecognition::Other:
-//		break;
-//	default:
-//		break;
-//	}
-//}

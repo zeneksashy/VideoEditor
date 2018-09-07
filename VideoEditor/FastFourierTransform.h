@@ -8,13 +8,7 @@
 class FastFourierTransform
 {
 public:
-	FastFourierTransform();
 	void Execute(std::valarray<std::complex<double>> &x);
-	void LoadData();
-
-private:
-	QAudioBuffer buffer;
-	QAudioFormat format;
-	//AudioRecognition::FrameTypes frame;
+	std::vector<double> CalculateAmplitude(std::valarray<std::complex<double>> &x);
 };
 
