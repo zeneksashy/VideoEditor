@@ -8,6 +8,8 @@
 #include <QAudioFormat>
 #include <QAudioDecoder>
 #include<complex>
+#include<vector>
+#include <AudioFrame.h>
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)
 {
@@ -24,36 +26,16 @@ void TimeLine::loadFile(QString path)
 	auto size = mediaplayer.duration();
 	if (MediaManager::player.isVideoAvaible())
 	{
-		//createvideoframe
+
 	}
 	if (MediaManager::player.isAudioAvaible())
 	{
-		decoder.reset(new QAudioDecoder());
-		//auto decoder = new QAudioDecoder;
-		decoder->setSourceFilename(path);
-		connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
-		decoder->start();
-		//createaudioframe
+		CreateAudioFrame(path);
+
 	}
-	CreateFrame(size);
+
 }
-TimeLine::~TimeLine()
-{
-}
-//this should be in separate class
-void TimeLine::readBuffer()
-{
-	auto data = decoder->read();
-	int x = data.sampleCount();
-	auto arr = QByteArray::fromRawData(data.constData<char>(), 9600);
-	auto format = data.format();
-	auto size = format.sampleSize();//16
-	auto count = format.channelCount();//2
-	auto sample = format.sampleType();//signed int
-	analyser.reset(recognizer.RrecognizeFrameType(data,format));
-	auto values = analyser->Calculate();
-	auto val = values[2]._Val;
-}
+
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
 	if (e->mimeData()->hasUrls()) {
@@ -69,8 +51,20 @@ void TimeLine::dropEvent(QDropEvent * e)
 		msgBox.exec();
 	}
 }
+void TimeLine::audioFrameDrawn(AudioFrame* frame)
+{
+	ui.timeline->addWidget(frame);
+}
 const QStringList TimeLine::supportedFormats = QStringList{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3"};
 const std::list<std::string> TimeLine::supportedFormats1 = std::list<std::string>{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3" };
+void TimeLine::CreateAudioFrame(QString path)
+{
+	auto audioframe = new AudioFrame(this);
+	audioframe->Initialize(path);
+	connect(audioframe, &AudioFrame::LineDrawn, this, &TimeLine::audioFrameDrawn);
+	//audioframe->setLayout(ui.timeline);
+
+}
 void TimeLine::CreateFrame(qint64 size)
 {
 	QWidget *frame = new QWidget(ui.Content);
@@ -78,10 +72,12 @@ void TimeLine::CreateFrame(qint64 size)
 	frame->setSizePolicy(
 		QSizePolicy::Preferred, QSizePolicy::Preferred);
 	QPalette pal = palette();
-	frame->setStyleSheet("background-color:red;");
+//	frame->setStyleSheet("background-color:red;");
 	frame->setVisible(true);
+	frame->setLayout(ui.timeline);
 	ui.timeline->addWidget(frame);
 	ui.Content->show();
+	
 }
 bool TimeLine::CheckMimeTypes(QMimeData& data)
 {

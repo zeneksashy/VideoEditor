@@ -26,7 +26,7 @@ public:
 protected:
 	QAudioBuffer buffer;
 	QAudioFormat format;
-	std::valarray<std::complex<double>> Calculate(AudioAnalyser&);
+	std::valarray<std::complex<double>> Calculate(AudioAnalyser*);
 	template <typename T>
 	ComplexVector LoadData(AudioAnalyser&);
 	static const int FFTLengthPowerOfTwo = 12;

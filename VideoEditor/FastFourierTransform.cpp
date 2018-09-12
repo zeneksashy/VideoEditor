@@ -8,24 +8,32 @@ void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 	unsigned int N = x.size(), k = N, n;
 	double thetaT = 3.14159265358979323846264338328L / N;
 	std::complex<double> phiT = std::complex<double>(cos(thetaT), -sin(thetaT)), T;
-	while (k > 1)
+	try
 	{
-		n = k;
-		k >>= 1;
-		phiT = phiT * phiT;
-		T = 1.0L;
-		for (unsigned int l = 0; l < k; l++)
+		while (k > 1)
 		{
-			for (unsigned int a = l; a < N; a += n)
+			n = k;
+			k >>= 1;
+			phiT = phiT * phiT;
+			T = 1.0L;
+			for (unsigned int l = 0; l < k; l++)
 			{
-				unsigned int b = a + k;
-				std::complex<double> t = x[a] - x[b];
-				x[a] += x[b];
-				x[b] = t * T;
+				for (unsigned int a = l; a < N; a += n)
+				{
+					unsigned int b = a + k;
+					std::complex<double> t = x[a] - x[b];
+					x[a] += x[b];
+					x[b] = t * T;
+				}
+				T *= phiT;
 			}
-			T *= phiT;
 		}
 	}
+	catch (const std::exception& e)
+	{
+		e.what();
+	}
+	
 	// Decimate
 	unsigned int m = (unsigned int)log2(N);
 	for (unsigned int a = 0; a < N; a++)

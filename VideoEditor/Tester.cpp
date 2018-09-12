@@ -108,8 +108,45 @@ private:
 	QAudioBuffer buffer;
 	QAudioFormat format;
 };
+class FastFourierTransformTest :public QObject
+{
+	Q_OBJECT
+private slots:
+	void ExcuteTransform()
+	{
+		std::complex<double> test[] = { 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+		std::complex<double> expected[] = { 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+		std::valarray<std::complex<double>> data(test, 8);
+		FastFourierTransform ft;
+		ft.Execute(data);
+	}
+	void CalculateAmplitude()
+	{
+		std::complex<double> test[] = { 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+		std::complex<double> expected[] = { 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+		std::valarray<std::complex<double>> data(test, 8);
+		FastFourierTransform ft;
+		ft.Execute(data);
+		auto x = ft.CalculateAmplitude(data);
+	 //imag	0.00041697363485582173 
+	//real 0.00013955164467915893
+	//amplitude 0
+
+	}
+
+private:
+	//bool CompareArrays(std::complex<double> a[], int aLenght, std::complex<double> b[], int bLenght)
+	//{
+	//	if (aLenght != bLenght)
+	//		return false;
+	//	for (size_t i = 0; i < aLenght; i++)
+	//	{
+	//		if()
+	//	}
+	//}
+};
 
 
-//QTEST_MAIN(AudioAnalyserTest)
+//QTEST_MAIN(FastFourierTransformTest)
 
 #include "tester.moc"

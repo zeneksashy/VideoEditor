@@ -20,7 +20,15 @@ inline std::vector<std::complex<double>> AudioAnalyser::LoadData(AudioAnalyser &
 	}
 	return complex;
 }
-
+std::valarray<std::complex<double>> AudioAnalyser::Calculate(AudioAnalyser * analyser)
+{
+	auto vector = LoadData();
+	std::valarray<std::complex<double>> data(vector.data(), vector.size());
+	FastFourierTransform* fft = new FastFourierTransform();
+	fft->Execute(data);
+	delete fft;
+	return data;
+}
 #pragma endregion
 #pragma region S8SAnalyser
 
@@ -33,7 +41,7 @@ ComplexVector S8SAudioAnalyser::LoadData()
 
 std::valarray<std::complex<double>> S8SAudioAnalyser::Calculate()
 {
-	return AudioAnalyser::Calculate(*this);
+	return AudioAnalyser::Calculate(this);
 }
 double S8SAudioAnalyser::ConvertInput(QVariant data)
 {
@@ -50,7 +58,7 @@ ComplexVector S16SAudioAnalyser::LoadData()
 
 std::valarray<std::complex<double>> S16SAudioAnalyser::Calculate()
 {
-	return AudioAnalyser::Calculate(*this);
+	return AudioAnalyser::Calculate(this);
 }
 double S16SAudioAnalyser::ConvertInput(QVariant data)
 {
@@ -66,7 +74,7 @@ ComplexVector S16UAudioAnalyser::LoadData()
 
 std::valarray<std::complex<double>> S16UAudioAnalyser::Calculate()
 {
-	return AudioAnalyser::Calculate(*this);
+	return AudioAnalyser::Calculate(this);
 }
 double S16UAudioAnalyser::ConvertInput(QVariant data)
 {
@@ -83,7 +91,7 @@ ComplexVector S8UAudioAnalyser::LoadData()
 
 std::valarray<std::complex<double>> S8UAudioAnalyser::Calculate()
 {
-	return AudioAnalyser::Calculate(*this);
+	return AudioAnalyser::Calculate(this);
 }
 double S8UAudioAnalyser::ConvertInput(QVariant data)
 {
@@ -100,7 +108,7 @@ ComplexVector S32FAudioAnalyser::LoadData()
 
 std::valarray<std::complex<double>> S32FAudioAnalyser::Calculate()
 {
-	return AudioAnalyser::Calculate(*this);
+	return AudioAnalyser::Calculate(this);
 }
 double S32FAudioAnalyser::ConvertInput(QVariant)
 {
@@ -108,11 +116,4 @@ double S32FAudioAnalyser::ConvertInput(QVariant)
 }
 #pragma endregion
 
-std::valarray<std::complex<double>> AudioAnalyser::Calculate(AudioAnalyser & analyser)
-{
-	auto vector = analyser.LoadData();
-	std::valarray<std::complex<double>> data(vector.data(), vector.size());
-	FastFourierTransform fft;
-	fft.Execute(data);
-	return data;
-}
+

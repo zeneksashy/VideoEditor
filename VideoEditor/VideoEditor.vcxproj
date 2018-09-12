@@ -154,6 +154,7 @@
     <QtRcc Include="VideoEditor.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="main.qml" />
   </ItemGroup>
   <ItemGroup>
