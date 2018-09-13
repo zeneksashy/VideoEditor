@@ -10,7 +10,6 @@ template<int N> class PowerOfTwo
 {
 public: static const int Result = PowerOfTwo<N - 1>::Result * 2;
 };
-
 template<> class PowerOfTwo<0>
 {
 public: static const int Result = 1;
@@ -19,28 +18,21 @@ public: static const int Result = 1;
 class AudioAnalyser
 {
 public:
-	AudioAnalyser(QAudioBuffer buffer,QAudioFormat format):format(format),buffer(buffer){}
-	virtual ComplexVector LoadData()=0;
+	AudioAnalyser() {}
+	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer)=0;
 	virtual std::valarray<std::complex<double>> Calculate()=0;
 	virtual double ConvertInput(QVariant)=0;
 protected:
-	QAudioBuffer buffer;
-	QAudioFormat format;
 	std::valarray<std::complex<double>> Calculate(AudioAnalyser*);
 	template <typename T>
-	ComplexVector LoadData(AudioAnalyser&);
-	static const int FFTLengthPowerOfTwo = 12;
-	const int SpectrumLengthSamples = PowerOfTwo<FFTLengthPowerOfTwo>::Result;
-private:
-	QByteArray spectrumBuffer;
-
+	std::vector<double> LoadDataFromBuffer(AudioAnalyser&, QAudioBuffer);
 };
 class S8SAudioAnalyser:public AudioAnalyser
 {
 public:
-	S8SAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
+	S8SAudioAnalyser() :AudioAnalyser() {}
 	// Inherited via AudioAnalyser
-	virtual ComplexVector LoadData() override;
+	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 	virtual std::valarray<std::complex<double>> Calculate() override;
 
 	// Inherited via AudioAnalyser
@@ -53,10 +45,10 @@ private:
 class S16SAudioAnalyser :public AudioAnalyser
 {
 public:
-	S16SAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
+	S16SAudioAnalyser() :AudioAnalyser() {}
 	// Inherited via AudioAnalyser
 
-	virtual ComplexVector LoadData() override;
+	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 
 	virtual std::valarray<std::complex<double>> Calculate() override;
 
@@ -71,10 +63,10 @@ private:
 class S16UAudioAnalyser :public AudioAnalyser
 {
 public:
-	S16UAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
+	S16UAudioAnalyser() :AudioAnalyser() {}
 
 	// Inherited via AudioAnalyser
-	virtual ComplexVector LoadData() override;
+	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 
 	virtual std::valarray<std::complex<double>> Calculate() override;
 private:
@@ -87,9 +79,9 @@ private:
 class S8UAudioAnalyser :public AudioAnalyser
 {
 public:
-	S8UAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
+	S8UAudioAnalyser() :AudioAnalyser() {}
 	// Inherited via AudioAnalyser
-	virtual ComplexVector LoadData() override;
+	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 
 	virtual std::valarray<std::complex<double>> Calculate() override;
 private:
@@ -103,9 +95,9 @@ private:
 class S32FAudioAnalyser :public AudioAnalyser
 {
 public:
-	S32FAudioAnalyser(QAudioBuffer buffer, QAudioFormat format) :AudioAnalyser(buffer, format) {}
+	S32FAudioAnalyser() :AudioAnalyser() {}
 	// Inherited via AudioAnalyser
-	virtual ComplexVector LoadData() override;
+	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 
 	virtual std::valarray<std::complex<double>> Calculate() override;
 private:

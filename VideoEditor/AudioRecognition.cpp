@@ -1,6 +1,6 @@
 #include "AudioRecognition.h"
 
-AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioBuffer buffer,QAudioFormat format)
+AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioFormat format)
 {
 	int size = format.sampleSize();
 	auto sample = format.sampleType();
@@ -9,11 +9,11 @@ AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioBuffer buffer,QAudioF
 	case QAudioFormat::SignedInt:
 		if (size == 8)
 		{
-			return new S8SAudioAnalyser(buffer, format);
+			return new S8SAudioAnalyser();
 		}
 		else if (size == 16)
 		{
-			return new S16SAudioAnalyser(buffer, format);
+			return new S16SAudioAnalyser();
 		}
 		else
 		{
@@ -23,11 +23,11 @@ AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioBuffer buffer,QAudioF
 	case QAudioFormat::UnSignedInt:
 		if (size == 8)
 		{
-			return new S8UAudioAnalyser(buffer, format);
+			return new S8UAudioAnalyser();
 		}
 		else if (size == 16)
 		{
-			return new S16UAudioAnalyser(buffer, format);
+			return new S16UAudioAnalyser();
 		}
 		else
 		{
@@ -37,7 +37,7 @@ AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioBuffer buffer,QAudioF
 	case QAudioFormat::Float:
 		if (size == 32)
 		{
-			return new S32FAudioAnalyser(buffer, format);
+			return new S32FAudioAnalyser();
 		}
 		else
 			//return	AudioRecognition::FrameTypes::FOther;

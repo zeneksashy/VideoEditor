@@ -3,39 +3,35 @@
 #pragma region AudioAnalyser
 
 template<typename T>
-inline std::vector<std::complex<double>> AudioAnalyser::LoadData(AudioAnalyser & analyser)
+inline std::vector<double> AudioAnalyser::LoadDataFromBuffer(AudioAnalyser & analyser, QAudioBuffer buffer)
 {
-	const int bytesPerSample = format.sampleSize() * format.channelCount() / 8;// not sure if it depends on format or not
-	auto bufferlength = SpectrumLengthSamples * (format.sampleSize() / 8) * format.channelCount();
-	auto  spectrumBuffer = QByteArray::fromRawData(buffer.constData<char>()+37376-34560, bufferlength);
-	const char *ptr = spectrumBuffer.constData();
-	std::vector<std::complex<double>> complex;
+	QAudioBuffer::S16U *frames = buffer.data<QAudioBuffer::S16U>();
+	std::vector<double> audioFrames;
 	for (size_t i = 0; i < buffer.frameCount(); i++)
 	{
-		const T pcmSample = *reinterpret_cast<const T*>(ptr);
-		const double input = analyser.ConvertInput(pcmSample);
-		std::complex<double> temp(input);
-		complex.push_back(temp);
-		ptr += bytesPerSample;
+		 auto convertedFrame = analyser.ConvertInput(frames[i].average());
+		 audioFrames.push_back(convertedFrame);
 	}
-	return complex;
+	return audioFrames;
 }
 std::valarray<std::complex<double>> AudioAnalyser::Calculate(AudioAnalyser * analyser)
 {
-	auto vector = LoadData();
-	std::valarray<std::complex<double>> data(vector.data(), vector.size());
-	FastFourierTransform* fft = new FastFourierTransform();
-	fft->Execute(data);
-	delete fft;
-	return data;
+	////auto vector = LoadData();
+	//std::valarray<std::complex<double>> data(vector.data(), vector.size());
+	//FastFourierTransform* fft = new FastFourierTransform();
+	//fft->Execute(data);
+	//delete fft;
+	//return data;
+	std::valarray<std::complex<double>> vec;
+	return vec;
 }
 #pragma endregion
 #pragma region S8SAnalyser
 
 
-ComplexVector S8SAudioAnalyser::LoadData()
+std::vector<double> S8SAudioAnalyser::LoadDataFromBuffer(QAudioBuffer buffer)
 {
-	auto data = AudioAnalyser::LoadData<char>(*this);
+	auto data = AudioAnalyser::LoadDataFromBuffer<QAudioBuffer::S8S>(*this,buffer);
 	return data;
 }
 
@@ -50,9 +46,9 @@ double S8SAudioAnalyser::ConvertInput(QVariant data)
 
 #pragma endregion
 #pragma region S16SAnalyser
-ComplexVector S16SAudioAnalyser::LoadData()
+std::vector<double> S16SAudioAnalyser::LoadDataFromBuffer(QAudioBuffer buffer)
 {
-	auto data = AudioAnalyser::LoadData<short>(*this);
+	auto data = AudioAnalyser::LoadDataFromBuffer<QAudioBuffer::S16S>(*this, buffer);
 	return data;
 }
 
@@ -66,9 +62,9 @@ double S16SAudioAnalyser::ConvertInput(QVariant data)
 }
 #pragma endregion
 #pragma region S16UAudioAnalyser
-ComplexVector S16UAudioAnalyser::LoadData()
+std::vector<double> S16UAudioAnalyser::LoadDataFromBuffer(QAudioBuffer buffer)
 {
-	auto data = AudioAnalyser::LoadData<ushort>(*this);
+	auto data = AudioAnalyser::LoadDataFromBuffer<QAudioBuffer::S16U>(*this, buffer);
 	return data;
 }
 
@@ -83,9 +79,9 @@ double S16UAudioAnalyser::ConvertInput(QVariant data)
 #pragma endregion
 #pragma region S8UAudioAnalyser
 
-ComplexVector S8UAudioAnalyser::LoadData()
+std::vector<double> S8UAudioAnalyser::LoadDataFromBuffer(QAudioBuffer buffer)
 {
-	auto data = AudioAnalyser::LoadData<uchar>(*this);
+	auto data = AudioAnalyser::LoadDataFromBuffer<QAudioBuffer::S8U>(*this, buffer);
 	return data;
 }
 
@@ -100,9 +96,9 @@ double S8UAudioAnalyser::ConvertInput(QVariant data)
 #pragma endregion
 #pragma region S32FAudioAnalyser
 
-ComplexVector S32FAudioAnalyser::LoadData()
+std::vector<double> S32FAudioAnalyser::LoadDataFromBuffer(QAudioBuffer buffer)
 {
-	auto data = AudioAnalyser::LoadData<float>(*this);
+	auto data = AudioAnalyser::LoadDataFromBuffer<float>(*this, buffer);
 	return data;
 }
 
@@ -115,5 +111,3 @@ double S32FAudioAnalyser::ConvertInput(QVariant)
 	return 0.0;
 }
 #pragma endregion
-
-

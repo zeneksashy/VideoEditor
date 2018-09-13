@@ -8,6 +8,6 @@ class AudioRecognition : public QObject
 	Q_OBJECT
 public:
 
-	AudioAnalyser* RrecognizeFrameType(QAudioBuffer, QAudioFormat);
+	AudioAnalyser* RrecognizeFrameType(QAudioFormat);
 
 };

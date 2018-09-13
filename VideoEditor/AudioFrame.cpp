@@ -34,6 +34,7 @@ void AudioFrame::readBuffer()
 		this->format = tempBuff.format();
 		sampleLenght = format.sampleSize();
 		analyser.reset(recognizer.RrecognizeFrameType(tempBuff, format));
+		isFirstTimeRead = false;
 	}
 	QAudioBuffer::S16U *frames = tempBuff.data<QAudioBuffer::S16U>();
 	for (size_t i = 0; i < tempBuff.frameCount(); i++)
@@ -42,8 +43,7 @@ void AudioFrame::readBuffer()
 		double temp = 0;
 		if (amplitude < 0)
 		{
-			amplitude *= -1;
-			temp = std::log10(amplitude);
+			
 		}
 		else if(amplitude > 0)
 		{
@@ -60,7 +60,6 @@ void AudioFrame::Initialize(AudioAnalyser *analyser, const QAudioFormat & format
 	//tileLenght = audioBufferSize;
 	this->analyser.reset(analyser);
 	
-
 }
 void AudioFrame::paintEvent(QPaintEvent*)
 {

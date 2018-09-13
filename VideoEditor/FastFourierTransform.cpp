@@ -54,18 +54,59 @@ void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 	}
 }
 
-std::vector<double> FastFourierTransform::CalculateAmplitude(std::valarray<std::complex<double>>& x)
+std::vector<double> FastFourierTransform::CalculatedBLevel(std::vector<double> frames)
 {
-	std::vector<double> values;
-	for (size_t i = 0; i < x.size(); i++)
+	std::vector<double> dBLevels;
+
+	for (size_t i = 0; i < frames.size(); i++)
 	{
-		auto imaginary = x[i].imag();
-		auto real = x[i].real();
-		const auto magnitude = std::sqrt(real*real + imaginary * imaginary);
-		auto amplitude = 0.15 * qLn(magnitude);
-		amplitude = qMax(qreal(0.0), amplitude);
-		amplitude = qMin(qreal(1.0), amplitude);
-		values.push_back(amplitude);
+		double temp = 0;
+		if (frames[i] < 0)
+		{
+			auto unsignedFrame = frames[i] * -1;
+			temp = std::log10(unsignedFrame);
+		}
+		else if (frames[i] > 0)
+		{
+			temp = std::log10(frames[i]);
+		}
+		dBLevels.push_back(temp * 20);
 	}
-	return values;
+	return dBLevels;
+}
+
+void FastFourierTransform::Normalize(std::vector<double>& samples)
+{
+	auto vmax = std::max_element(samples.begin(), samples.end());
+	double max = *vmax;
+	auto vmin = std::min_element(samples.begin(), samples.end());
+	double min = *vmin;
+	for (size_t i = 0; i < samples.size(); i++)
+	{
+		auto temp = min * -1;
+		samples[i] += temp;
+	}
+	for (size_t i = 0; i < samples.size(); i++)
+	{
+		samples[i] /= (max - min);
+	}
+}
+
+std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, int sampleSize)
+{
+	std::vector<double> outputSamples;
+	auto size = samples.size() / sampleSize;
+	int k = 0;
+	for (size_t i = 1; i <= size; i++)
+	{
+		double temp = 0;
+		for (size_t j = k; j < sampleSize * i; j++)
+		{
+			temp += samples[j] * samples[j];
+		}
+		temp /= sampleSize;
+		outputSamples.push_back(std::sqrt(temp));
+		k += sampleSize;
+	}
+	return outputSamples;
 }
