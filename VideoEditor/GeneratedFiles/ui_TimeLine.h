@@ -13,8 +13,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -24,20 +26,22 @@ class Ui_TimeLine
 {
 public:
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label;
+    QSpacerItem *horizontalSpacer;
+    QFrame *frame;
     QHBoxLayout *horizontalLayout;
-    QListWidget *listWidget;
+    QListWidget *sourcesList;
     QScrollArea *scrollArea;
     QWidget *Content;
-    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *timeline;
-    QFrame *frame;
-    QFrame *frame_2;
 
     void setupUi(QWidget *TimeLine)
     {
         if (TimeLine->objectName().isEmpty())
             TimeLine->setObjectName(QStringLiteral("TimeLine"));
-        TimeLine->resize(1038, 330);
+        TimeLine->resize(800, 330);
         TimeLine->setMinimumSize(QSize(800, 200));
         TimeLine->setMaximumSize(QSize(4000, 500));
         TimeLine->setStyleSheet(QLatin1String("QWidget\n"
@@ -48,28 +52,58 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        label = new QLabel(TimeLine);
+        label->setObjectName(QStringLiteral("label"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy);
+        label->setMinimumSize(QSize(110, 0));
+
+        horizontalLayout_2->addWidget(label);
+
+        horizontalSpacer = new QSpacerItem(146, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        frame = new QFrame(TimeLine);
+        frame->setObjectName(QStringLiteral("frame"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+        frame->setSizePolicy(sizePolicy1);
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+
+        horizontalLayout_2->addWidget(frame);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        listWidget = new QListWidget(TimeLine);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
-        listWidget->setSizePolicy(sizePolicy);
-        listWidget->setStyleSheet(QLatin1String("QListWidget\n"
+        sourcesList = new QListWidget(TimeLine);
+        sourcesList->setObjectName(QStringLiteral("sourcesList"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(sourcesList->sizePolicy().hasHeightForWidth());
+        sourcesList->setSizePolicy(sizePolicy2);
+        sourcesList->setStyleSheet(QLatin1String("QListWidget\n"
 "{\n"
 "background-color: rgb(62, 62, 66)\n"
 "}"));
 
-        horizontalLayout->addWidget(listWidget);
+        horizontalLayout->addWidget(sourcesList);
 
         scrollArea = new QScrollArea(TimeLine);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
         scrollArea->setSizePolicy(sizePolicy1);
         scrollArea->setStyleSheet(QLatin1String("QScrollArea\n"
@@ -83,7 +117,7 @@ public:
         scrollArea->setWidgetResizable(true);
         Content = new QWidget();
         Content->setObjectName(QStringLiteral("Content"));
-        Content->setGeometry(QRect(0, 0, 754, 308));
+        Content->setGeometry(QRect(0, 0, 516, 280));
         Content->setStyleSheet(QLatin1String("QWidget\n"
 "{\n"
 "background-color:rgb(37, 37, 38)\n"
@@ -93,28 +127,17 @@ public:
 "background-color:rgb(134, 95, 197)\n"
 "\n"
 "}"));
-        verticalLayoutWidget = new QWidget(Content);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 0, 1502, 310));
-        timeline = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout_2 = new QVBoxLayout(Content);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        timeline = new QVBoxLayout();
         timeline->setSpacing(11);
-        timeline->setContentsMargins(11, 11, 11, 11);
         timeline->setObjectName(QStringLiteral("timeline"));
         timeline->setSizeConstraint(QLayout::SetMaximumSize);
-        timeline->setContentsMargins(0, 1, 0, 0);
-        frame = new QFrame(verticalLayoutWidget);
-        frame->setObjectName(QStringLiteral("frame"));
-        frame->setFrameShape(QFrame::StyledPanel);
-        frame->setFrameShadow(QFrame::Raised);
+        timeline->setContentsMargins(-1, 1, -1, -1);
 
-        timeline->addWidget(frame);
-
-        frame_2 = new QFrame(verticalLayoutWidget);
-        frame_2->setObjectName(QStringLiteral("frame_2"));
-        frame_2->setFrameShape(QFrame::StyledPanel);
-        frame_2->setFrameShadow(QFrame::Raised);
-
-        timeline->addWidget(frame_2);
+        verticalLayout_2->addLayout(timeline);
 
         scrollArea->setWidget(Content);
 
@@ -132,6 +155,7 @@ public:
     void retranslateUi(QWidget *TimeLine)
     {
         TimeLine->setWindowTitle(QApplication::translate("TimeLine", "TimeLine", nullptr));
+        label->setText(QApplication::translate("TimeLine", "TextLabel", nullptr));
     } // retranslateUi
 
 };

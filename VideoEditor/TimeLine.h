@@ -7,6 +7,7 @@
 #include"VideoLoader.h"
 #include<AudioFrame.h>
 #include <QAudioDecoder>
+#include<map>
 class TimeLine : public QWidget, public VideoLoader
 {
 	Q_OBJECT
@@ -19,8 +20,9 @@ public:
 	void dragEnterEvent(QDragEnterEvent* event);
 	void dropEvent(QDropEvent* e);
 
+
 private slots:
-	//void readBuffer();
+	void itemSelected(QListWidgetItem*);
 	void audioFrameDrawn(AudioFrame*);
 private:
 	QScopedPointer<QAudioDecoder> decoder;
@@ -28,11 +30,13 @@ private:
 	AudioRecognition recognizer;
 	//void CreateVideoFrame(qint64);
 	std::vector<QAudioBuffer> buffers;
-	void CreateAudioFrame(QString);
+	AudioFrame* CreateAudioFrame(QString);
 	void CreateFrame(qint64 size);
 	bool CheckMimeTypes(QMimeData& data);
 	static const  QStringList supportedFormats;
 	static const  std::list<std::string> supportedFormats1;
 	Ui::TimeLine ui;
 	QScopedPointer<QHBoxLayout> layout;
+	std::multimap<QListWidgetItem*, AudioFrame*> sources;
+	AudioFrame* frame;
 };

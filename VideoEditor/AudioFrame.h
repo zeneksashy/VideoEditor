@@ -7,6 +7,8 @@
 #include<qpixmap.h>
 #include<AudioAnalyser.h>
 #include<AudioRecognition.h>
+#include <ctime>
+#include<qlistwidget.h>
 class AudioRecognition;
 class AudioFrame : public QWidget
 {
@@ -14,20 +16,28 @@ class AudioFrame : public QWidget
 
 public:
 	AudioFrame(QWidget *parent);
+	AudioFrame();
 	~AudioFrame();
 	void Initialize(QString);
 	void Initialize(AudioAnalyser*,const QAudioFormat &format, qint64 audioBufferSize);
 	void paintEvent(QPaintEvent *)override;
+	void drawOutline();
+	void mousePressEvent(QMouseEvent *);
  signals:
 	void LineDrawn(AudioFrame*);
+public slots:
+	//void itemSelected(QListWidgetItem*);
 private slots:
+
 	void readBuffer();
 	void audioDecoded();
 private:
+	//static int counter;
+	//int id;
+	bool isSelected;
 	bool isFirstTimeRead = true;
 	QScopedPointer<QAudioDecoder> decoder;
 	QAudioFormat format;
-	long sampleLenght;
 	QScopedPointer<AudioAnalyser> analyser;
 	AudioRecognition recognizer;
 	QString path;
@@ -36,6 +46,8 @@ private:
 	std::vector<double> audioFrames;
 	std::vector<double> audioSamples;
 	int bufferbytecount; 
-	void nomralize();
-	void rms();
+	int sampleLenght;
+	FastFourierTransform fft;
+	std::clock_t clk;
+
 };

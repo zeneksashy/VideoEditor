@@ -9,12 +9,18 @@ AudioFrame::AudioFrame(QWidget *parent)
 	ui.setupUi(this);
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	setMinimumHeight(60);
-	
+	setFixedHeight(60);
+	setMinimumWidth(120);
+	isSelected = false;
+	//id = counter;
+	//counter++;
 }
 
 AudioFrame::~AudioFrame()
 {
+
 }
+
 
 void AudioFrame::Initialize(QString path)
 {
@@ -23,6 +29,7 @@ void AudioFrame::Initialize(QString path)
 	decoder->setSourceFilename(path);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioFrame::audioDecoded);
+	clk - std::clock();
 	decoder->start();
 }
 
@@ -32,26 +39,12 @@ void AudioFrame::readBuffer()
 	if (isFirstTimeRead)
 	{
 		this->format = tempBuff.format();
-		sampleLenght = format.sampleSize();
-		analyser.reset(recognizer.RrecognizeFrameType(tempBuff, format));
+		sampleLenght = tempBuff.frameCount();
+		analyser.reset(recognizer.RrecognizeFrameType(format));
 		isFirstTimeRead = false;
 	}
-	QAudioBuffer::S16U *frames = tempBuff.data<QAudioBuffer::S16U>();
-	for (size_t i = 0; i < tempBuff.frameCount(); i++)
-	{
-		double amplitude = (double)frames[i].average() / 32767;
-		double temp = 0;
-		if (amplitude < 0)
-		{
-			
-		}
-		else if(amplitude > 0)
-		{
-			temp = std::log10(amplitude);
-		}
-		double db = 20 *temp;
-		audioFrames.push_back(db);
-	}
+	auto data = analyser->LoadDataFromBuffer(tempBuff);
+	audioFrames.insert(audioFrames.end(), data.begin(), data.end());
 }
 
 void AudioFrame::Initialize(AudioAnalyser *analyser, const QAudioFormat & format, qint64 audioBufferSize)
@@ -70,7 +63,14 @@ void AudioFrame::paintEvent(QPaintEvent*)
 	QPainter p(&spectrPixmap);
 	QPen pen(Qt::blue);
 	painter.setPen(pen);
-	setMinimumWidth(audioSamples.size());
+	
+	if (isSelected)
+	{
+		pen.setColor(QColor::fromRgb(126, 253, 61));
+		painter.setPen(pen);
+		painter.drawRoundedRect(0, 0, width()-1, height()-1, 0, 0);
+		isSelected = false;
+	}
 	for (int i = 0; i <audioSamples.size(); i++)
 	{
 		double plot = 0;
@@ -80,44 +80,26 @@ void AudioFrame::paintEvent(QPaintEvent*)
 	}
 }
 
+void AudioFrame::drawOutline()
+{
+	isSelected = true;
+	repaint();
+}
+
+void AudioFrame::mousePressEvent(QMouseEvent *)
+{
+	drawOutline();
+}
+
 void AudioFrame::audioDecoded()
 {
-	rms();
-	nomralize();
+	clock_t endTime = clock();
+	clock_t clockTicksTaken = endTime - clk;
+	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
+	audioSamples = fft.RootMeanSquare(audioFrames);
+	fft.Normalize(audioSamples);
+	setFixedWidth(audioSamples.size());
 	update();
 	emit LineDrawn(this);
 }
-void AudioFrame::nomralize()
-{
-	auto vmax = std::max_element(audioSamples.begin(), audioSamples.end());
-	double max = *vmax;
-	auto vmin = std::min_element(audioSamples.begin(), audioSamples.end());
-	double min = *vmin;
-	for (size_t i = 0; i < audioSamples.size(); i++)
-	{
-		auto temp = min * -1;
-		audioSamples[i] += temp;
-	}
-	for (size_t i = 0; i < audioSamples.size(); i++)
-	{
-		audioSamples[i] /= (max - min);
-	}
-}
-// delete 4096 and add variable number
-void AudioFrame::rms()
-{
-	auto size = audioFrames.size()/4096;
-	int k = 0;
-	for (size_t i = 1; i <= size; i++)
-	{
-		double temp=0;
-		for (size_t j = k; j < 4096*i; j++)
-		{
-			temp += audioFrames[j]*audioFrames[j];
-		}
-		temp /= 4096;
-		audioSamples.push_back(std::sqrt(temp));
 
-		k += 4096;
-	}
-}

@@ -4,7 +4,6 @@
 #include<complex>
 #include"FastFourierTransform.h"
 #include<QVariant>
-#include<memory>
 #define ComplexVector std::vector<std::complex<double>>
 template<int N> class PowerOfTwo
 {
