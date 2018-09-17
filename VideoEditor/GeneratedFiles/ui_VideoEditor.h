@@ -109,10 +109,7 @@ public:
         sizePolicy.setHeightForWidth(timeLine->sizePolicy().hasHeightForWidth());
         timeLine->setSizePolicy(sizePolicy);
         timeLine->setMinimumSize(QSize(1400, 400));
-        timeLine->setStyleSheet(QLatin1String("QWidget\n"
-"{\n"
-"background-color:\"orange\";\n"
-"}"));
+        timeLine->setStyleSheet(QStringLiteral(""));
 
         horizontalLayout->addWidget(timeLine, 0, Qt::AlignLeft|Qt::AlignBottom);
 

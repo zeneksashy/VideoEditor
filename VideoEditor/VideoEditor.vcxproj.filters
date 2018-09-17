@@ -80,6 +80,9 @@
     <ClCompile Include="AudioFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VideoFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -101,6 +104,9 @@
       <Filter>Source Files</Filter>
     </QtMoc>
     <QtMoc Include="AudioFrame.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VideoFrame.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

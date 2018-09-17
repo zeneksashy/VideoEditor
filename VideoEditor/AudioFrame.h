@@ -23,7 +23,9 @@ public:
 	void paintEvent(QPaintEvent *)override;
 	void drawOutline();
 	void mousePressEvent(QMouseEvent *);
- signals:
+	void deleteOutline();
+signals:
+	void LineSelected(AudioFrame*);
 	void LineDrawn(AudioFrame*);
 public slots:
 	//void itemSelected(QListWidgetItem*);

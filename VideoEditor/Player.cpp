@@ -113,7 +113,7 @@ bool Player::CheckNextFrame()
 }
 void Player::CaptureNextFrame()
 {
-	CheckNextFrame();
+	if( CheckNextFrame())
 	if (frame.channels() == 3) {
 		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
 		//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);

@@ -28,8 +28,9 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-background-color:rgb(255, 170, 0)
-}</string>
+background: rgb(36, 36, 36);
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -101,7 +102,72 @@ background-color:rgb(255, 170, 0)
         <string notr="true">QListWidget
 {
 background-color: rgb(62, 62, 66)
-}</string>
+}
+QListWidget::item:selected
+{
+    background: rgb(128,128,255);
+}
+
+ QScrollBar:vertical {
+	background:rgb(238, 238, 238);
+    width: 10px;
+}
+QScrollBar::handle:vertical {
+    background: rgb(58, 64, 85);
+    min-heigth: 6px;
+	heigth:10px;
+	max-heigth:15px;
+	border: 1px solid rgb(29, 0, 58);
+	border-radius:5px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+}
+QScrollBar::right-arrow:vertical, QScrollBar::left-arrow:vertical
+{
+background:none;
+color:none;
+}
+QScrollBar::add-line:vertical {
+      border: none;
+      background: none;
+}
+
+QScrollBar::sub-line:vertical {
+      border: none;
+      background: none;
+}
+ QScrollBar:horizontal {
+	background:rgb(238, 238, 238);
+    height: 10px;
+}
+QScrollBar::handle:horizontal {
+    background: rgb(58, 64, 85);
+    min-width: 6px;
+	width:10px;
+	max-width:15px;
+	border: 1px solid rgb(29, 0, 58);
+	border-radius:5px;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+background: none;
+}
+QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal
+{
+background:none;
+color:none;
+}
+QScrollBar::add-line:horizontal {
+      border: none;
+      background: none;
+}
+
+QScrollBar::sub-line:horizontal {
+      border: none;
+      background: none;
+}
+
+ </string>
        </property>
       </widget>
      </item>
@@ -117,6 +183,66 @@ background-color: rgb(62, 62, 66)
         <string notr="true">QScrollArea
 {
 background-color:rgb(37, 37, 38)
+}
+
+ QScrollBar:horizontal {
+	background:rgb(238, 238, 238);
+    height: 14px;
+}
+QScrollBar::handle:horizontal {
+    background: rgb(58, 64, 85);
+    min-width: 12px;
+	border: 1px solid rgb(29, 0, 58);
+	border-radius:5px;
+	height: 8px;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+background: none;
+}
+QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal
+{
+background:none;
+color:none;
+}
+QScrollBar::add-line:horizontal {
+      border: none;
+      background: none;
+}
+
+QScrollBar::sub-line:horizontal {
+      border: none;
+      background: none;
+}
+
+
+ QScrollBar:vertical {
+	background:rgb(238, 238, 238);
+    width: 10px;
+}
+QScrollBar::handle:vertical {
+    background: rgb(58, 64, 85);
+    min-heigth: 6px;
+	heigth:10px;
+	max-heigth:15px;
+	border: 1px solid rgb(29, 0, 58);
+	border-radius:5px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+}
+QScrollBar::right-arrow:vertical, QScrollBar::left-arrow:vertical
+{
+background:none;
+color:none;
+}
+QScrollBar::add-line:vertical {
+      border: none;
+      background: none;
+}
+
+QScrollBar::sub-line:vertical {
+      border: none;
+      background: none;
 }</string>
        </property>
        <property name="frameShadow">

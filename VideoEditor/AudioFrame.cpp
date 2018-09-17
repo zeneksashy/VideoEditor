@@ -69,7 +69,6 @@ void AudioFrame::paintEvent(QPaintEvent*)
 		pen.setColor(QColor::fromRgb(126, 253, 61));
 		painter.setPen(pen);
 		painter.drawRoundedRect(0, 0, width()-1, height()-1, 0, 0);
-		isSelected = false;
 	}
 	for (int i = 0; i <audioSamples.size(); i++)
 	{
@@ -89,6 +88,13 @@ void AudioFrame::drawOutline()
 void AudioFrame::mousePressEvent(QMouseEvent *)
 {
 	drawOutline();
+	emit LineSelected(this);
+}
+
+void AudioFrame::deleteOutline()
+{
+	isSelected = false;
+	repaint();
 }
 
 void AudioFrame::audioDecoded()

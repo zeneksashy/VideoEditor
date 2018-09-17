@@ -122,10 +122,7 @@ border-color:rgb(104, 104, 104)
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QWidget
-{
-background-color:&quot;orange&quot;;
-}</string>
+          <string notr="true"/>
          </property>
         </widget>
        </item>

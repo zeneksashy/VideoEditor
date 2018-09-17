@@ -10,6 +10,7 @@
 #include<complex>
 #include<vector>
 #include <AudioFrame.h>
+
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)
 {
@@ -25,15 +26,16 @@ void TimeLine::loadFile(QString path)
 	auto item = new QListWidgetItem(path, ui.sourcesList);
 	connect(ui.sourcesList, &QListWidget::itemClicked, this, &TimeLine::itemSelected);
 	QListWidgetItem &dl = *item;
-	item->setBackground(Qt::yellow);
+	QBrush brush(QColor::fromRgb(128, 130, 128));
+	item->setBackground(brush);
 	
 	if (MediaManager::player.isVideoAvaible())
 	{
+		// TODO
 		
 	}
 	if (MediaManager::player.isAudioAvaible())
 	{
-		//frame = &CreateAudioFrame();
 		sources.insert({ item , CreateAudioFrame(path) });
 	}
 
@@ -49,27 +51,48 @@ void TimeLine::dropEvent(QDropEvent * e)
 {
 	foreach(const QUrl &url, e->mimeData()->urls()) {
 		MediaManager::LoadMedia(url.toLocalFile());
-	/*	QMessageBox msgBox;
-		msgBox.setText("file dropped");
-		msgBox.exec();*/
 	}
-}void TimeLine::itemSelected(QListWidgetItem* item)
+}
+void TimeLine::itemSelected(QListWidgetItem* item)
 {
-	auto x = sources.find(item);
-	auto y = x->second;
-	auto z = x->first;
+	for each (auto source in sources)
+	{
+		source.second->deleteOutline();
+	}
 	sources.find(item)->second->drawOutline();
-//	if (item == ui.sourcesList->item()
+	
 }
 void TimeLine::audioFrameDrawn(AudioFrame* frame)
 {
 	ui.timeline->addWidget(frame);
 }
+void TimeLine::LineSelected(AudioFrame * frame)
+{
+	for each (auto source in sources)
+	{
+		if (source.second == frame)
+
+		{
+			source.first->setSelected(true);
+			continue;
+		}
+		source.second->deleteOutline();
+			
+	}
+}
 const QStringList TimeLine::supportedFormats = QStringList{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3"};
 const std::list<std::string> TimeLine::supportedFormats1 = std::list<std::string>{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3" };
+void TimeLine::CreateVideoFrame(QString path)
+{
+	VideoFrame* videoframe = new VideoFrame(this);
+	videoframe->Initliaize(path);
+	videoframe->show();
+	ui.timeline->addWidget(videoframe);
+}
 AudioFrame* TimeLine::CreateAudioFrame(QString path)
 {
 	auto audioframe = new AudioFrame(this);
+	connect(audioframe, &AudioFrame::LineSelected, this, &TimeLine::LineSelected);
 	connect(audioframe, &AudioFrame::LineDrawn, this, &TimeLine::audioFrameDrawn);
 	audioframe->Initialize(path);
 	audioframe->show();
@@ -89,9 +112,5 @@ void TimeLine::CreateFrame(qint64 size)
 	ui.Content->show();
 	
 }
-bool TimeLine::CheckMimeTypes(QMimeData& data)
-{
-	//td::all_of(supportedFormats1.begin(),supportedFormats1.end(),)
-	return true;
-}
+
 
