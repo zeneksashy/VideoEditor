@@ -17,11 +17,14 @@ public:
 	QImage loadFrame(long pos);
 	void drawOutline() override;
 	void mousePressEvent(QMouseEvent *);
+	void ResizeFrame(QPoint);
 	void deleteOutline() override;
 signals:
 	void LineSelected(VideoFrame*);
 private:
+	int scale;
 	cv::Mat frame;
+	int templenght;
 	cv::VideoCapture capture;
 	cv::Mat RGBframe;
 	long framecount;

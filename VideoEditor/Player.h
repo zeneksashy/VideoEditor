@@ -35,10 +35,12 @@ public  slots:
 signals:
 	//Signal to output frame to be displayed
 	void processedImage(const QImage &image);
+	void positionChanged(qint64 pos);
 protected:
 	void run();
 	void msleep(int ms);
 public:
+	void getMediaPosition(qint64);
 	bool isAudioAvaible();
 	bool isVideoAvaible();
 	QMediaPlayer* getMediaPlayer() const;

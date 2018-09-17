@@ -24,6 +24,7 @@ AudioFrame::~AudioFrame()
 
 void AudioFrame::Initialize(QString path)
 {
+	int scale = 1;
 	this->path = path;
 	decoder.reset(new QAudioDecoder());
 	decoder->setSourceFilename(path);
@@ -98,6 +99,17 @@ void AudioFrame::deleteOutline()
 	repaint();
 }
 
+void AudioFrame::ResizeFrame(QPoint p)
+{
+	templenght = lenght;
+	scale += p.y();
+	if (scale == 0)
+		scale = 1;
+	templenght = lenght * scale;
+	setFixedWidth(templenght);
+	repaint();
+}
+
 void AudioFrame::audioDecoded()
 {
 	clock_t endTime = clock();
@@ -105,6 +117,7 @@ void AudioFrame::audioDecoded()
 	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
 	audioSamples = fft.RootMeanSquare(audioFrames,format.sampleRate());
 	fft.Normalize(audioSamples);
+	templenght = lenght = audioSamples.size();
 	setFixedWidth(audioSamples.size());
 	update();
 }

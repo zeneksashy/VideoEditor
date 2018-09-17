@@ -16,16 +16,18 @@ class TimeLine : public QWidget, public VideoLoader
 public:
 	void loadFile(QString) override;
 	TimeLine(QWidget *parent = Q_NULLPTR);
-
-	
 	void dragEnterEvent(QDragEnterEvent* event);
 	void dropEvent(QDropEvent* e);
 
 
 private slots:
+	void updateTime(qint64 pos);
 	void itemSelected(QListWidgetItem*);
 	void LineSelected(MediaFrame*);
 private:
+	void ResizeFrames(QPoint);
+	void wheelEvent(QWheelEvent *e)override;
+	void UpdateTimeLabel();
 	QScopedPointer<QAudioDecoder> decoder;
 	QScopedPointer<AudioAnalyser> analyser;
 	bool CheckAudio();
@@ -34,11 +36,11 @@ private:
 	VideoFrame* CreateVideoFrame(QString);
 	std::vector<QAudioBuffer> buffers;
 	AudioFrame* CreateAudioFrame(QString);
-	void CreateFrame(qint64 size);
 	static const  QStringList supportedFormats;
 	static const  std::list<std::string> supportedFormats1;
 	Ui::TimeLine ui;
 	QScopedPointer<QHBoxLayout> layout;
 	std::map<QListWidgetItem*, AudioFrame*> audioSources;
 	std::map<QListWidgetItem*, VideoFrame*> videoSources;
+	std::vector<QPoint>points;
 };

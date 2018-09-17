@@ -6,16 +6,14 @@
 class MediaManager
 {
 public:
-	//~MediaManager();
+	~MediaManager();
+	MediaManager();
 	static void LoadWidget(VideoLoader*);
 	static void LoadMedia(QString);
-	//static Player getPlayer();
-	static  Player player;
+	static  Player* player;
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);
-	
-	//static std::list<QWidget> widgets;
 	static QList<VideoLoader*>widgets;
 };
 

@@ -36,7 +36,7 @@ background: rgb(36, 36, 36);
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="timeLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -49,8 +49,22 @@ background: rgb(36, 36, 36);
          <height>0</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel
+{
+color: white;
+
+}</string>
+       </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>Media duration</string>
        </property>
       </widget>
      </item>
@@ -282,6 +296,25 @@ background-color:rgb(134, 95, 197)
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
+          <widget class="QSlider" name="horizontalSlider">
+           <property name="styleSheet">
+            <string notr="true">QSlider::groove:horizontal {
+
+    height: 0px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
+    margin: 2px 0;
+}
+QSlider::handle:horizontal {
+    background: rgb(255, 170, 0);
+    width:15px;
+}</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="timeline">
            <property name="spacing">
             <number>11</number>
@@ -293,6 +326,13 @@ background-color:rgb(134, 95, 197)
             <number>1</number>
            </property>
           </layout>
+         </item>
+         <item>
+          <widget class="QSlider" name="horizontalSlider_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

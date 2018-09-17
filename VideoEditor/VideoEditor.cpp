@@ -30,7 +30,6 @@ void VideoEditor::open()
 	if (!filename.isEmpty())
 	{
 		MediaManager::LoadMedia(filename);
-	//	ui.preview->loadFile(filename);
 	}
 	
 }

@@ -39,6 +39,8 @@ public:
     TimeLine *timeLine;
     QMenuBar *menuBar;
     QMenu *menuFIle;
+    QMenu *menuEdit;
+    QMenu *menuEffects;
 
     void setupUi(QMainWindow *VideoEditorClass)
     {
@@ -122,9 +124,15 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1639, 21));
         menuFIle = new QMenu(menuBar);
         menuFIle->setObjectName(QStringLiteral("menuFIle"));
+        menuEdit = new QMenu(menuBar);
+        menuEdit->setObjectName(QStringLiteral("menuEdit"));
+        menuEffects = new QMenu(menuBar);
+        menuEffects->setObjectName(QStringLiteral("menuEffects"));
         VideoEditorClass->setMenuBar(menuBar);
 
         menuBar->addAction(menuFIle->menuAction());
+        menuBar->addAction(menuEdit->menuAction());
+        menuBar->addAction(menuEffects->menuAction());
         menuFIle->addAction(actionOpen);
 
         retranslateUi(VideoEditorClass);
@@ -138,6 +146,8 @@ public:
         VideoEditorClass->setWindowTitle(QApplication::translate("VideoEditorClass", "VideoEditor", nullptr));
         actionOpen->setText(QApplication::translate("VideoEditorClass", "Open", nullptr));
         menuFIle->setTitle(QApplication::translate("VideoEditorClass", "FIle", nullptr));
+        menuEdit->setTitle(QApplication::translate("VideoEditorClass", "Edit", nullptr));
+        menuEffects->setTitle(QApplication::translate("VideoEditorClass", "Effects", nullptr));
     } // retranslateUi
 
 };

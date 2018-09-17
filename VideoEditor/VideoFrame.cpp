@@ -15,15 +15,14 @@ VideoFrame::~VideoFrame()
 }
 void VideoFrame::paintEvent(QPaintEvent*)
 {
-	
+
 	QPainter painter(this);
 	painter.fillRect(rect(), Qt::gray);
 	QSize size(rect().size());
-
 	size.setWidth(size.height()*1.7);
 	painter.drawImage(QPoint(0, 0), img[0].scaled(size));
-	painter.drawImage(QPoint(lenght /2, 0), img[1].scaled(size));
-	painter.drawImage(QPoint(lenght -size.width(), 0), img[2].scaled(size));
+	painter.drawImage(QPoint(templenght /2, 0), img[1].scaled(size));
+	painter.drawImage(QPoint(templenght -size.width(), 0), img[2].scaled(size));
 	if (isSelected)
 	{
 		QPen pen(QColor::fromRgb(126, 253, 61));
@@ -33,6 +32,8 @@ void VideoFrame::paintEvent(QPaintEvent*)
 }
 void VideoFrame::Initliaize(QString filename)
 {
+	scale = 1;
+	
 	capture.open(filename.toStdString());
 	if (capture.isOpened())
 	{
@@ -42,6 +43,7 @@ void VideoFrame::Initliaize(QString filename)
 		img[2] = loadFrame(framecount - 1);
 		framerate = capture.get(CV_CAP_PROP_FPS);
 		lenght = (framecount / framerate);
+		templenght = lenght;
 		setFixedWidth(lenght);
 	}
 }
@@ -77,6 +79,17 @@ void VideoFrame::mousePressEvent(QMouseEvent *)
 {
 	//drawOutline();
 	emit LineSelected(this);
+}
+
+void VideoFrame::ResizeFrame(QPoint p)
+{
+	templenght = lenght;
+	scale += p.y();
+	if (scale ==0)
+		scale = 1;
+	templenght = lenght * scale;
+	setFixedWidth(templenght);
+	repaint();
 }
 
 void VideoFrame::deleteOutline()

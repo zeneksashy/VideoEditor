@@ -87,6 +87,7 @@ void Player::run()
 	{
 		CaptureNextFrame();
 	}
+	
 }
 
 void Player::Stop()
@@ -127,11 +128,17 @@ void Player::CaptureNextFrame()
 			frame.cols, frame.rows, QImage::Format_Indexed8);
 	}
 	emit processedImage(img);
+	emit positionChanged(mediaplayer->position());
 	this->msleep(delay);
 }
 
 void Player::msleep(int ms) {
 	std::this_thread::sleep_for(std::chrono::nanoseconds((ms % 1000) * 1000 * 1000));
+}
+
+void Player::getMediaPosition(qint64 pos )
+{
+	emit positionChanged(pos);
 }
 
 bool Player::isAudioAvaible()

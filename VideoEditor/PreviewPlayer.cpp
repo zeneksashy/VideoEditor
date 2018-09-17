@@ -1,14 +1,15 @@
 #include "PreviewPlayer.h"
 #include<qstyle.h>
+#include"MediaManager.h"
 PreviewPlayer::PreviewPlayer(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 	player.reset(new Player);
-	auto media = player->getMediaPlayer();
+	auto media = MediaManager::player->getMediaPlayer();
 	connect(media, &QMediaPlayer::durationChanged, this, &PreviewPlayer::setMaxToTimeLine);
 	connect(media, &QMediaPlayer::positionChanged, this, &PreviewPlayer::updateTimeLine);
-	connect(player.data(), SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
+	connect(MediaManager::player, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
 	connect(ui.volumeSlider, &QSlider::valueChanged, media, &QMediaPlayer::setVolume);
 	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
 	configureButtons();
@@ -25,10 +26,9 @@ void PreviewPlayer::setMaxToTimeLine(int max)
 }
 void PreviewPlayer::onPlayButtonClicked()
 {
-	if (player->isStopped())
+	if (MediaManager::player->isStopped())
 	{
-		player->Play();
-		
+		MediaManager::player->Play();
 	}
 }
 void PreviewPlayer::updateTimeLine(int value)
@@ -43,32 +43,32 @@ void PreviewPlayer::updateTimeLine(int value)
 }
 void PreviewPlayer::onStopButtonClicked()
 {
-	if (!player->isStopped())
+	if (!MediaManager::player->isStopped())
 	{
 		
-		player->Stop();
+		MediaManager::player->Stop();
 	}
 }
 
 void PreviewPlayer::onPauseButtonCLicked()
 {
-	if(!player->isStopped())
+	if(!MediaManager::player->isStopped())
 	{
-		player->Pause();
+		MediaManager::player->Pause();
 	}
 }
 void PreviewPlayer::setGausianBlur()
 {
-	player->effect();
+	MediaManager::player->effect();
 }
 void PreviewPlayer::setVideoPosition(int pos)
 {
-	player->setVideoPosition(pos);
+	MediaManager::player->setVideoPosition(pos);
 
 }
 void PreviewPlayer::loadFile(QString path)
 {
-	if (!player->loadFile(path))
+	if (!MediaManager::player->loadFile(path))
 	{
 		QMessageBox msgBox;
 		msgBox.setText("The selected video could not be opened!");

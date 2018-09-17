@@ -146,7 +146,19 @@ border-color:rgb(104, 104, 104)
     </property>
     <addaction name="actionOpen"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuEffects">
+    <property name="title">
+     <string>Effects</string>
+    </property>
+   </widget>
    <addaction name="menuFIle"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuEffects"/>
   </widget>
   <action name="actionOpen">
    <property name="text">

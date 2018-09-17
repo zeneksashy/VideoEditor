@@ -4,25 +4,21 @@
 #include <sstream>
 #include<qmessagebox.h>
 
-Player MediaManager::player;
+Player* MediaManager::player = new Player();
 QList<VideoLoader*> MediaManager::widgets;
+MediaManager::~MediaManager()
+{
+	delete player;
+}
 void MediaManager::LoadWidget(VideoLoader* widget)
 {
 	widgets.push_back(widget);
 }
-
-
-
  void MediaManager::LoadMedia(QString path)
 {
 	LoadPlayer(path);
 	LoadMediaToWidget(path);
 }
-
- //Player MediaManager::getPlayer()
- //{
-	// return &player;
- //}
 
  void MediaManager::LoadMediaToWidget(QString path)
  {
@@ -35,7 +31,7 @@ void MediaManager::LoadWidget(VideoLoader* widget)
  void MediaManager::LoadPlayer(QString path)
 {
 	 Player pl = new Player();
-	if (!player.loadFile(path))
+	if (!player->loadFile(path))
 	{
 		QMessageBox msgBox;
 		msgBox.setText("The selected video could not be opened!");

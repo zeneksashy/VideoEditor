@@ -25,6 +25,7 @@ public:
 	void drawOutline() override;
 	void mousePressEvent(QMouseEvent *);
 	void deleteOutline() override;
+	void ResizeFrame(QPoint p);
 signals:
 	void LineSelected(AudioFrame*);
 public slots:
@@ -36,6 +37,9 @@ private slots:
 private:
 	//static int counter;
 	//int id;
+	int scale;
+	int templenght;
+	int lenght;
 	bool isSelected;
 	bool isFirstTimeRead = true;
 	QScopedPointer<QAudioDecoder> decoder;

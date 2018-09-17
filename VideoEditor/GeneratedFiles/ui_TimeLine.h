@@ -16,6 +16,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -27,7 +28,7 @@ class Ui_TimeLine
 public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *label;
+    QLabel *timeLabel;
     QSpacerItem *horizontalSpacer;
     QFrame *frame;
     QHBoxLayout *horizontalLayout;
@@ -35,7 +36,9 @@ public:
     QScrollArea *scrollArea;
     QWidget *Content;
     QVBoxLayout *verticalLayout_2;
+    QSlider *horizontalSlider;
     QVBoxLayout *timeline;
+    QSlider *horizontalSlider_2;
 
     void setupUi(QWidget *TimeLine)
     {
@@ -56,16 +59,26 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label = new QLabel(TimeLine);
-        label->setObjectName(QStringLiteral("label"));
+        timeLabel = new QLabel(TimeLine);
+        timeLabel->setObjectName(QStringLiteral("timeLabel"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy);
-        label->setMinimumSize(QSize(110, 0));
+        sizePolicy.setHeightForWidth(timeLabel->sizePolicy().hasHeightForWidth());
+        timeLabel->setSizePolicy(sizePolicy);
+        timeLabel->setMinimumSize(QSize(110, 0));
+        QFont font;
+        font.setPointSize(12);
+        font.setBold(true);
+        font.setWeight(75);
+        timeLabel->setFont(font);
+        timeLabel->setStyleSheet(QLatin1String("QLabel\n"
+"{\n"
+"color: white;\n"
+"\n"
+"}"));
 
-        horizontalLayout_2->addWidget(label);
+        horizontalLayout_2->addWidget(timeLabel);
 
         horizontalSpacer = new QSpacerItem(146, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
 
@@ -259,6 +272,22 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        horizontalSlider = new QSlider(Content);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setStyleSheet(QLatin1String("QSlider::groove:horizontal {\n"
+"\n"
+"    height: 0px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */\n"
+"    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"QSlider::handle:horizontal {\n"
+"    background: rgb(255, 170, 0);\n"
+"    width:15px;\n"
+"}"));
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        verticalLayout_2->addWidget(horizontalSlider);
+
         timeline = new QVBoxLayout();
         timeline->setSpacing(11);
         timeline->setObjectName(QStringLiteral("timeline"));
@@ -266,6 +295,12 @@ public:
         timeline->setContentsMargins(-1, 1, -1, -1);
 
         verticalLayout_2->addLayout(timeline);
+
+        horizontalSlider_2 = new QSlider(Content);
+        horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
+        horizontalSlider_2->setOrientation(Qt::Horizontal);
+
+        verticalLayout_2->addWidget(horizontalSlider_2);
 
         scrollArea->setWidget(Content);
 
@@ -283,7 +318,7 @@ public:
     void retranslateUi(QWidget *TimeLine)
     {
         TimeLine->setWindowTitle(QApplication::translate("TimeLine", "TimeLine", nullptr));
-        label->setText(QApplication::translate("TimeLine", "TextLabel", nullptr));
+        timeLabel->setText(QApplication::translate("TimeLine", "Media duration", nullptr));
     } // retranslateUi
 
 };
