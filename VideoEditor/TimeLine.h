@@ -24,13 +24,14 @@ public:
 
 private slots:
 	void itemSelected(QListWidgetItem*);
-	void audioFrameDrawn(AudioFrame*);
-	void LineSelected(AudioFrame*);
+	void LineSelected(MediaFrame*);
 private:
 	QScopedPointer<QAudioDecoder> decoder;
 	QScopedPointer<AudioAnalyser> analyser;
+	bool CheckAudio();
+	bool CheckVideo();
 	AudioRecognition recognizer;
-	void CreateVideoFrame(QString);
+	VideoFrame* CreateVideoFrame(QString);
 	std::vector<QAudioBuffer> buffers;
 	AudioFrame* CreateAudioFrame(QString);
 	void CreateFrame(qint64 size);
@@ -38,6 +39,6 @@ private:
 	static const  std::list<std::string> supportedFormats1;
 	Ui::TimeLine ui;
 	QScopedPointer<QHBoxLayout> layout;
-	std::multimap<QListWidgetItem*, AudioFrame*> sources;
-	AudioFrame* frame;
+	std::map<QListWidgetItem*, AudioFrame*> audioSources;
+	std::map<QListWidgetItem*, VideoFrame*> videoSources;
 };

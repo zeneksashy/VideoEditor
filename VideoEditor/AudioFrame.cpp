@@ -29,8 +29,9 @@ void AudioFrame::Initialize(QString path)
 	decoder->setSourceFilename(path);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioFrame::audioDecoded);
-	clk - std::clock();
+	clk = std::clock();
 	decoder->start();
+	
 }
 
 void AudioFrame::readBuffer()
@@ -102,10 +103,9 @@ void AudioFrame::audioDecoded()
 	clock_t endTime = clock();
 	clock_t clockTicksTaken = endTime - clk;
 	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
-	audioSamples = fft.RootMeanSquare(audioFrames);
+	audioSamples = fft.RootMeanSquare(audioFrames,format.sampleRate());
 	fft.Normalize(audioSamples);
 	setFixedWidth(audioSamples.size());
 	update();
-	emit LineDrawn(this);
 }
 

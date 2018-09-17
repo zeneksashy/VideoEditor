@@ -9,8 +9,9 @@
 #include<AudioRecognition.h>
 #include <ctime>
 #include<qlistwidget.h>
+#include"MediaFrame.h"
 class AudioRecognition;
-class AudioFrame : public QWidget
+class AudioFrame : public QWidget,public MediaFrame
 {
 	Q_OBJECT
 
@@ -21,12 +22,11 @@ public:
 	void Initialize(QString);
 	void Initialize(AudioAnalyser*,const QAudioFormat &format, qint64 audioBufferSize);
 	void paintEvent(QPaintEvent *)override;
-	void drawOutline();
+	void drawOutline() override;
 	void mousePressEvent(QMouseEvent *);
-	void deleteOutline();
+	void deleteOutline() override;
 signals:
 	void LineSelected(AudioFrame*);
-	void LineDrawn(AudioFrame*);
 public slots:
 	//void itemSelected(QListWidgetItem*);
 private slots:

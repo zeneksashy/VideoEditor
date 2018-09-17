@@ -19,16 +19,17 @@ void VideoFrame::paintEvent(QPaintEvent*)
 	QPainter painter(this);
 	painter.fillRect(rect(), Qt::gray);
 	QSize size(rect().size());
+
+	size.setWidth(size.height()*1.7);
+	painter.drawImage(QPoint(0, 0), img[0].scaled(size));
+	painter.drawImage(QPoint(lenght /2, 0), img[1].scaled(size));
+	painter.drawImage(QPoint(lenght -size.width(), 0), img[2].scaled(size));
 	if (isSelected)
 	{
-		pen.setColor(QColor::fromRgb(126, 253, 61));
+		QPen pen(QColor::fromRgb(126, 253, 61));
 		painter.setPen(pen);
 		painter.drawRoundedRect(0, 0, width() - 1, height() - 1, 0, 0);
 	}
-	size.setWidth(size.height()*1.7);
-	painter.drawImage(QPoint(0, 0), img[0].scaled(size));
-	painter.drawImage(QPoint(framecount/2, 0), img[1].scaled(size));
-	painter.drawImage(QPoint(framecount-size.width(), 0), img[2].scaled(size));
 }
 void VideoFrame::Initliaize(QString filename)
 {
@@ -39,7 +40,9 @@ void VideoFrame::Initliaize(QString filename)
 		img[0] = loadFrame(100);
 		img[1] = loadFrame(framecount / 2);
 		img[2] = loadFrame(framecount - 1);
-		setFixedWidth(framecount);
+		framerate = capture.get(CV_CAP_PROP_FPS);
+		lenght = (framecount / framerate);
+		setFixedWidth(lenght);
 	}
 }
 
@@ -72,8 +75,8 @@ void VideoFrame::drawOutline()
 
 void VideoFrame::mousePressEvent(QMouseEvent *)
 {
-	drawOutline();
-
+	//drawOutline();
+	emit LineSelected(this);
 }
 
 void VideoFrame::deleteOutline()

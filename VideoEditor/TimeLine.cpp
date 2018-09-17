@@ -21,8 +21,7 @@ TimeLine::TimeLine(QWidget *parent)
 
 void TimeLine::loadFile(QString path)
 {
-	QMediaPlayer mediaplayer;
-	mediaplayer.setMedia(QUrl::fromLocalFile(path));
+
 	auto item = new QListWidgetItem(path, ui.sourcesList);
 	connect(ui.sourcesList, &QListWidget::itemClicked, this, &TimeLine::itemSelected);
 	QListWidgetItem &dl = *item;
@@ -32,11 +31,11 @@ void TimeLine::loadFile(QString path)
 	if (MediaManager::player.isVideoAvaible())
 	{
 		// TODO
-		
+		videoSources.insert({ item , CreateVideoFrame(path) });
 	}
 	if (MediaManager::player.isAudioAvaible())
 	{
-		sources.insert({ item , CreateAudioFrame(path) });
+		audioSources.insert({ item , CreateAudioFrame(path) });
 	}
 
 }
@@ -55,45 +54,81 @@ void TimeLine::dropEvent(QDropEvent * e)
 }
 void TimeLine::itemSelected(QListWidgetItem* item)
 {
-	for each (auto source in sources)
+
+	for each (auto source in audioSources)
 	{
 		source.second->deleteOutline();
 	}
-	sources.find(item)->second->drawOutline();
+	for each (auto source in videoSources)
+	{
+		source.second->deleteOutline();
+	}
+	audioSources.find(item)->second->drawOutline();
+	videoSources.find(item)->second->drawOutline();
 	
 }
-void TimeLine::audioFrameDrawn(AudioFrame* frame)
-{
-	ui.timeline->addWidget(frame);
-}
-void TimeLine::LineSelected(AudioFrame * frame)
-{
-	for each (auto source in sources)
-	{
-		if (source.second == frame)
 
+void TimeLine::LineSelected(MediaFrame * frame)
+{
+	auto  audioIt = audioSources.begin();
+	auto  videoIt = videoSources.begin();
+
+	for (;audioIt!=audioSources.end(),videoIt!=videoSources.end();audioIt++,videoIt++)
+	{
+		if (audioIt->second == frame)
 		{
-			source.first->setSelected(true);
+			audioIt->first->setSelected(true);
+			audioIt->second->drawOutline();
+
+			if (videoIt->first == audioIt->first)
+			{
+				videoIt->first->setSelected(true);
+				videoIt->second->drawOutline();
+			}
 			continue;
 		}
-		source.second->deleteOutline();
-			
+		if (videoIt->second == frame)
+		{
+			videoIt->first->setSelected(true);
+			videoIt->second->drawOutline();
+
+			if (audioIt->first == audioIt->first)
+			{
+				audioIt->first->setSelected(true);
+				audioIt->second->drawOutline();
+			}
+			continue;
+		}
+		audioIt->second->deleteOutline();
+		videoIt->second->deleteOutline();
 	}
+	//for each (auto source in audioSources)
+	//{
+	//	if (source.second == frame)
+	//	{
+	//		source.first->setSelected(true);
+	//		source.second->drawOutline();
+	//		videoSources.find(source.first)->second->drawOutline();
+	//		continue;
+	//	}
+	//	source.second->deleteOutline();
+	//}
 }
 const QStringList TimeLine::supportedFormats = QStringList{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3"};
 const std::list<std::string> TimeLine::supportedFormats1 = std::list<std::string>{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3" };
-void TimeLine::CreateVideoFrame(QString path)
+VideoFrame* TimeLine::CreateVideoFrame(QString path)
 {
-	VideoFrame* videoframe = new VideoFrame(this);
+	auto videoframe = new VideoFrame(this);
+	connect(videoframe, &VideoFrame::LineSelected, this, &TimeLine::LineSelected);
 	videoframe->Initliaize(path);
 	videoframe->show();
 	ui.timeline->addWidget(videoframe);
+	return videoframe;
 }
 AudioFrame* TimeLine::CreateAudioFrame(QString path)
 {
 	auto audioframe = new AudioFrame(this);
 	connect(audioframe, &AudioFrame::LineSelected, this, &TimeLine::LineSelected);
-	connect(audioframe, &AudioFrame::LineDrawn, this, &TimeLine::audioFrameDrawn);
 	audioframe->Initialize(path);
 	audioframe->show();
 	ui.timeline->addWidget(audioframe);
