@@ -127,10 +127,7 @@ bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 {
 	if (event->type() == QEvent::Paint)
 	{
-		// Let the target draw itself first.
 		watched->event(event);
-		// Then overlay our content on it.
-		//           *** vvvvvvvvvvvvv *** (B) - must match (A)!
 		auto widget = dynamic_cast<QWidget*>(watched);
 		QPainter painter(widget);
 		painter.setPen(QPen(Qt::red, 1));
