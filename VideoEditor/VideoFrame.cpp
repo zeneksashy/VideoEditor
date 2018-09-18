@@ -12,6 +12,7 @@ VideoFrame::VideoFrame(QWidget *parent)
 
 VideoFrame::~VideoFrame()
 {
+	capture.release();
 }
 void VideoFrame::paintEvent(QPaintEvent*)
 {
@@ -32,8 +33,6 @@ void VideoFrame::paintEvent(QPaintEvent*)
 }
 void VideoFrame::Initliaize(QString filename)
 {
-	scale = 1;
-	
 	capture.open(filename.toStdString());
 	if (capture.isOpened())
 	{
@@ -42,7 +41,7 @@ void VideoFrame::Initliaize(QString filename)
 		img[1] = loadFrame(framecount / 2);
 		img[2] = loadFrame(framecount - 1);
 		framerate = capture.get(CV_CAP_PROP_FPS);
-		lenght = (framecount / framerate);
+		lenght = framecount;
 		templenght = lenght;
 		setFixedWidth(lenght);
 	}
@@ -77,7 +76,6 @@ void VideoFrame::drawOutline()
 
 void VideoFrame::mousePressEvent(QMouseEvent *)
 {
-	//drawOutline();
 	emit LineSelected(this);
 }
 

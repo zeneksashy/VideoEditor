@@ -2,6 +2,7 @@
 #include <qpaintdevice.h>
 #include<qpainter.h>
 #include<qbytearray.h>
+#include"MediaManager.h"
 #include<AudioRecognition.h>
 AudioFrame::AudioFrame(QWidget *parent)
 	: QWidget(parent)
@@ -120,6 +121,7 @@ void AudioFrame::audioDecoded()
 	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
 	clock_t str = clock();
 	audioFrames.shrink_to_fit();
+	sampleSize /= MediaManager::player->getFrameRate();
 	audioSamples = fft.RootMeanSquare(audioFrames,sampleSize);
 	fft.Normalize(audioSamples);
 	clock_t end = clock();

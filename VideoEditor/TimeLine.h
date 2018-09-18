@@ -21,19 +21,17 @@ public:
 	TimeLine(QWidget *parent = Q_NULLPTR);
 	void dragEnterEvent(QDragEnterEvent* event);
 	void dropEvent(QDropEvent* e);
-	void paintEvent(QPaintEvent *)override;
 	bool eventFilter(QObject* watched, QEvent* event);
 
 private slots:
-	void updateTime(qint64 pos);
+	void updateTime();
 	void itemSelected(QListWidgetItem*);
 	void LineSelected(MediaFrame*);
 	void ResizeFrames(int);
 private:
 	int i;
-	
 	void wheelEvent(QWheelEvent *e)override;
-	void UpdateTimeLabel(qint64 pos);
+	void UpdateTimeLabel(int);
 	QScopedPointer<QAudioDecoder> decoder;
 	QScopedPointer<AudioAnalyser> analyser;
 	bool CheckAudio();

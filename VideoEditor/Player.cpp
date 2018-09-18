@@ -114,31 +114,34 @@ bool Player::CheckNextFrame()
 }
 void Player::CaptureNextFrame()
 {
-	if( CheckNextFrame())
-	if (frame.channels() == 3) {
-		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-		//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);
-		img = QImage((const unsigned char*)(RGBframe.data),
-			RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
-	}
-	else
+	if (CheckNextFrame())
 	{
-		//cv::GaussianBlur(frame, frame, cv::Size(5, 3), 2.3, 1.2);
-		img = QImage((const unsigned char*)(frame.data),
-			frame.cols, frame.rows, QImage::Format_Indexed8);
+		if (frame.channels() == 3) {
+			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+			//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);
+			img = QImage((const unsigned char*)(RGBframe.data),
+				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
+		}
+		else
+		{
+			//cv::GaussianBlur(frame, frame, cv::Size(5, 3), 2.3, 1.2);
+			img = QImage((const unsigned char*)(frame.data),
+				frame.cols, frame.rows, QImage::Format_Indexed8);
+		}
+		emit processedImage(img);
+		emit positionChanged();
+		this->msleep(delay);
 	}
-	emit processedImage(img);
-	emit positionChanged(mediaplayer->position());
-	this->msleep(delay);
 }
 
 void Player::msleep(int ms) {
 	std::this_thread::sleep_for(std::chrono::nanoseconds((ms % 1000) * 1000 * 1000));
 }
 
-void Player::getMediaPosition(qint64 pos )
+
+int Player::getFrameRate()
 {
-	emit positionChanged(pos);
+	return (int)capture.get(CV_CAP_PROP_FPS);
 }
 
 bool Player::isAudioAvaible()

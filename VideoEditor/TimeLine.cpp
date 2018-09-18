@@ -11,6 +11,14 @@
 #include<vector>
 #include <AudioFrame.h>
 
+//ToDO
+// add correct slider range
+//add resizinig to line drawing
+//change start position of resizing multipler to 10 , 1 to min and 20 to max
+//add auto scrolling when line get out of scope
+//add mutliplying i by resizer multipler
+//add label on top of timeline with time
+
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)
 {
@@ -19,6 +27,7 @@ TimeLine::TimeLine(QWidget *parent)
 	layout.reset(new QHBoxLayout);
 	auto mediaplayer = MediaManager::player->getMediaPlayer();
 	connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
+	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
 	ui.horizontalSlider->setRange(0, 181311);
 	i = 0;
@@ -60,10 +69,10 @@ void TimeLine::wheelEvent(QWheelEvent *e)
 		e.what();
 	}*/
 }
-void TimeLine::UpdateTimeLabel(qint64 pos)
+void TimeLine::UpdateTimeLabel(int pos)
 {
 	std::stringstream s;
-	int sec = pos / 1000;
+	int sec = pos / MediaManager::player->getFrameRate();
 	int min = sec / 60;
 	int h = min / 60;
 	if (sec >= 60)
@@ -95,12 +104,12 @@ void TimeLine::loadFile(QString path)
 		audioSources.insert({ item , CreateAudioFrame(path) });
 	}
 }
-void TimeLine::updateTime(qint64 pos)
+void TimeLine::updateTime()
 {
-	UpdateTimeLabel(pos);
-	ui.horizontalSlider->setValue(pos);
-	++i;
+	UpdateTimeLabel(i);
+	ui.horizontalSlider->setValue(i);
 	update();
+	++i;
 	
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
@@ -109,15 +118,7 @@ void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 		e->acceptProposedAction();
 	}
 }
-void TimeLine::paintEvent(QPaintEvent *)
-{
-	QPainter p(ui.Content);
-	p.setPen(Qt::red);
-	//auto size = ui.Content->rect().size();
-	//auto startpoint = ui.Content->mapToGlobal(ui.Content->rect().topLeft());
-	QLine line(285, 0, 285, rect().height());
-	p.drawLine(line);
-}
+
 bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 {
 	if (event->type() == QEvent::Paint)
