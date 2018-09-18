@@ -25,7 +25,7 @@ public:
 	void drawOutline() override;
 	void mousePressEvent(QMouseEvent *);
 	void deleteOutline() override;
-	void ResizeFrame(QPoint p);
+	void ResizeFrame(int) override;
 signals:
 	void LineSelected(AudioFrame*);
 public slots:

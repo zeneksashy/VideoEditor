@@ -81,24 +81,12 @@ void VideoFrame::mousePressEvent(QMouseEvent *)
 	emit LineSelected(this);
 }
 
-void VideoFrame::ResizeFrame(QPoint p)
+void VideoFrame::ResizeFrame(int p)
 {
 	try
 	{
 		templenght = lenght;
-		scale += p.y();
-		if (scale > 10)
-		{
-			scale -= p.y();
-		}
-		if (scale <= 0)
-			scale = 1;
-
-		templenght = lenght * scale;
-		if (templenght <= 0)
-		{
-			int x = lenght;
-		}
+		templenght = lenght * p;
 		setFixedWidth(templenght);
 		repaint();
 	}

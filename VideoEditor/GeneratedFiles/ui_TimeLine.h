@@ -17,7 +17,6 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -29,7 +28,7 @@ public:
     QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_2;
     QLabel *timeLabel;
-    QSpacerItem *horizontalSpacer;
+    QSlider *zoomingSlider;
     QSlider *horizontalSlider;
     QHBoxLayout *horizontalLayout;
     QListWidget *sourcesList;
@@ -57,6 +56,7 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(-1, -1, 9, -1);
         timeLabel = new QLabel(TimeLine);
         timeLabel->setObjectName(QStringLiteral("timeLabel"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
@@ -78,17 +78,82 @@ public:
 
         horizontalLayout_2->addWidget(timeLabel);
 
-        horizontalSpacer = new QSpacerItem(140, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+        zoomingSlider = new QSlider(TimeLine);
+        zoomingSlider->setObjectName(QStringLiteral("zoomingSlider"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(zoomingSlider->sizePolicy().hasHeightForWidth());
+        zoomingSlider->setSizePolicy(sizePolicy1);
+        zoomingSlider->setMinimumSize(QSize(140, 0));
+        zoomingSlider->setStyleSheet(QLatin1String("QSlider::groove:horizontal {\n"
+"border: 1px solid #bbb;\n"
+"background: white;\n"
+"height: 12px;\n"
+"border-radius: 5px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"\n"
+"background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,\n"
+"    stop: 0 #bbf, stop: 1 #55f);\n"
+"border: 1px solid #777;\n"
+"height: 10px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(12, 0, 34, 255), stop:1 rgba(176, 209, 187, 255));\n"
+"border: 1px solid #777;\n"
+"height: 10px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"background:qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0.215909 rgba(7, 0, 27, 255), stop:0.994318 rgba(174, 174, 180, 210));\n"
+"border: 1px solid #777;\n"
+"width: 50px;\n"
+"margin-top: -2px;\n"
+"margin-bottom: -2px;\n"
+"border-radius: 7px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(0, "
+                        "0, 0, 255), stop:1 rgba(90, 181, 237, 255));\n"
+"border: 1px solid #444;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal:disabled {\n"
+"background: #bbb;\n"
+"border-color: #999;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal:disabled {\n"
+"background: #eee;\n"
+"border-color: #999;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:disabled {\n"
+"background: #eee;\n"
+"border: 1px solid #aaa;\n"
+"border-radius: 4px;\n"
+"}"));
+        zoomingSlider->setMinimum(1);
+        zoomingSlider->setMaximum(10);
+        zoomingSlider->setPageStep(1);
+        zoomingSlider->setOrientation(Qt::Horizontal);
 
-        horizontalLayout_2->addItem(horizontalSpacer);
+        horizontalLayout_2->addWidget(zoomingSlider);
 
         horizontalSlider = new QSlider(TimeLine);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
-        horizontalSlider->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
+        horizontalSlider->setSizePolicy(sizePolicy2);
         horizontalSlider->setStyleSheet(QLatin1String("QSlider::groove:horizontal {\n"
 "\n"
 "    height: 1px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */\n"
@@ -116,11 +181,11 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         sourcesList = new QListWidget(TimeLine);
         sourcesList->setObjectName(QStringLiteral("sourcesList"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(sourcesList->sizePolicy().hasHeightForWidth());
-        sourcesList->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(sourcesList->sizePolicy().hasHeightForWidth());
+        sourcesList->setSizePolicy(sizePolicy3);
         sourcesList->setStyleSheet(QLatin1String("QListWidget\n"
 "{\n"
 "background-color: rgb(62, 62, 66)\n"
@@ -196,11 +261,11 @@ public:
 
         scrollArea = new QScrollArea(TimeLine);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
-        scrollArea->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
+        scrollArea->setSizePolicy(sizePolicy4);
         scrollArea->setMinimumSize(QSize(1000, 400));
         scrollArea->setStyleSheet(QLatin1String("QScrollArea\n"
 "{\n"

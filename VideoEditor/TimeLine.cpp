@@ -19,13 +19,15 @@ TimeLine::TimeLine(QWidget *parent)
 	layout.reset(new QHBoxLayout);
 	auto mediaplayer = MediaManager::player->getMediaPlayer();
 	connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
+	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
 	ui.horizontalSlider->setRange(0, 181311);
 	i = 0;
 	ui.Content->installEventFilter(this);
 }
 
-void TimeLine::ResizeFrames(QPoint p)
+void TimeLine::ResizeFrames(int p)
 {
+	ui.zoomingSlider->blockSignals(true);
 	try
 	{
 		auto  audioIt = audioSources.begin();
@@ -35,6 +37,7 @@ void TimeLine::ResizeFrames(QPoint p)
 			videoIt->second->ResizeFrame(p);
 			audioIt->second->ResizeFrame(p);
 		}
+		ui.zoomingSlider->blockSignals(false);
 	}
 	catch (const std::exception& e)
 	{
@@ -42,9 +45,10 @@ void TimeLine::ResizeFrames(QPoint p)
 	}
 	
 }
+
 void TimeLine::wheelEvent(QWheelEvent *e)
 {
-	try
+	/*try
 	{
 		auto p = e->angleDelta();
 		p.setY(p.y() / 120);
@@ -54,7 +58,7 @@ void TimeLine::wheelEvent(QWheelEvent *e)
 	catch (const std::exception& e)
 	{
 		e.what();
-	}
+	}*/
 }
 void TimeLine::UpdateTimeLabel(qint64 pos)
 {
@@ -66,21 +70,13 @@ void TimeLine::UpdateTimeLabel(qint64 pos)
 		sec %= 60;
 	if (min >= 60)
 		min %= 60;
-	s << h << ":" << min << ":" << sec;
+	(h>10)?s << h << ":":s<<"0"<<h<<":";
+	(min > 10) ? s << min << ":" : s << "0" << min << ":";
+	(sec > 10) ? s << sec: s << "0" << sec;
 	std::string time = s.str();
 	ui.timeLabel->setText(QString::fromStdString(time));
 }
-void TimeLine::UpdateTimeLine(qint64 pos)
-{
-	QPixmap pixmap(ui.Content->rect().size());
-	pixmap.fill(QColor("transparent"));
-	QPainter painter(&pixmap);
-	painter.setPen(Qt::red);
-	QLine line(pos, 0, pos, rect().height());
-	painter.drawLine(line);
-//	ui.label->setPixmap(pixmap);
 
-}
 void TimeLine::loadFile(QString path)
 {
 	//auto item = new QListWidgetItem();
@@ -102,7 +98,6 @@ void TimeLine::loadFile(QString path)
 void TimeLine::updateTime(qint64 pos)
 {
 	UpdateTimeLabel(pos);
-	UpdateTimeLine(pos/1000);
 	ui.horizontalSlider->setValue(pos);
 	++i;
 	update();

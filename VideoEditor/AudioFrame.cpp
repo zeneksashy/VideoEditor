@@ -98,18 +98,15 @@ void AudioFrame::deleteOutline()
 	repaint();
 }
 
-void AudioFrame::ResizeFrame(QPoint p)
+void AudioFrame::ResizeFrame(int p)
 {
 	templenght = sampleSize;
 
-	scale += p.y();
-	if (scale > 10)
+	templenght = sampleSize / p;
+	if (templenght <= 0)
 	{
-		scale -= p.y();
+		int x = templenght;
 	}
-	if (scale <= 0)
-		scale = 1;
-	templenght = sampleSize / scale;
 	audioSamples = fft.RootMeanSquare(audioFrames, templenght);
 	fft.Normalize(audioSamples);
 	setFixedWidth(audioSamples.size());

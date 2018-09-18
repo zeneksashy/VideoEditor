@@ -28,12 +28,12 @@ private slots:
 	void updateTime(qint64 pos);
 	void itemSelected(QListWidgetItem*);
 	void LineSelected(MediaFrame*);
+	void ResizeFrames(int);
 private:
 	int i;
-	void ResizeFrames(QPoint);
+	
 	void wheelEvent(QWheelEvent *e)override;
 	void UpdateTimeLabel(qint64 pos);
-	void UpdateTimeLine(qint64 pos);
 	QScopedPointer<QAudioDecoder> decoder;
 	QScopedPointer<AudioAnalyser> analyser;
 	bool CheckAudio();

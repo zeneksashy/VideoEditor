@@ -17,7 +17,7 @@ public:
 	QImage loadFrame(long pos);
 	void drawOutline() override;
 	void mousePressEvent(QMouseEvent *);
-	void ResizeFrame(QPoint);
+	void ResizeFrame(int) override;
 	void deleteOutline() override;
 signals:
 	void LineSelected(VideoFrame*);

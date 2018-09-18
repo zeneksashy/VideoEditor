@@ -1,6 +1,6 @@
 #include "FastFourierTransform.h"
 #include<qmath.h>
-
+#include <ctime>
 
 void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 {
@@ -77,6 +77,7 @@ std::vector<double> FastFourierTransform::CalculatedBLevel(std::vector<double> f
 
 void FastFourierTransform::Normalize(std::vector<double>& samples)
 {
+	clock_t start = clock();
 	auto vmax = std::max_element(samples.begin(), samples.end());
 	double max = *vmax;
 	auto vmin = std::min_element(samples.begin(), samples.end());
@@ -90,17 +91,21 @@ void FastFourierTransform::Normalize(std::vector<double>& samples)
 	{
 		samples[i] /= (max - min);
 	}
+	clock_t endTime = clock();
+	clock_t clockTicksTaken = endTime - start;
+	auto time = (float)clockTicksTaken / CLOCKS_PER_SEC;
 }
 
 std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, int sampleSize)
 {
+	clock_t start = clock();
 	std::vector<double> outputSamples;
 	auto size = samples.size() / sampleSize;
 	int k = 0;
-	for (size_t i = 1; i <= size; i++)
+	for (size_t i = 1; i <= size; ++i)
 	{
 		double temp = 0;
-		for (size_t j = k; j < sampleSize * i; j++)
+		for (size_t j = k; j < sampleSize * i; ++j)
 		{
 			temp += samples[j] * samples[j];
 		}
@@ -108,5 +113,8 @@ std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& sa
 		outputSamples.push_back(std::sqrt(temp));
 		k += sampleSize;
 	}
+	clock_t endTime = clock();
+	clock_t clockTicksTaken = endTime - start; 
+	auto time =(float)clockTicksTaken / CLOCKS_PER_SEC;
 	return outputSamples;
 }
