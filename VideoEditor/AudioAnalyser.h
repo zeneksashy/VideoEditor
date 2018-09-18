@@ -20,7 +20,7 @@ public:
 	AudioAnalyser() {}
 	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer)=0;
 	virtual std::valarray<std::complex<double>> Calculate()=0;
-	virtual double ConvertInput(QVariant)=0;
+	virtual double ConvertInput(double)=0;
 protected:
 	std::valarray<std::complex<double>> Calculate(AudioAnalyser*);
 	template <typename T>
@@ -35,7 +35,7 @@ public:
 	virtual std::valarray<std::complex<double>> Calculate() override;
 
 	// Inherited via AudioAnalyser
-	virtual double ConvertInput(QVariant) override;
+	virtual double ConvertInput(double) override;
 	//virtual double ConvertInput() override;
 private:
 	const char maxValue = 127;
@@ -51,7 +51,7 @@ public:
 
 	virtual std::valarray<std::complex<double>> Calculate() override;
 
-	virtual double ConvertInput(QVariant) override;
+	virtual double ConvertInput(double) override;
 private:
 	const short maxValue = 32767;
 	const unsigned short maxAmplitude = 32768;
@@ -73,7 +73,7 @@ private:
 	const unsigned short maxAmplitude = maxValue;
 
 	// Inherited via AudioAnalyser
-	virtual double ConvertInput(QVariant) override;
+	virtual double ConvertInput(double) override;
 };
 class S8UAudioAnalyser :public AudioAnalyser
 {
@@ -88,7 +88,7 @@ private:
 	const unsigned char maxAmplitude = maxValue;
 
 	// Inherited via AudioAnalyser
-	virtual double ConvertInput(QVariant) override;
+	virtual double ConvertInput(double) override;
 };
 //dont use
 class S32FAudioAnalyser :public AudioAnalyser
@@ -104,7 +104,7 @@ private:
 	const unsigned char maxAmplitude = maxValue;
 
 	// Inherited via AudioAnalyser
-	virtual double ConvertInput(QVariant) override;
+	virtual double ConvertInput(double) override;
 };
 
 

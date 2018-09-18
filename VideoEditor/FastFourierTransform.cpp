@@ -75,7 +75,7 @@ std::vector<double> FastFourierTransform::CalculatedBLevel(std::vector<double> f
 	return dBLevels;
 }
 
-void FastFourierTransform::Normalize(std::vector<double>& samples)
+ void FastFourierTransform::Normalize(std::vector<double>& samples)
 {
 	clock_t start = clock();
 	auto vmax = std::max_element(samples.begin(), samples.end());
@@ -96,7 +96,7 @@ void FastFourierTransform::Normalize(std::vector<double>& samples)
 	auto time = (float)clockTicksTaken / CLOCKS_PER_SEC;
 }
 
-std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, int sampleSize)
+ std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, int sampleSize)
 {
 	clock_t start = clock();
 

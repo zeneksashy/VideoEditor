@@ -9,8 +9,7 @@ inline std::vector<double> AudioAnalyser::LoadDataFromBuffer(AudioAnalyser & ana
 	std::vector<double>convertedFrames(buffer.frameCount());
 	for (size_t i = 0; i < buffer.frameCount(); i++)
 	{
-		 auto convertedFrame = analyser.ConvertInput(frames[i].average());
-		 convertedFrames[i] = convertedFrame;
+		 convertedFrames[i] = analyser.ConvertInput((double)frames[i].average());
 	}
 	return convertedFrames;
 }
@@ -38,9 +37,9 @@ std::valarray<std::complex<double>> S8SAudioAnalyser::Calculate()
 {
 	return AudioAnalyser::Calculate(this);
 }
-double S8SAudioAnalyser::ConvertInput(QVariant data)
+double S8SAudioAnalyser::ConvertInput(double data)
 {
-	return data.toDouble() / maxAmplitude;
+	return data / maxAmplitude;
 }
 
 #pragma endregion
@@ -54,9 +53,9 @@ std::valarray<std::complex<double>> S16SAudioAnalyser::Calculate()
 {
 	return AudioAnalyser::Calculate(this);
 }
-double S16SAudioAnalyser::ConvertInput(QVariant data)
+double S16SAudioAnalyser::ConvertInput(double data)
 {
-	return data.toDouble() / maxAmplitude;
+	return data / maxAmplitude;
 }
 #pragma endregion
 #pragma region S16UAudioAnalyser
@@ -69,9 +68,9 @@ std::valarray<std::complex<double>> S16UAudioAnalyser::Calculate()
 {
 	return AudioAnalyser::Calculate(this);
 }
-double S16UAudioAnalyser::ConvertInput(QVariant data)
+double S16UAudioAnalyser::ConvertInput(double data)
 {
-	return data.toDouble() / maxAmplitude;
+	return data / maxAmplitude;
 }
 #pragma endregion
 #pragma region S8UAudioAnalyser
@@ -86,9 +85,9 @@ std::valarray<std::complex<double>> S8UAudioAnalyser::Calculate()
 {
 	return AudioAnalyser::Calculate(this);
 }
-double S8UAudioAnalyser::ConvertInput(QVariant data)
+double S8UAudioAnalyser::ConvertInput(double data)
 {
-	return data.toDouble() / maxAmplitude;
+	return data / maxAmplitude;
 }
 #pragma endregion
 #pragma region S32FAudioAnalyser
@@ -102,7 +101,7 @@ std::valarray<std::complex<double>> S32FAudioAnalyser::Calculate()
 {
 	return AudioAnalyser::Calculate(this);
 }
-double S32FAudioAnalyser::ConvertInput(QVariant)
+double S32FAudioAnalyser::ConvertInput(double)
 {
 	return 0.0;
 }

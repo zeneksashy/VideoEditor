@@ -12,7 +12,6 @@ AudioFrame::AudioFrame(QWidget *parent)
 	setFixedHeight(60);
 	setMinimumWidth(120);
 	isSelected = false;
-	 scale = 1;
 }
 
 AudioFrame::~AudioFrame()
@@ -112,8 +111,8 @@ void AudioFrame::ResizeFrame(int p)
 	repaint();
 }
 //3 seconds for audiobuffer
-//2.4 without pushback
-//0.3 second for rms and normalization
+//2.4 without pushback // 0,02 sec after ordering private variables // 0,02  after changing qvariant to double
+//0.3 second for rms and normalization 
 void AudioFrame::audioDecoded()
 {
 	clock_t endTime = clock();

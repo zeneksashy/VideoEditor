@@ -33,23 +33,20 @@ private slots:
 	void readBuffer();
 	void audioDecoded();
 private:
-	int scale;
-	int templenght;
-	int lenght;
-	bool isSelected;
-	bool isFirstTimeRead = true;
+	std::vector<double> audioFrames;
+	std::vector<double> audioSamples;
 	QScopedPointer<QAudioDecoder> decoder;
 	QAudioFormat format;
 	QScopedPointer<AudioAnalyser> analyser;
 	AudioRecognition recognizer;
 	QString path;
-	Ui::AudioFrame ui;
-	// new things
-	std::vector<double> audioFrames;
-	std::vector<double> audioSamples;
-	int sampleSize;
-	int sampleLenght;
 	FastFourierTransform fft;
+	Ui::AudioFrame ui;
+	uint templenght;
+	uint lenght;
+	uint sampleSize;
+	uint sampleLenght;
 	std::clock_t clk;
+	bool isSelected;
 
 };
