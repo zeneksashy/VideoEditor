@@ -12,6 +12,8 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -29,7 +31,7 @@ class Ui_VideoEditorClass
 public:
     QAction *actionOpen;
     QWidget *centralWidget;
-    QWidget *verticalLayoutWidget;
+    QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QWidget *widget;
@@ -37,6 +39,7 @@ public:
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
     TimeLine *timeLine;
+    QFrame *frame;
     QMenuBar *menuBar;
     QMenu *menuFIle;
     QMenu *menuEdit;
@@ -46,7 +49,7 @@ public:
     {
         if (VideoEditorClass->objectName().isEmpty())
             VideoEditorClass->setObjectName(QStringLiteral("VideoEditorClass"));
-        VideoEditorClass->resize(1639, 942);
+        VideoEditorClass->resize(1639, 1205);
         VideoEditorClass->setMinimumSize(QSize(1200, 800));
         VideoEditorClass->setStyleSheet(QLatin1String("QMainWindow\n"
 "{\n"
@@ -57,20 +60,27 @@ public:
         centralWidget = new QWidget(VideoEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setStyleSheet(QStringLiteral(""));
-        verticalLayoutWidget = new QWidget(centralWidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(3, 0, 1631, 991));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        gridLayout = new QGridLayout(centralWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(1);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetMaximumSize);
-        verticalLayout->setContentsMargins(0, 0, 0, 1);
+        verticalLayout->setContentsMargins(-1, -1, -1, 1);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        widget = new QWidget(verticalLayoutWidget);
+        horizontalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
+        widget = new QWidget(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy);
+        widget->setMinimumSize(QSize(500, 15));
         widget->setStyleSheet(QLatin1String("QWidget\n"
 "{\n"
 "background-color:\"white\";\n"
@@ -78,14 +88,14 @@ public:
 
         horizontalLayout_2->addWidget(widget);
 
-        preview = new PreviewPlayer(verticalLayoutWidget);
+        preview = new PreviewPlayer(centralWidget);
         preview->setObjectName(QStringLiteral("preview"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(preview->sizePolicy().hasHeightForWidth());
-        preview->setSizePolicy(sizePolicy);
-        preview->setMinimumSize(QSize(700, 500));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(preview->sizePolicy().hasHeightForWidth());
+        preview->setSizePolicy(sizePolicy1);
+        preview->setMinimumSize(QSize(700, 400));
         preview->setLayoutDirection(Qt::LeftToRight);
         preview->setStyleSheet(QLatin1String("PreviewPlayer\n"
 "{\n"
@@ -99,24 +109,36 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_2);
 
-        verticalSpacer = new QSpacerItem(5, 40, QSizePolicy::Minimum, QSizePolicy::Maximum);
+        verticalSpacer = new QSpacerItem(5, 25, QSizePolicy::Minimum, QSizePolicy::Maximum);
 
         verticalLayout->addItem(verticalSpacer);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        timeLine = new TimeLine(verticalLayoutWidget);
+        horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+        timeLine = new TimeLine(centralWidget);
         timeLine->setObjectName(QStringLiteral("timeLine"));
-        sizePolicy.setHeightForWidth(timeLine->sizePolicy().hasHeightForWidth());
-        timeLine->setSizePolicy(sizePolicy);
-        timeLine->setMinimumSize(QSize(1400, 400));
+        sizePolicy1.setHeightForWidth(timeLine->sizePolicy().hasHeightForWidth());
+        timeLine->setSizePolicy(sizePolicy1);
+        timeLine->setMinimumSize(QSize(1800, 350));
+        timeLine->setBaseSize(QSize(1800, 350));
         timeLine->setStyleSheet(QStringLiteral(""));
 
         horizontalLayout->addWidget(timeLine, 0, Qt::AlignLeft|Qt::AlignBottom);
 
+        frame = new QFrame(centralWidget);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+
+        horizontalLayout->addWidget(frame);
+
 
         verticalLayout->addLayout(horizontalLayout);
+
+
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
 
         VideoEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(VideoEditorClass);

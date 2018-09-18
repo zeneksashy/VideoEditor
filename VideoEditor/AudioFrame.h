@@ -35,8 +35,6 @@ private slots:
 	void readBuffer();
 	void audioDecoded();
 private:
-	//static int counter;
-	//int id;
 	int scale;
 	int templenght;
 	int lenght;
@@ -51,7 +49,7 @@ private:
 	// new things
 	std::vector<double> audioFrames;
 	std::vector<double> audioSamples;
-	int bufferbytecount; 
+	int sampleSize;
 	int sampleLenght;
 	FastFourierTransform fft;
 	std::clock_t clk;

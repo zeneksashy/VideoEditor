@@ -12,8 +12,7 @@ AudioFrame::AudioFrame(QWidget *parent)
 	setFixedHeight(60);
 	setMinimumWidth(120);
 	isSelected = false;
-	//id = counter;
-	//counter++;
+	 scale = 1;
 }
 
 AudioFrame::~AudioFrame()
@@ -24,15 +23,14 @@ AudioFrame::~AudioFrame()
 
 void AudioFrame::Initialize(QString path)
 {
-	int scale = 1;
+	
 	this->path = path;
 	decoder.reset(new QAudioDecoder());
 	decoder->setSourceFilename(path);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioFrame::audioDecoded);
 	clk = std::clock();
-	decoder->start();
-	
+	decoder->start();	
 }
 
 void AudioFrame::readBuffer()
@@ -41,6 +39,7 @@ void AudioFrame::readBuffer()
 	if (isFirstTimeRead)
 	{
 		this->format = tempBuff.format();
+		sampleSize = format.sampleRate();
 		sampleLenght = tempBuff.frameCount();
 		analyser.reset(recognizer.RrecognizeFrameType(format));
 		isFirstTimeRead = false;
@@ -101,12 +100,19 @@ void AudioFrame::deleteOutline()
 
 void AudioFrame::ResizeFrame(QPoint p)
 {
-	templenght = lenght;
+	templenght = sampleSize;
+
 	scale += p.y();
-	if (scale == 0)
+	if (scale > 10)
+	{
+		scale -= p.y();
+	}
+	if (scale <= 0)
 		scale = 1;
-	templenght = lenght * scale;
-	setFixedWidth(templenght);
+	templenght = sampleSize / scale;
+	audioSamples = fft.RootMeanSquare(audioFrames, templenght);
+	fft.Normalize(audioSamples);
+	setFixedWidth(audioSamples.size());
 	repaint();
 }
 
@@ -115,7 +121,7 @@ void AudioFrame::audioDecoded()
 	clock_t endTime = clock();
 	clock_t clockTicksTaken = endTime - clk;
 	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
-	audioSamples = fft.RootMeanSquare(audioFrames,format.sampleRate());
+	audioSamples = fft.RootMeanSquare(audioFrames,sampleSize);
 	fft.Normalize(audioSamples);
 	templenght = lenght = audioSamples.size();
 	setFixedWidth(audioSamples.size());

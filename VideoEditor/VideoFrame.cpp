@@ -83,13 +83,30 @@ void VideoFrame::mousePressEvent(QMouseEvent *)
 
 void VideoFrame::ResizeFrame(QPoint p)
 {
-	templenght = lenght;
-	scale += p.y();
-	if (scale ==0)
-		scale = 1;
-	templenght = lenght * scale;
-	setFixedWidth(templenght);
-	repaint();
+	try
+	{
+		templenght = lenght;
+		scale += p.y();
+		if (scale > 10)
+		{
+			scale -= p.y();
+		}
+		if (scale <= 0)
+			scale = 1;
+
+		templenght = lenght * scale;
+		if (templenght <= 0)
+		{
+			int x = lenght;
+		}
+		setFixedWidth(templenght);
+		repaint();
+	}
+	catch (const std::exception& e )
+	{
+		e.what();
+	}
+
 }
 
 void VideoFrame::deleteOutline()

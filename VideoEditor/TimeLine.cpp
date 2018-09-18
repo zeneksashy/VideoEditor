@@ -19,24 +19,67 @@ TimeLine::TimeLine(QWidget *parent)
 	layout.reset(new QHBoxLayout);
 	auto mediaplayer = MediaManager::player->getMediaPlayer();
 	connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
+	ui.horizontalSlider->setRange(0, 181311);
+	i = 0;
+	ui.Content->installEventFilter(this);
 }
+
 void TimeLine::ResizeFrames(QPoint p)
 {
-	auto  audioIt = audioSources.begin();
-	auto  videoIt = videoSources.begin();
-	for (; audioIt != audioSources.end(), videoIt != videoSources.end(); audioIt++, videoIt++)
+	try
 	{
-		videoIt->second->ResizeFrame(p);
-		audioIt->second->ResizeFrame(p);
+		auto  audioIt = audioSources.begin();
+		auto  videoIt = videoSources.begin();
+		for (; audioIt != audioSources.end(), videoIt != videoSources.end(); audioIt++, videoIt++)
+		{
+			videoIt->second->ResizeFrame(p);
+			audioIt->second->ResizeFrame(p);
+		}
 	}
+	catch (const std::exception& e)
+	{
+		e.what();
+	}
+	
 }
 void TimeLine::wheelEvent(QWheelEvent *e)
 {
-	auto p = e->angleDelta();
-	p.setY(p.y() / 120);
-	e->accept();
-	ResizeFrames(p);
-	
+	try
+	{
+		auto p = e->angleDelta();
+		p.setY(p.y() / 120);
+		e->accept();
+		ResizeFrames(p);
+	}
+	catch (const std::exception& e)
+	{
+		e.what();
+	}
+}
+void TimeLine::UpdateTimeLabel(qint64 pos)
+{
+	std::stringstream s;
+	int sec = pos / 1000;
+	int min = sec / 60;
+	int h = min / 60;
+	if (sec >= 60)
+		sec %= 60;
+	if (min >= 60)
+		min %= 60;
+	s << h << ":" << min << ":" << sec;
+	std::string time = s.str();
+	ui.timeLabel->setText(QString::fromStdString(time));
+}
+void TimeLine::UpdateTimeLine(qint64 pos)
+{
+	QPixmap pixmap(ui.Content->rect().size());
+	pixmap.fill(QColor("transparent"));
+	QPainter painter(&pixmap);
+	painter.setPen(Qt::red);
+	QLine line(pos, 0, pos, rect().height());
+	painter.drawLine(line);
+//	ui.label->setPixmap(pixmap);
+
 }
 void TimeLine::loadFile(QString path)
 {
@@ -58,19 +101,47 @@ void TimeLine::loadFile(QString path)
 }
 void TimeLine::updateTime(qint64 pos)
 {
-	std::stringstream s;
-	auto sec = pos / 1000;
-	auto min = sec / 60;
-	auto h = min / 60;
-	s << h << ":" << min << ":" << sec;
-	std::string time = s.str();
-	ui.timeLabel->setText(QString::fromStdString(time));
+	UpdateTimeLabel(pos);
+	UpdateTimeLine(pos/1000);
+	ui.horizontalSlider->setValue(pos);
+	++i;
+	update();
+	
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
 	if (e->mimeData()->hasUrls()) {
 		e->acceptProposedAction();
 	}
+}
+void TimeLine::paintEvent(QPaintEvent *)
+{
+	QPainter p(ui.Content);
+	p.setPen(Qt::red);
+	//auto size = ui.Content->rect().size();
+	//auto startpoint = ui.Content->mapToGlobal(ui.Content->rect().topLeft());
+	QLine line(285, 0, 285, rect().height());
+	p.drawLine(line);
+}
+bool TimeLine::eventFilter(QObject * watched, QEvent * event)
+{
+	if (event->type() == QEvent::Paint)
+	{
+		// Let the target draw itself first.
+		watched->event(event);
+		// Then overlay our content on it.
+		//           *** vvvvvvvvvvvvv *** (B) - must match (A)!
+		auto widget = dynamic_cast<QWidget*>(watched);
+		QPainter painter(widget);
+		painter.setPen(QPen(Qt::red, 1));
+		painter.setBrush(Qt::BrushStyle::SolidPattern);
+		if(widget==ui.Content)
+			painter.drawLine(i+5, 0, i + 5, rect().height());
+		else
+			painter.drawLine(i, 0, i, rect().height());
+		return true; // The event is already handled.
+	}
+	return false;
 }
 void TimeLine::dropEvent(QDropEvent * e)
 {
@@ -135,6 +206,7 @@ VideoFrame* TimeLine::CreateVideoFrame(QString path)
 	videoframe->Initliaize(path);
 	videoframe->show();
 	ui.timeline->addWidget(videoframe);
+	videoframe->installEventFilter(this);
 	return videoframe;
 }
 AudioFrame* TimeLine::CreateAudioFrame(QString path)
@@ -144,6 +216,7 @@ AudioFrame* TimeLine::CreateAudioFrame(QString path)
 	audioframe->Initialize(path);
 	audioframe->show();
 	ui.timeline->addWidget(audioframe);
+	audioframe->installEventFilter(this);
 	return audioframe;
 }
 
