@@ -4,14 +4,14 @@
 template<typename T>
 inline std::vector<double> AudioAnalyser::LoadDataFromBuffer(AudioAnalyser & analyser, QAudioBuffer buffer)
 {
+	//push back slows it for almost a second
 	T *frames = buffer.data<T>();
-	std::vector<double>convertedFrames;
+	std::vector<double>convertedFrames(buffer.frameCount());
 	for (size_t i = 0; i < buffer.frameCount(); i++)
 	{
 		 auto convertedFrame = analyser.ConvertInput(frames[i].average());
-		 convertedFrames.push_back(convertedFrame);
+		 convertedFrames[i] = convertedFrame;
 	}
-//	delete frames;
 	return convertedFrames;
 }
 std::valarray<std::complex<double>> AudioAnalyser::Calculate(AudioAnalyser * analyser)

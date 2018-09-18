@@ -99,9 +99,10 @@ void FastFourierTransform::Normalize(std::vector<double>& samples)
 std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, int sampleSize)
 {
 	clock_t start = clock();
-	std::vector<double> outputSamples;
+
 	auto size = samples.size() / sampleSize;
 	int k = 0;
+	std::vector<double> outputSamples(size);
 	for (size_t i = 1; i <= size; ++i)
 	{
 		double temp = 0;
@@ -110,7 +111,7 @@ std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& sa
 			temp += samples[j] * samples[j];
 		}
 		temp /= sampleSize;
-		outputSamples.push_back(std::sqrt(temp));
+		outputSamples[i-1]=std::sqrt(temp);
 		k += sampleSize;
 	}
 	clock_t endTime = clock();

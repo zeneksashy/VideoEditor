@@ -27,23 +27,21 @@ void AudioFrame::Initialize(QString path)
 	this->path = path;
 	decoder.reset(new QAudioDecoder());
 	decoder->setSourceFilename(path);
+	connect(decoder.data(), &QAudioDecoder::formatChanged, this, &AudioFrame::ChangeFormat);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioFrame::audioDecoded);
 	clk = std::clock();
 	decoder->start();	
 }
-
+void AudioFrame::ChangeFormat(const QAudioFormat& format)
+{
+	this->format = format;
+	sampleSize = format.sampleRate();
+	analyser.reset(recognizer.RrecognizeFrameType(format));
+}
 void AudioFrame::readBuffer()
 {
 	auto tempBuff = decoder->read();
-	if (isFirstTimeRead)
-	{
-		this->format = tempBuff.format();
-		sampleSize = format.sampleRate();
-		sampleLenght = tempBuff.frameCount();
-		analyser.reset(recognizer.RrecognizeFrameType(format));
-		isFirstTimeRead = false;
-	}
 	auto data = analyser->LoadDataFromBuffer(tempBuff);
 	audioFrames.insert(audioFrames.end(), data.begin(), data.end());
 }
@@ -77,6 +75,7 @@ void AudioFrame::paintEvent(QPaintEvent*)
 			plot = audioSamples[i]*30;
 			QLine line(i, (size.height() / 2)+plot, i, (size.height() / 2) - plot);
 			 painter.drawLine(line);
+			
 	}
 }
 
@@ -112,14 +111,21 @@ void AudioFrame::ResizeFrame(int p)
 	setFixedWidth(audioSamples.size());
 	repaint();
 }
-
+//3 seconds for audiobuffer
+//2.4 without pushback
+//0.3 second for rms and normalization
 void AudioFrame::audioDecoded()
 {
 	clock_t endTime = clock();
 	clock_t clockTicksTaken = endTime - clk;
 	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
+	clock_t str = clock();
+	audioFrames.shrink_to_fit();
 	audioSamples = fft.RootMeanSquare(audioFrames,sampleSize);
 	fft.Normalize(audioSamples);
+	clock_t end = clock();
+	clock_t time = end - str;
+	double time2 = time / (double)CLOCKS_PER_SEC;
 	templenght = lenght = audioSamples.size();
 	setFixedWidth(audioSamples.size());
 	update();

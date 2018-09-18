@@ -28,10 +28,8 @@ public:
 	void ResizeFrame(int) override;
 signals:
 	void LineSelected(AudioFrame*);
-public slots:
-	//void itemSelected(QListWidgetItem*);
 private slots:
-
+	void ChangeFormat(const QAudioFormat&);
 	void readBuffer();
 	void audioDecoded();
 private:
