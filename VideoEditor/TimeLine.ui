@@ -29,11 +29,10 @@
    <string notr="true">QWidget
 {
 background: rgb(36, 36, 36);
-}
-</string>
+}</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="rightMargin">
       <number>9</number>
@@ -161,44 +160,21 @@ border-radius: 4px;
       </widget>
      </item>
      <item>
-      <widget class="QSlider" name="horizontalSlider">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QSlider::groove:horizontal {
-
-    height: 1px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
-    margin: 2px 0;
-}
-QSlider::handle:horizontal {
-    background: rgb(255, 170, 0);
-    width:2px;
-	height: 15px;
-	border:1px solid red;
-}</string>
-       </property>
-       <property name="maximum">
-        <number>200</number>
-       </property>
+      <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksAbove</enum>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
-       <property name="tickInterval">
-        <number>5</number>
-       </property>
-      </widget>
+      </spacer>
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QListWidget" name="sourcesList">
@@ -282,23 +258,27 @@ QScrollBar::sub-line:horizontal {
       </widget>
      </item>
      <item>
-      <widget class="QScrollArea" name="scrollArea">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>1000</width>
-         <height>400</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QScrollArea
+      <widget class="QWidget" name="widget" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>1000</width>
+            <height>395</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QScrollArea
 {
-background-color:rgb(37, 37, 38)
+border: 1px solid black;
+
 }
 
  QScrollBar:horizontal {
@@ -361,79 +341,166 @@ QScrollBar::sub-line:vertical {
       border: none;
       background: none;
 }</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
-       </property>
-       <property name="sizeAdjustPolicy">
-        <enum>QAbstractScrollArea::AdjustToContents</enum>
-       </property>
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-       </property>
-       <widget class="QWidget" name="Content">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>1218</width>
-          <height>445</height>
-         </rect>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QWidget
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <widget class="QWidget" name="Content">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1198</width>
+             <height>430</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QWidget
 {
-background-color:rgb(37, 37, 38)
-}
-QFrame
-{
-background-color:rgb(134, 95, 197)
-
+background-color:rgb(37,38,36);
+border:0px solid black;
 }</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <layout class="QVBoxLayout" name="timeline">
-           <property name="spacing">
-            <number>11</number>
            </property>
-           <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
-           </property>
-           <property name="topMargin">
-            <number>1</number>
-           </property>
-          </layout>
-         </item>
-        </layout>
-       </widget>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="TimeLineSlider" name="horizontalSlider">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QWidget
+{
+background-color:rgba(255, 255, 255, 0);
+border:0px solid black;
+}
+QSlider::groove:horizontal {
+
+    height: 2px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+background:white;
+
+    margin: 2px 0;
+}
+QSlider::handle:horizontal {
+    background: rgb(255, 170, 0);
+    width:5px;
+	height: 15px;
+	border:1px solid red;
+}</string>
+              </property>
+              <property name="maximum">
+               <number>200</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksAbove</enum>
+              </property>
+              <property name="tickInterval">
+               <number>25</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QScrollArea" name="scrollArea_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAsNeeded</enum>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>1189</width>
+                 <height>388</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="timeline">
+                  <property name="spacing">
+                   <number>1</number>
+                  </property>
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
+                  </property>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
@@ -441,6 +508,30 @@ background-color:rgb(134, 95, 197)
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TimeLineSlider</class>
+   <extends>QSlider</extends>
+   <header>timelineslider.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>10</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>10</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
 </ui>

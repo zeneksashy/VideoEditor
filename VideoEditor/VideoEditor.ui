@@ -172,7 +172,10 @@ border-color:rgb(104, 104, 104)
     <property name="title">
      <string>FIle</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionExport"/>
+    <addaction name="actionInport"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -191,6 +194,21 @@ border-color:rgb(104, 104, 104)
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
+  <action name="actionInport">
+   <property name="text">
+    <string>Inport</string>
    </property>
   </action>
  </widget>

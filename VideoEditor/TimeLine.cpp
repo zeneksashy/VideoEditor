@@ -25,15 +25,21 @@ TimeLine::TimeLine(QWidget *parent)
 	ui.setupUi(this);
 	setAcceptDrops(true);
 	layout.reset(new QHBoxLayout);
+	auto scroll = ui.scrollArea_2->horizontalScrollBar();
+	auto scroll1 = ui.scrollArea->horizontalScrollBar();
+	connect(scroll, &QScrollBar::sliderMoved, scroll1, &QScrollBar::setValue);
 	//auto mediaplayer = MediaManager::player->getMediaPlayer();
 	//connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
-	ui.horizontalSlider->setRange(0, 181311);
+	ui.horizontalSlider->setRange(0, 4800);
+//	int width = ui.horizontalSlider->width();
+	//ui.horizontalSlider->setMaximum(width-1);
 	i = 0;
 	scale = 5;
 	multipler = scale;
 	ui.Content->installEventFilter(this);
+	ui.scrollAreaWidgetContents->installEventFilter(this);
 }
 
 void TimeLine::ResizeFrames(int p)
@@ -109,11 +115,13 @@ void TimeLine::loadFile(QString path)
 }
 void TimeLine::updateTime()
 {
-	UpdateTimeLabel(i);
-	ui.horizontalSlider->setValue(i);
 	update();
+	UpdateTimeLabel(i);
+
+	
+	ui.horizontalSlider->setValue(i);
 	++i;
-	multipler =  MediaManager::player->getFrameRate();
+	//multipler =  MediaManager::player->getFrameRate();
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
@@ -126,14 +134,14 @@ bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 {//for now is 1 move per frames, == 25 frames per second
 	if (event->type() == QEvent::Paint)
 	{
-		int timelineMultipler = i/(multipler/scale) ;
+		//int timelineMultipler = i/(multipler/scale) ;
 		watched->event(event);
 		auto widget = dynamic_cast<QWidget*>(watched);
 		QPainter painter(widget);
 		painter.setPen(QPen(Qt::red, 1));
 		painter.setBrush(Qt::BrushStyle::SolidPattern);
 		painter.drawLine(i, 0, i, ui.Content->rect().height());
-		painter.drawLine(i, 0, i, rect().height());
+	//	painter.drawLine(i, 0, i, rect().height());
 		return true; // The event is already handled.
 	}
 	return false;

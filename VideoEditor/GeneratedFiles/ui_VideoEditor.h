@@ -30,6 +30,9 @@ class Ui_VideoEditorClass
 {
 public:
     QAction *actionOpen;
+    QAction *actionNew;
+    QAction *actionExport;
+    QAction *actionInport;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -57,6 +60,12 @@ public:
 "}"));
         actionOpen = new QAction(VideoEditorClass);
         actionOpen->setObjectName(QStringLiteral("actionOpen"));
+        actionNew = new QAction(VideoEditorClass);
+        actionNew->setObjectName(QStringLiteral("actionNew"));
+        actionExport = new QAction(VideoEditorClass);
+        actionExport->setObjectName(QStringLiteral("actionExport"));
+        actionInport = new QAction(VideoEditorClass);
+        actionInport->setObjectName(QStringLiteral("actionInport"));
         centralWidget = new QWidget(VideoEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setStyleSheet(QStringLiteral(""));
@@ -155,7 +164,10 @@ public:
         menuBar->addAction(menuFIle->menuAction());
         menuBar->addAction(menuEdit->menuAction());
         menuBar->addAction(menuEffects->menuAction());
+        menuFIle->addAction(actionNew);
         menuFIle->addAction(actionOpen);
+        menuFIle->addAction(actionExport);
+        menuFIle->addAction(actionInport);
 
         retranslateUi(VideoEditorClass);
         QObject::connect(actionOpen, SIGNAL(triggered()), VideoEditorClass, SLOT(open()));
@@ -167,6 +179,9 @@ public:
     {
         VideoEditorClass->setWindowTitle(QApplication::translate("VideoEditorClass", "VideoEditor", nullptr));
         actionOpen->setText(QApplication::translate("VideoEditorClass", "Open", nullptr));
+        actionNew->setText(QApplication::translate("VideoEditorClass", "New", nullptr));
+        actionExport->setText(QApplication::translate("VideoEditorClass", "Export", nullptr));
+        actionInport->setText(QApplication::translate("VideoEditorClass", "Inport", nullptr));
         menuFIle->setTitle(QApplication::translate("VideoEditorClass", "FIle", nullptr));
         menuEdit->setTitle(QApplication::translate("VideoEditorClass", "Edit", nullptr));
         menuEffects->setTitle(QApplication::translate("VideoEditorClass", "Effects", nullptr));

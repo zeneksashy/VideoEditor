@@ -1,14 +1,16 @@
 #pragma once
 #include<qstylepainter.h>
 #include <QSlider>
-#include<QStyleOptionSlider>
-
+#include <QtGui>
+#include<qstyleoption.h>
+#include<string>
+#include <sstream>
+class QstyleOptionSlider;
 class TimeLineSlider : public QSlider
 {
-	Q_OBJECT
-
 public:
-	TimeLineSlider(QWidget *parent);
+	TimeLineSlider(QWidget *parent = 0):QSlider(parent) {};
 	 void paintEvent(QPaintEvent*) override;
-	~TimeLineSlider();
+private:
+	QString convertTime(int sec);
 };
