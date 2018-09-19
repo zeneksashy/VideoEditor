@@ -121,7 +121,7 @@ void AudioFrame::audioDecoded()
 	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
 	clock_t str = clock();
 	audioFrames.shrink_to_fit();
-	sampleSize /= MediaManager::player->getFrameRate();
+	//sampleSize /= MediaManager::player->getFrameRate();
 	audioSamples = fft.RootMeanSquare(audioFrames,sampleSize);
 	fft.Normalize(audioSamples);
 	clock_t end = clock();

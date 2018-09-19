@@ -29,7 +29,9 @@ private slots:
 	void LineSelected(MediaFrame*);
 	void ResizeFrames(int);
 private:
-	int i;
+	uint i;
+	uint scale;
+	float multipler;
 	void wheelEvent(QWheelEvent *e)override;
 	void UpdateTimeLabel(int);
 	QScopedPointer<QAudioDecoder> decoder;

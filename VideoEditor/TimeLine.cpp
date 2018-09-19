@@ -11,7 +11,7 @@
 #include<vector>
 #include <AudioFrame.h>
 
-//ToDO
+//TODO
 // add correct slider range
 //add resizinig to line drawing
 //change start position of resizing multipler to 10 , 1 to min and 20 to max
@@ -25,17 +25,20 @@ TimeLine::TimeLine(QWidget *parent)
 	ui.setupUi(this);
 	setAcceptDrops(true);
 	layout.reset(new QHBoxLayout);
-	auto mediaplayer = MediaManager::player->getMediaPlayer();
-	connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
+	//auto mediaplayer = MediaManager::player->getMediaPlayer();
+	//connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
 	ui.horizontalSlider->setRange(0, 181311);
 	i = 0;
+	scale = 5;
+	multipler = scale;
 	ui.Content->installEventFilter(this);
 }
 
 void TimeLine::ResizeFrames(int p)
 {
+	scale = p;
 	ui.zoomingSlider->blockSignals(true);
 	try
 	{
@@ -110,7 +113,7 @@ void TimeLine::updateTime()
 	ui.horizontalSlider->setValue(i);
 	update();
 	++i;
-	
+	multipler =  MediaManager::player->getFrameRate();
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
@@ -120,18 +123,17 @@ void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 }
 
 bool TimeLine::eventFilter(QObject * watched, QEvent * event)
-{
+{//for now is 1 move per frames, == 25 frames per second
 	if (event->type() == QEvent::Paint)
 	{
+		int timelineMultipler = i/(multipler/scale) ;
 		watched->event(event);
 		auto widget = dynamic_cast<QWidget*>(watched);
 		QPainter painter(widget);
 		painter.setPen(QPen(Qt::red, 1));
 		painter.setBrush(Qt::BrushStyle::SolidPattern);
-		if(widget==ui.Content)
-			painter.drawLine(i+5, 0, i + 5, rect().height());
-		else
-			painter.drawLine(i, 0, i, rect().height());
+		painter.drawLine(i, 0, i, ui.Content->rect().height());
+		painter.drawLine(i, 0, i, rect().height());
 		return true; // The event is already handled.
 	}
 	return false;

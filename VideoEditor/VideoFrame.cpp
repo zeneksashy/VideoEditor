@@ -41,7 +41,7 @@ void VideoFrame::Initliaize(QString filename)
 		img[1] = loadFrame(framecount / 2);
 		img[2] = loadFrame(framecount - 1);
 		framerate = capture.get(CV_CAP_PROP_FPS);
-		lenght = framecount;
+		lenght = framecount/framerate;
 		templenght = lenght;
 		setFixedWidth(lenght);
 	}
