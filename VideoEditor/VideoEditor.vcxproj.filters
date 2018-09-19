@@ -86,6 +86,9 @@
     <ClCompile Include="MediaFrame.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimeLineSlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -150,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="MediaFrame.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeLineSlider.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
