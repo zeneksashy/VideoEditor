@@ -16,7 +16,6 @@ VideoFrame::~VideoFrame()
 }
 void VideoFrame::paintEvent(QPaintEvent*)
 {
-
 	QPainter painter(this);
 	painter.fillRect(rect(), Qt::gray);
 	QSize size(rect().size());

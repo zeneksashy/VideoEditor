@@ -59,7 +59,7 @@ void PreviewPlayer::onPauseButtonCLicked()
 }
 void PreviewPlayer::setGausianBlur()
 {
-	MediaManager::player->effect();
+//	MediaManager::player->effect();
 }
 void PreviewPlayer::setVideoPosition(int pos)
 {

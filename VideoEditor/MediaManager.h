@@ -3,6 +3,7 @@
 #include<qwidget.h>
 #include<qscopedpointer.h>
 #include "VideoLoader.h"
+#include "GausianBlur.h"
 class MediaManager
 {
 public:
@@ -11,6 +12,7 @@ public:
 	static void LoadWidget(VideoLoader*);
 	static void LoadMedia(QString);
 	static  Player* player;
+	static  GausianBlur* gBlur;
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);

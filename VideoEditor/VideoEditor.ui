@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1639</width>
-    <height>1205</height>
+    <height>1034</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -186,6 +186,13 @@ border-color:rgb(104, 104, 104)
     <property name="title">
      <string>Effects</string>
     </property>
+    <widget class="QMenu" name="menublur">
+     <property name="title">
+      <string>blur</string>
+     </property>
+     <addaction name="actiongausian_blur"/>
+    </widget>
+    <addaction name="menublur"/>
    </widget>
    <addaction name="menuFIle"/>
    <addaction name="menuEdit"/>
@@ -209,6 +216,11 @@ border-color:rgb(104, 104, 104)
   <action name="actionInport">
    <property name="text">
     <string>Inport</string>
+   </property>
+  </action>
+  <action name="actiongausian_blur">
+   <property name="text">
+    <string>gausian blur</string>
    </property>
   </action>
  </widget>

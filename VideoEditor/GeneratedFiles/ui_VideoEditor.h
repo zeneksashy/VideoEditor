@@ -33,6 +33,7 @@ public:
     QAction *actionNew;
     QAction *actionExport;
     QAction *actionInport;
+    QAction *actiongausian_blur;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -47,12 +48,13 @@ public:
     QMenu *menuFIle;
     QMenu *menuEdit;
     QMenu *menuEffects;
+    QMenu *menublur;
 
     void setupUi(QMainWindow *VideoEditorClass)
     {
         if (VideoEditorClass->objectName().isEmpty())
             VideoEditorClass->setObjectName(QStringLiteral("VideoEditorClass"));
-        VideoEditorClass->resize(1639, 1205);
+        VideoEditorClass->resize(1639, 1034);
         VideoEditorClass->setMinimumSize(QSize(1200, 800));
         VideoEditorClass->setStyleSheet(QLatin1String("QMainWindow\n"
 "{\n"
@@ -66,6 +68,8 @@ public:
         actionExport->setObjectName(QStringLiteral("actionExport"));
         actionInport = new QAction(VideoEditorClass);
         actionInport->setObjectName(QStringLiteral("actionInport"));
+        actiongausian_blur = new QAction(VideoEditorClass);
+        actiongausian_blur->setObjectName(QStringLiteral("actiongausian_blur"));
         centralWidget = new QWidget(VideoEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setStyleSheet(QStringLiteral(""));
@@ -159,6 +163,8 @@ public:
         menuEdit->setObjectName(QStringLiteral("menuEdit"));
         menuEffects = new QMenu(menuBar);
         menuEffects->setObjectName(QStringLiteral("menuEffects"));
+        menublur = new QMenu(menuEffects);
+        menublur->setObjectName(QStringLiteral("menublur"));
         VideoEditorClass->setMenuBar(menuBar);
 
         menuBar->addAction(menuFIle->menuAction());
@@ -168,6 +174,8 @@ public:
         menuFIle->addAction(actionOpen);
         menuFIle->addAction(actionExport);
         menuFIle->addAction(actionInport);
+        menuEffects->addAction(menublur->menuAction());
+        menublur->addAction(actiongausian_blur);
 
         retranslateUi(VideoEditorClass);
         QObject::connect(actionOpen, SIGNAL(triggered()), VideoEditorClass, SLOT(open()));
@@ -182,9 +190,11 @@ public:
         actionNew->setText(QApplication::translate("VideoEditorClass", "New", nullptr));
         actionExport->setText(QApplication::translate("VideoEditorClass", "Export", nullptr));
         actionInport->setText(QApplication::translate("VideoEditorClass", "Inport", nullptr));
+        actiongausian_blur->setText(QApplication::translate("VideoEditorClass", "gausian blur", nullptr));
         menuFIle->setTitle(QApplication::translate("VideoEditorClass", "FIle", nullptr));
         menuEdit->setTitle(QApplication::translate("VideoEditorClass", "Edit", nullptr));
         menuEffects->setTitle(QApplication::translate("VideoEditorClass", "Effects", nullptr));
+        menublur->setTitle(QApplication::translate("VideoEditorClass", "blur", nullptr));
     } // retranslateUi
 
 };

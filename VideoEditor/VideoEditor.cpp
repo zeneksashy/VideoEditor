@@ -17,7 +17,7 @@ VideoEditor::VideoEditor(QWidget *parent)
 	ui.setupUi(this);
 	MediaManager::LoadWidget(ui.preview);
 	MediaManager::LoadWidget(ui.timeLine);
-
+	connectWdigets();
 	ConfigureWindow();
 }
 
@@ -32,6 +32,12 @@ void VideoEditor::open()
 		MediaManager::LoadMedia(filename);
 	}
 	
+}
+
+void VideoEditor::connectWdigets()
+{
+//	auto g = 
+	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
 }
 
 void VideoEditor::ConfigureWindow()

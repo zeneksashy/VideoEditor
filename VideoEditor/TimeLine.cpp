@@ -28,13 +28,11 @@ TimeLine::TimeLine(QWidget *parent)
 	auto scroll = ui.scrollArea_2->horizontalScrollBar();
 	auto scroll1 = ui.scrollArea->horizontalScrollBar();
 	connect(scroll, &QScrollBar::sliderMoved, scroll1, &QScrollBar::setValue);
-	//auto mediaplayer = MediaManager::player->getMediaPlayer();
-	//connect(mediaplayer, &QMediaPlayer::positionChanged, this, &TimeLine::updateTime);
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
 	ui.horizontalSlider->setRange(0, 4800);
-//	int width = ui.horizontalSlider->width();
-	//ui.horizontalSlider->setMaximum(width-1);
+	ui.horizontalSlider->setFixedWidth(4800);
+	setMouseTracking(true);
 	i = 0;
 	scale = 5;
 	multipler = scale;

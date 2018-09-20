@@ -8,6 +8,7 @@
 #include "Player.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include"GausianBlurWindow.h"
 
 class VideoEditor : public QMainWindow
 {
@@ -19,6 +20,7 @@ private slots:
 	void open();
 
 private:
+	void connectWdigets();
 	void ConfigureWindow();
 	Ui::VideoEditorClass ui;
 };

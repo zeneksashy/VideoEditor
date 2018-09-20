@@ -5,6 +5,7 @@
 #include<qmessagebox.h>
 
 Player* MediaManager::player = new Player();
+GausianBlur* MediaManager::gBlur = new GausianBlur();
 QList<VideoLoader*> MediaManager::widgets;
 MediaManager::~MediaManager()
 {

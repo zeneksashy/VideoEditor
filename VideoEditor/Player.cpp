@@ -19,10 +19,12 @@ Player::Player(QObject *parent)
 {
 	mediaplayer.reset(new QMediaPlayer);
 	stop = true;
+	capture.reset(new cv::VideoCapture);
+	isEffectApplied = false;
 }
 bool Player::loadFile(QString filename) 
 {
-	capture.open(filename.toStdString());
+	capture->open(filename.toStdString());
 	if (CheckFile())
 	{
 		mediaplayer->setMedia(QUrl::fromLocalFile(filename));
@@ -30,7 +32,7 @@ bool Player::loadFile(QString filename)
 		video = CheckVideo();
 		if(video)
 		{
-			frameRate = (int)capture.get(CV_CAP_PROP_FPS);
+			frameRate = (int)capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
 		}
 		return true;
@@ -52,17 +54,17 @@ void Player::Play()
 }
 bool Player::CheckFile()
 {
-	if (capture.isOpened())
+	if (capture->isOpened())
 		return true;
 	return false;
 
 }
 bool Player::CheckVideo()
 {
-	if (capture.read(frame))
+	if (capture->read(frame))
 	{
 		return true;
-		capture.set(cv::CAP_PROP_POS_FRAMES, 0);
+		capture->set(cv::CAP_PROP_POS_FRAMES, 0);
 	}
 	stop = true;
 	return false;
@@ -77,22 +79,27 @@ void Player::setVideoPosition(int pos)
 {
 	Pause();
 	mediaplayer->setPosition(pos);
-	capture.set(CV_CAP_PROP_POS_MSEC, pos);
+	capture->set(CV_CAP_PROP_POS_MSEC, pos);
 	Play();
 }
 
 void Player::run()
 {
+	int i=0;
 	while (!stop)
 	{
-		CaptureNextFrame();
+		if (isEffectApplied)
+			PlayEffect(i);
+		else
+			CaptureNextFrame();
+		++i;
 	}
 	
 }
 
 void Player::Stop()
 {
-	capture.set(cv::CAP_PROP_POS_FRAMES, 0);
+	capture->set(cv::CAP_PROP_POS_FRAMES, 0);
 	mediaplayer->stop();
 	stop = true;
 }
@@ -103,9 +110,19 @@ void Player::Pause()
 	stop = true;
 }
 
+void Player::PlayEffect(int i)
+{
+	if (i == effectedFrames.size())
+		stop = true;
+	img = effectedFrames[i];
+	emit processedImage(img);
+	emit positionChanged();
+	this->msleep(delay);
+}
+
 bool Player::CheckNextFrame()
 {
-	if (!capture.read(frame))
+	if (!capture->read(frame))
 	{
 		stop = true;
 		return false;
@@ -118,13 +135,14 @@ void Player::CaptureNextFrame()
 	{
 		if (frame.channels() == 3) {
 			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-			//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);
+			cv::GaussianBlur(RGBframe, RGBframe, cv::Size(1, 1), 0, 1);
+		//	cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);
 			img = QImage((const unsigned char*)(RGBframe.data),
 				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
 		}
 		else
 		{
-			//cv::GaussianBlur(frame, frame, cv::Size(5, 3), 2.3, 1.2);
+		//	cv::GaussianBlur(frame, frame, cv::Size(5, 3), 2.3, 1.2);
 			img = QImage((const unsigned char*)(frame.data),
 				frame.cols, frame.rows, QImage::Format_Indexed8);
 		}
@@ -141,7 +159,7 @@ void Player::msleep(int ms) {
 
 int Player::getFrameRate()
 {
-	return (int)capture.get(CV_CAP_PROP_FPS);
+	return frameRate;
 }
 
 bool Player::isAudioAvaible()
@@ -154,17 +172,22 @@ bool Player::isVideoAvaible()
 	return video;
 }
 
+std::shared_ptr<cv::VideoCapture> Player::getVideCapture()
+{
+	return capture;
+}
+
 QMediaPlayer* Player::getMediaPlayer() const
 {
 	return mediaplayer.data();
 }
 
-void Player::effect()
+void Player::setEffect(std::vector<QImage> frames)
 {
-	/*exit();
-	cv::GaussianBlur(RGBframe, RGBframe, cv::Size(5, 3), 2.3, 1.2);
-	Play();*/
-	
+	effectedFrames = frames;
+	isEffectApplied = true;
+	const QImage image = frames[35];
+	emit processedImage(image);
 }
 
 bool Player::isStopped() const {
@@ -175,7 +198,7 @@ Player::~Player()
 {
 	mutex.lock();
 	stop = true;
-	capture.release();
+	capture->release();
 	condition.wakeOne();
 	mutex.unlock();
 	wait();
