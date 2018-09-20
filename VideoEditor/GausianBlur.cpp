@@ -33,12 +33,6 @@ GausianBlur::~GausianBlur()
 void GausianBlur::ExecuteEffect()
 {
 }
-
-//std::vector<QImage> GausianBlur::ExecuteGausianBlur()
-//{
-//	Calculate();
-//	return convertedFrames;
-//}
 std::vector<cv::Mat> GausianBlur::ExecuteGausianBlur()
 {
 	Calculate();

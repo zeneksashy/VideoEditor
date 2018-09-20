@@ -186,14 +186,6 @@ QMediaPlayer* Player::getMediaPlayer() const
 {
 	return mediaplayer.data();
 }
-
-void Player::setEffect(std::vector<QImage> frames)
-{
-	effectedFrames = frames;
-	isEffectApplied = true;
-	const QImage image = frames[35];
-	emit processedImage(image);
-}
 void Player::setEffect(std::vector<cv::Mat> frames)
 {
 	effectedFramesMat = frames;
