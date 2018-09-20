@@ -29,6 +29,7 @@ public:
 	std::shared_ptr<cv::VideoCapture> getVideCapture();
 	QMediaPlayer* getMediaPlayer() const;
 	void setEffect(std::vector<QImage>);
+	void setEffect(std::vector<cv::Mat>);
 	//Constructor
 	Player(QObject *parent = 0);
 	//Destructor
@@ -64,4 +65,5 @@ private:
 	bool CheckFile();
 	int delay;
 	std::vector<QImage> effectedFrames;
+	std::vector<cv::Mat> effectedFramesMat;
 };

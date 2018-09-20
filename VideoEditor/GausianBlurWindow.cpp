@@ -24,7 +24,7 @@ void GausianBlurWindow::applyEffect()
 	MediaManager::gBlur->Initialize(cap, params);
 	auto frames = MediaManager::gBlur->ExecuteGausianBlur();
 	MediaManager::player->setEffect(frames);
-	this->close();
+	this->hide();
 }
 
 void GausianBlurWindow::connectWidgets()

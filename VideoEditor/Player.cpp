@@ -112,12 +112,17 @@ void Player::Pause()
 
 void Player::PlayEffect(int i)
 {
-	if (i == effectedFrames.size())
+	if (i == effectedFramesMat.size())
 		stop = true;
-	img = effectedFrames[i];
-	emit processedImage(img);
-	emit positionChanged();
-	this->msleep(delay);
+	else
+	{
+		img = QImage((const unsigned char*)(effectedFramesMat[i].data),
+			effectedFramesMat[i].cols, effectedFramesMat[i].rows, QImage::Format_RGB888);
+		emit processedImage(img);
+		emit positionChanged();
+		this->msleep(delay);
+	}
+	
 }
 
 bool Player::CheckNextFrame()
@@ -189,7 +194,14 @@ void Player::setEffect(std::vector<QImage> frames)
 	const QImage image = frames[35];
 	emit processedImage(image);
 }
-
+void Player::setEffect(std::vector<cv::Mat> frames)
+{
+	effectedFramesMat = frames;
+	isEffectApplied = true;
+	//isEffectApplied = true;
+	//const QImage image = frames[35];
+	//emit processedImage(image);
+}
 bool Player::isStopped() const {
 	return this->stop;
 }

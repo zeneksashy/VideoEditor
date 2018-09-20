@@ -30,7 +30,8 @@ public:
 	~GausianBlur();
 	// Inherited via Effect
 	virtual void ExecuteEffect() override;
-	std::vector<QImage> ExecuteGausianBlur();
+	//std::vector<QImage> ExecuteGausianBlur();
+	std::vector<cv::Mat> ExecuteGausianBlur();
 	virtual void Calculate() override;
 private:
 	GausianBlurParam parameters;

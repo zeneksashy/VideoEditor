@@ -6,6 +6,7 @@ GausianBlur::GausianBlur(std::shared_ptr<cv::VideoCapture> capture, GausianBlurP
 	this->capture = capture;
 	framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
 	convertedFrames.resize(framecount);
+	data.resize(framecount);
 	this->parameters = param;
 	
 }
@@ -20,6 +21,7 @@ void GausianBlur::Initialize(std::shared_ptr<cv::VideoCapture> capture, GausianB
 	this->capture = capture;
 	framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
 	convertedFrames.resize(framecount);
+	data.resize(framecount);
 	this->parameters = param;
 }
 
@@ -32,10 +34,15 @@ void GausianBlur::ExecuteEffect()
 {
 }
 
-std::vector<QImage> GausianBlur::ExecuteGausianBlur()
+//std::vector<QImage> GausianBlur::ExecuteGausianBlur()
+//{
+//	Calculate();
+//	return convertedFrames;
+//}
+std::vector<cv::Mat> GausianBlur::ExecuteGausianBlur()
 {
 	Calculate();
-	return convertedFrames;
+	return data;
 }
 
 void GausianBlur::Calculate()
@@ -45,10 +52,10 @@ void GausianBlur::Calculate()
 	{
 		if (frame.channels() == 3) {
 			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-			cv::GaussianBlur(RGBframe, RGBframe, cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
-			data.push_back(RGBframe);
-			convertedFrames[i] = QImage((const unsigned char*)(data[i].data),
+			cv::GaussianBlur(RGBframe, data[i], cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
+			auto img = QImage((const unsigned char*)(data[i].data),
 				RGBframe.cols, RGBframe.rows, QImage::Format_RGB32);
+			convertedFrames[i] = img;
 		}
 		else
 		{
