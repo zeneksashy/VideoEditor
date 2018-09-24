@@ -33,12 +33,10 @@ public:
 	GausianBlur();
 	void Initialize(std::shared_ptr<cv::VideoCapture>, GausianBlurParam);
 	~GausianBlur();
-	// Inherited via Effect
-	virtual void ExecuteEffect() override;
-	//std::vector<QImage> ExecuteGausianBlur();
-	std::vector<cv::Mat> ExecuteGausianBlur();
+	std::vector<cv::Mat> ExecuteEffect() override;
 	virtual void Calculate() override;
 private:
+	bool CheckParams();
 	GausianBlurParam parameters;
 	cv::Mat RGBframe;
 	cv::Mat frame;

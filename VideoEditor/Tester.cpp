@@ -2,6 +2,7 @@
 #include<qaudioformat.h>
 #include<qobject.h>
 #include<AudioRecognition.h>
+#include<GausianBlur.h>
 #include <QtTest/QtTest>
 class AudioRecognitionTest : public QObject
 {
@@ -157,8 +158,30 @@ private slots:
 private:
 	const int multipler = 100000;
 };
+class GausianBlurTest : public QObject
+{
+	Q_OBJECT
+private slots:
 
+	void GausianBlurParamsNonOddNumbers()
+	{
+		GausianBlur b;
+		GausianBlurParam params;
+		params.Create(3, 9, 5, 3);
+		cv::VideoCapture* cap = new cv::VideoCapture;
+		std::shared_ptr<cv::VideoCapture> cap_ptr(cap);
+		b.Initialize(cap_ptr, params);
+		auto actual = b.ExecuteEffect();
+		Q_ASSERT(actual.size() == 0);
+	}
 
-//QTEST_MAIN(FastFourierTransformTest)
+};
+class MedianBlurTest :public QObject
+{
+	Q_OBJECT
+private slots:
+
+};
+QTEST_MAIN(GausianBlurTest)
 
 #include "tester.moc"

@@ -53,6 +53,7 @@ public:
         gridLayout->setContentsMargins(-1, -1, 15, -1);
         SizeX = new QSpinBox(GausianBlurWindow);
         SizeX->setObjectName(QStringLiteral("SizeX"));
+        SizeX->setToolTipDuration(1);
         SizeX->setMinimum(1);
         SizeX->setValue(1);
 
@@ -73,6 +74,7 @@ public:
 
         SizeY = new QSpinBox(GausianBlurWindow);
         SizeY->setObjectName(QStringLiteral("SizeY"));
+        SizeY->setToolTipDuration(1);
         SizeY->setValue(1);
 
         gridLayout->addWidget(SizeY, 0, 2, 1, 1);
@@ -146,7 +148,19 @@ public:
     void retranslateUi(QDialog *GausianBlurWindow)
     {
         GausianBlurWindow->setWindowTitle(QApplication::translate("GausianBlurWindow", "GausianBlurWindow", nullptr));
+#ifndef QT_NO_TOOLTIP
+        SizeX->setToolTip(QApplication::translate("GausianBlurWindow", "Only Odd Numbers", nullptr));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        SizeX->setStatusTip(QString());
+#endif // QT_NO_STATUSTIP
         SizeLabel->setText(QApplication::translate("GausianBlurWindow", "Size", nullptr));
+#ifndef QT_NO_TOOLTIP
+        SizeY->setToolTip(QApplication::translate("GausianBlurWindow", "Only Odd Numbers", nullptr));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        SizeY->setStatusTip(QString());
+#endif // QT_NO_STATUSTIP
         YLabel->setText(QApplication::translate("GausianBlurWindow", "Y", nullptr));
         XLabel->setText(QApplication::translate("GausianBlurWindow", "X", nullptr));
     } // retranslateUi

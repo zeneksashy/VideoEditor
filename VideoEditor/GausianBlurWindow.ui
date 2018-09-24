@@ -21,6 +21,15 @@
      </property>
      <item row="0" column="1">
       <widget class="QSpinBox" name="SizeX">
+       <property name="toolTip">
+        <string>Only Odd Numbers</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>1</number>
+       </property>
+       <property name="statusTip">
+        <string extracomment="Only Odd Numbers"/>
+       </property>
        <property name="minimum">
         <number>1</number>
        </property>
@@ -49,6 +58,15 @@
      </item>
      <item row="0" column="2">
       <widget class="QSpinBox" name="SizeY">
+       <property name="toolTip">
+        <string>Only Odd Numbers</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>1</number>
+       </property>
+       <property name="statusTip">
+        <string extracomment="Only Odd Numbers"/>
+       </property>
        <property name="value">
         <number>1</number>
        </property>
