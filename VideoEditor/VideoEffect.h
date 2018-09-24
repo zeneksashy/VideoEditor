@@ -1,9 +1,9 @@
 #pragma once
-class Effect
+class VideoEffect
 {
 public:
-	Effect();
-	virtual ~Effect();
+	VideoEffect() {};
+	virtual ~VideoEffect() {};
 	virtual void ExecuteEffect()=0;
 	virtual void Calculate() = 0;
 };

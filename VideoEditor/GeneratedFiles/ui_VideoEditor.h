@@ -34,6 +34,9 @@ public:
     QAction *actionExport;
     QAction *actionInport;
     QAction *actiongausian_blur;
+    QAction *actionmedian_blur;
+    QAction *actionblur;
+    QAction *actionbilateral_blur;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -70,6 +73,12 @@ public:
         actionInport->setObjectName(QStringLiteral("actionInport"));
         actiongausian_blur = new QAction(VideoEditorClass);
         actiongausian_blur->setObjectName(QStringLiteral("actiongausian_blur"));
+        actionmedian_blur = new QAction(VideoEditorClass);
+        actionmedian_blur->setObjectName(QStringLiteral("actionmedian_blur"));
+        actionblur = new QAction(VideoEditorClass);
+        actionblur->setObjectName(QStringLiteral("actionblur"));
+        actionbilateral_blur = new QAction(VideoEditorClass);
+        actionbilateral_blur->setObjectName(QStringLiteral("actionbilateral_blur"));
         centralWidget = new QWidget(VideoEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setStyleSheet(QStringLiteral(""));
@@ -176,6 +185,9 @@ public:
         menuFIle->addAction(actionInport);
         menuEffects->addAction(menublur->menuAction());
         menublur->addAction(actiongausian_blur);
+        menublur->addAction(actionmedian_blur);
+        menublur->addAction(actionblur);
+        menublur->addAction(actionbilateral_blur);
 
         retranslateUi(VideoEditorClass);
         QObject::connect(actionOpen, SIGNAL(triggered()), VideoEditorClass, SLOT(open()));
@@ -191,10 +203,13 @@ public:
         actionExport->setText(QApplication::translate("VideoEditorClass", "Export", nullptr));
         actionInport->setText(QApplication::translate("VideoEditorClass", "Inport", nullptr));
         actiongausian_blur->setText(QApplication::translate("VideoEditorClass", "gausian blur", nullptr));
+        actionmedian_blur->setText(QApplication::translate("VideoEditorClass", "median blur", nullptr));
+        actionblur->setText(QApplication::translate("VideoEditorClass", "average blur", nullptr));
+        actionbilateral_blur->setText(QApplication::translate("VideoEditorClass", "bilateral blur", nullptr));
         menuFIle->setTitle(QApplication::translate("VideoEditorClass", "FIle", nullptr));
         menuEdit->setTitle(QApplication::translate("VideoEditorClass", "Edit", nullptr));
         menuEffects->setTitle(QApplication::translate("VideoEditorClass", "Effects", nullptr));
-        menublur->setTitle(QApplication::translate("VideoEditorClass", "blur", nullptr));
+        menublur->setTitle(QApplication::translate("VideoEditorClass", "blurs", nullptr));
     } // retranslateUi
 
 };

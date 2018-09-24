@@ -89,9 +89,6 @@
     <ClCompile Include="TimeLineSlider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="GausianBlur.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -172,10 +169,10 @@
     <ClInclude Include="TimeLineSlider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
+    <ClInclude Include="GausianBlur.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GausianBlur.h">
+    <ClInclude Include="VideoEffect.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

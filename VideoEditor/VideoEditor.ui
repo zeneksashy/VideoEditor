@@ -188,9 +188,12 @@ border-color:rgb(104, 104, 104)
     </property>
     <widget class="QMenu" name="menublur">
      <property name="title">
-      <string>blur</string>
+      <string>blurs</string>
      </property>
      <addaction name="actiongausian_blur"/>
+     <addaction name="actionmedian_blur"/>
+     <addaction name="actionblur"/>
+     <addaction name="actionbilateral_blur"/>
     </widget>
     <addaction name="menublur"/>
    </widget>
@@ -221,6 +224,21 @@ border-color:rgb(104, 104, 104)
   <action name="actiongausian_blur">
    <property name="text">
     <string>gausian blur</string>
+   </property>
+  </action>
+  <action name="actionmedian_blur">
+   <property name="text">
+    <string>median blur</string>
+   </property>
+  </action>
+  <action name="actionblur">
+   <property name="text">
+    <string>average blur</string>
+   </property>
+  </action>
+  <action name="actionbilateral_blur">
+   <property name="text">
+    <string>bilateral blur</string>
    </property>
   </action>
  </widget>

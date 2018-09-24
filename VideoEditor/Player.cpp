@@ -140,7 +140,7 @@ void Player::CaptureNextFrame()
 	{
 		if (frame.channels() == 3) {
 			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-			cv::GaussianBlur(RGBframe, RGBframe, cv::Size(1, 1), 0, 1);
+		//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(1, 1), 0, 1);
 		//	cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);
 			img = QImage((const unsigned char*)(RGBframe.data),
 				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
