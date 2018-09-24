@@ -34,7 +34,7 @@ void VideoEditor::open()
 
 void VideoEditor::connectWdigets()
 {
-	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
+	//connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
 	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::show);
 }
 

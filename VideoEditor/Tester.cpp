@@ -182,6 +182,6 @@ class MedianBlurTest :public QObject
 private slots:
 
 };
-QTEST_MAIN(GausianBlurTest)
+//QTEST_MAIN(GausianBlurTest)
 
 #include "tester.moc"

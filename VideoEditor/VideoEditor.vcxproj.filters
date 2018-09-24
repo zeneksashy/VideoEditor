@@ -45,6 +45,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Video Effects">
+      <UniqueIdentifier>{3b35fe34-c4b4-4fb4-96a3-967397f2aa7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VideoEditor.cpp">
@@ -89,10 +92,16 @@
     <ClCompile Include="TimeLineSlider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GausianBlur.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="GausianBlurWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GausianBlur.cpp">
+      <Filter>Video Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="MedianBlur.cpp">
+      <Filter>Video Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="MedianBlurWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,6 +133,9 @@
     <QtMoc Include="GausianBlurWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="MedianBlurWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="VideoEditor.ui">
@@ -139,6 +151,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="GausianBlurWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MedianBlurWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -169,11 +184,14 @@
     <ClInclude Include="TimeLineSlider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GausianBlur.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="VideoEffect.h">
-      <Filter>Generated Files</Filter>
+      <Filter>Video Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="GausianBlur.h">
+      <Filter>Video Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="MedianBlur.h">
+      <Filter>Video Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

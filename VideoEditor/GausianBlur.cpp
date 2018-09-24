@@ -52,6 +52,7 @@ void GausianBlur::Calculate()
 				{
 					e.what();
 				}
+				
 			}
 			else
 			{
@@ -78,7 +79,7 @@ void GausianBlur::Calculate()
 
 bool GausianBlur::CheckParams()
 {
-	if(parameters.Xsize %2!=0 || parameters.Ysize%2!=0)
+	if(parameters.Xsize%2==0 || parameters.Ysize%2==0)
 		return false;
 	return true;
 }

@@ -1,5 +1,6 @@
 #include "GausianBlurWindow.h"
 #include "GausianBlur.h"
+
 #include"MediaManager.h"
 GausianBlurWindow::GausianBlurWindow(QWidget *parent)
 	: QDialog(parent)
