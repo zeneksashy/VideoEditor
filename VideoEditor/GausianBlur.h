@@ -4,10 +4,10 @@
 #include<qimage.h>
 struct GausianBlurParam
 {
-	double x;
-	double y;
 	uint Xsize;
 	uint Ysize;
+	double x;
+	double y;
 	void Create(double x, double y, uint Xsize, uint Ysize)
 	{
 		this->x = x;
@@ -27,15 +27,13 @@ public:
 	std::vector<cv::Mat> ExecuteEffect() override;
 	virtual void Calculate(cv::Mat&) override;
 private:
-	bool CheckParams();
-	GausianBlurParam parameters;
 	cv::Mat RGBframe;
 	cv::Mat frame;
-	std::vector<cv::Mat> data;
+	bool CheckParams();
 	uint framecount;
+	GausianBlurParam parameters;
+	std::vector<cv::Mat> data;
 	std::shared_ptr<cv::VideoCapture> capture;
 	std::vector<QImage> convertedFrames;
 	std::vector<cv::Mat> pureFrames;
 };
-
-

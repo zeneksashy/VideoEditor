@@ -33,23 +33,24 @@ std::vector<cv::Mat> GausianBlur::ExecuteEffect()
 void GausianBlur::Calculate(cv::Mat& frame)
 {
 	clock_t start = clock();
-		if (frame.channels() == 3) {
+	//	if (frame.channels() == 3) {
 			try
 			{
-				//cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-				cv::cuda::GpuMat input(frame);
+				cv::cuda::Stream stream;
+				//cv::cuda::HostMem locked(frame);
+				cv::cuda::GpuMat input;
+				input.upload(frame,stream);
 				cv::cuda::GpuMat output;
 				auto filter = cv::cuda::createGaussianFilter(input.type(), output.type(), cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
-				filter->apply(input, output);
+				filter->apply(input, output,stream);
 				frame = cv::Mat(output);
 			}
 			catch (const std::exception& e)
 			{
 				e.what();
 			}
-
-		}
-		else
+		//}
+	/*	else
 		{
 			try
 			{
@@ -63,9 +64,8 @@ void GausianBlur::Calculate(cv::Mat& frame)
 			{
 				e.what();
 			}
-		}
+		}*/
 
-	//	i++;
 	clock_t stop = clock();
 	clock_t time = stop - start;
 	double result = time / (double)CLOCKS_PER_SEC;

@@ -55,7 +55,8 @@ private:
 	std::shared_ptr<cv::VideoCapture> capture;
 	cv::Mat RGBframe;
 	QImage img;
-	void PlayEffect(int);
+	bool isFirstFrame;
+	void PlayEffect();
 	bool audio;
 	bool video;
 	bool isEffectApplied;

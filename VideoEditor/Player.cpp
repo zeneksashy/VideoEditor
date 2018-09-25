@@ -21,6 +21,7 @@ Player::Player(QObject *parent)
 	stop = true;
 	capture.reset(new cv::VideoCapture);
 	isEffectApplied = false;
+	isFirstFrame = true;
 }
 bool Player::loadFile(QString filename) 
 {
@@ -48,8 +49,8 @@ void Player::Play()
 		}
 		if(video)
 		start(LowPriority);
-		if (audio)
-			mediaplayer->play();
+		//if (audio)
+		//	mediaplayer->play();
 	}
 }
 bool Player::CheckFile()
@@ -85,16 +86,27 @@ void Player::setVideoPosition(int pos)
 
 void Player::run()
 {
-	int i=0;
 	while (!stop)
 	{
 		if (isEffectApplied)
-			PlayEffect(i);
+		{
+			PlayEffect();
+			if (isFirstFrame && audio)
+			{
+				mediaplayer->play();
+				isFirstFrame = false;
+			}
+		}
 		else
+		{
 			CaptureNextFrame();
-		++i;
+			if (isFirstFrame && audio)
+			{
+				mediaplayer->play();
+				isFirstFrame = false;
+			}
+		}
 	}
-	
 }
 
 void Player::Stop()
@@ -110,7 +122,7 @@ void Player::Pause()
 	stop = true;
 }
 
-void Player::PlayEffect(int i)
+void Player::PlayEffect()
 {
 	if (CheckNextFrame())
 	{
