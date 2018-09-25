@@ -6,6 +6,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <QThread>
+#include "VideoEffect.h"
 #include<qmediaplayer.h>
 class Player : public QThread
 {
@@ -28,6 +29,7 @@ public:
 	bool isVideoAvaible();
 	std::shared_ptr<cv::VideoCapture> getVideCapture();
 	QMediaPlayer* getMediaPlayer() const;
+	void setEffect(VideoEffect*);
 	void setEffect(std::vector<cv::Mat>);
 	//Constructor
 	Player(QObject *parent = 0);
@@ -63,6 +65,7 @@ private:
 	bool CheckAudio();
 	bool CheckFile();
 	int delay;
+	VideoEffect* current;
 	std::vector<QImage> effectedFrames;
 	std::vector<cv::Mat> effectedFramesMat;
 };

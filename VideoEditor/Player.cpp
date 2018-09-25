@@ -46,10 +46,10 @@ void Player::Play()
 		if (isStopped()) {
 			stop = false;
 		}
-		if(audio)
-		mediaplayer->play();
 		if(video)
 		start(LowPriority);
+		if (audio)
+			mediaplayer->play();
 	}
 }
 bool Player::CheckFile()
@@ -112,16 +112,27 @@ void Player::Pause()
 
 void Player::PlayEffect(int i)
 {
-	if (i == effectedFramesMat.size())
-		stop = true;
-	else
+	if (CheckNextFrame())
 	{
-		img = QImage((const unsigned char*)(effectedFramesMat[i].data),
-			effectedFramesMat[i].cols, effectedFramesMat[i].rows, QImage::Format_RGB888);
+		current->Calculate(frame);
+		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+		img = QImage((const unsigned char*)(RGBframe.data),
+		RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
 		emit processedImage(img);
 		emit positionChanged();
 		this->msleep(delay);
 	}
+
+	//if (i == effectedFramesMat.size())
+	//	stop = true;
+	//else
+	//{
+	//	img = QImage((const unsigned char*)(effectedFramesMat[i].data),
+	//		effectedFramesMat[i].cols, effectedFramesMat[i].rows, QImage::Format_RGB888);
+	//	emit processedImage(img);
+	//	emit positionChanged();
+	//	this->msleep(delay);
+	//}
 	
 }
 
@@ -140,14 +151,11 @@ void Player::CaptureNextFrame()
 	{
 		if (frame.channels() == 3) {
 			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-		//cv::GaussianBlur(RGBframe, RGBframe, cv::Size(1, 1), 0, 1);
-		//	cv::GaussianBlur(RGBframe, RGBframe, cv::Size(15, 5), 10.3, 9.2);
 			img = QImage((const unsigned char*)(RGBframe.data),
 				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
 		}
 		else
 		{
-		//	cv::GaussianBlur(frame, frame, cv::Size(5, 3), 2.3, 1.2);
 			img = QImage((const unsigned char*)(frame.data),
 				frame.cols, frame.rows, QImage::Format_Indexed8);
 		}
@@ -185,6 +193,11 @@ std::shared_ptr<cv::VideoCapture> Player::getVideCapture()
 QMediaPlayer* Player::getMediaPlayer() const
 {
 	return mediaplayer.data();
+}
+void Player::setEffect(VideoEffect* effect)
+{
+	current = effect;
+	isEffectApplied = true;
 }
 void Player::setEffect(std::vector<cv::Mat> frames)
 {

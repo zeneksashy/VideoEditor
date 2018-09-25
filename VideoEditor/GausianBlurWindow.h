@@ -13,6 +13,8 @@ public:
 	~GausianBlurWindow();
 private slots:
 	void applyEffect();
+	void OnSizeXvalueChanged();
+	void OnSizeYvalueChanged();
 private:
 	void connectWidgets();
 	Ui::GausianBlurWindow ui;

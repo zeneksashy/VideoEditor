@@ -13,6 +13,22 @@ GausianBlurWindow::GausianBlurWindow(QWidget *parent)
 GausianBlurWindow::~GausianBlurWindow()
 {
 }
+void GausianBlurWindow::OnSizeXvalueChanged()
+{
+	int val = ui.SizeX->value();
+	if (val % 2 == 0)
+	{
+		ui.SizeX->setValue(val - 1);
+	}
+}
+void GausianBlurWindow::OnSizeYvalueChanged()
+{
+	int val = ui.SizeY->value();
+	if (val % 2 == 0)
+	{
+		ui.SizeY->setValue(val - 1);
+	}
+}
 void GausianBlurWindow::applyEffect()
 {
 	double x = ui.XParam->value();
@@ -24,11 +40,13 @@ void GausianBlurWindow::applyEffect()
 	auto cap = MediaManager::player->getVideCapture();
 	MediaManager::gBlur->Initialize(cap, params);
 	auto frames = MediaManager::gBlur->ExecuteEffect();
-	MediaManager::player->setEffect(frames);
+	MediaManager::player->setEffect(MediaManager::gBlur);
 	this->hide();
 }
 
 void GausianBlurWindow::connectWidgets()
 {
 	connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &GausianBlurWindow::applyEffect);
+	connect(ui.SizeX, &QSpinBox::editingFinished, this, &GausianBlurWindow::OnSizeXvalueChanged);
+	connect(ui.SizeY, &QSpinBox::editingFinished, this, &GausianBlurWindow::OnSizeYvalueChanged);
 }

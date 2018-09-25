@@ -56,6 +56,7 @@ public:
         SizeX->setToolTipDuration(1);
         SizeX->setMinimum(1);
         SizeX->setMaximum(31);
+        SizeX->setSingleStep(2);
         SizeX->setValue(1);
 
         gridLayout->addWidget(SizeX, 0, 1, 1, 1);
@@ -76,7 +77,9 @@ public:
         SizeY = new QSpinBox(GausianBlurWindow);
         SizeY->setObjectName(QStringLiteral("SizeY"));
         SizeY->setToolTipDuration(1);
+        SizeY->setMinimum(1);
         SizeY->setMaximum(31);
+        SizeY->setSingleStep(2);
         SizeY->setValue(1);
 
         gridLayout->addWidget(SizeY, 0, 2, 1, 1);

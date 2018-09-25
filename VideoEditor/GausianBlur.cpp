@@ -25,14 +25,53 @@ GausianBlur::~GausianBlur()
 }
 std::vector<cv::Mat> GausianBlur::ExecuteEffect()
 {
-	Calculate();
+	//Calculate();
 	return data;
 }
 //23 seconds size 3x9 y = 1 x = 4.5 on cpu
 //3.2 second size 3x9 y =1 x =4.5 on gpu
-void GausianBlur::Calculate()
+void GausianBlur::Calculate(cv::Mat& frame)
 {
-	if (CheckParams())
+	clock_t start = clock();
+		if (frame.channels() == 3) {
+			try
+			{
+				//cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+				cv::cuda::GpuMat input(frame);
+				cv::cuda::GpuMat output;
+				auto filter = cv::cuda::createGaussianFilter(input.type(), output.type(), cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
+				filter->apply(input, output);
+				frame = cv::Mat(output);
+			}
+			catch (const std::exception& e)
+			{
+				e.what();
+			}
+
+		}
+		else
+		{
+			try
+			{
+				cv::cuda::GpuMat input(frame);
+				cv::cuda::GpuMat output;
+				auto filter = cv::cuda::createGaussianFilter(input.type(), output.type(), cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
+				filter->apply(input, output);
+				frame = cv::Mat(output);
+			}
+			catch (const std::exception& e)
+			{
+				e.what();
+			}
+		}
+
+	//	i++;
+	clock_t stop = clock();
+	clock_t time = stop - start;
+	double result = time / (double)CLOCKS_PER_SEC;
+
+	//previous version
+	/*if (CheckParams())
 	{
 		clock_t start = clock();
 		int i = 0;
@@ -74,7 +113,7 @@ void GausianBlur::Calculate()
 		clock_t stop = clock();
 		clock_t time = stop - start;
 		double result = time / (double)CLOCKS_PER_SEC;
-	}
+	}*/
 }
 
 bool GausianBlur::CheckParams()

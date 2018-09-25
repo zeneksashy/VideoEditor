@@ -10,7 +10,7 @@ public:
 	void Initialize(std::shared_ptr<cv::VideoCapture>, uint kernel);
 	// Inherited via VideoEffect
 	virtual std::vector<cv::Mat> ExecuteEffect() override;
-	virtual void Calculate() override;
+	virtual void Calculate(cv::Mat&) override;
 private:
 	cv::Mat RGBframe;
 	cv::Mat frame;

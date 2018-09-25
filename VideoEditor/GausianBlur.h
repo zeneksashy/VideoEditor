@@ -25,7 +25,7 @@ public:
 	void Initialize(std::shared_ptr<cv::VideoCapture>, GausianBlurParam);
 	~GausianBlur();
 	std::vector<cv::Mat> ExecuteEffect() override;
-	virtual void Calculate() override;
+	virtual void Calculate(cv::Mat&) override;
 private:
 	bool CheckParams();
 	GausianBlurParam parameters;
