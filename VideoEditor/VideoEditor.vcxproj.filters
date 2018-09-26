@@ -110,6 +110,9 @@
     <ClCompile Include="ProjectSettingsWIndow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Project.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -204,6 +207,9 @@
     </ClInclude>
     <ClInclude Include="MediaFrame.h">
       <Filter>Custom Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Project.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,13 @@
 #include <QMessageBox>
 #include"GausianBlurWindow.h"
 #include "ProjectSettingsWIndow.h"
-
+struct ProjectSettings
+{
+	int frameWidth;
+	int frameHeight;
+	double frameRate;
+	std::string path;
+};
 class VideoEditor : public QMainWindow
 {
 	Q_OBJECT

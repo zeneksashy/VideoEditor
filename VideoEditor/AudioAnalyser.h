@@ -5,7 +5,7 @@
 #include"FastFourierTransform.h"
 #include<QVariant>
 
-#define _ITERATOR_DEBUG_LEVEL 1
+//#define _ITERATOR_DEBUG_LEVEL 1
 
 #define ComplexVector std::vector<std::complex<double>>
 template<int N> class PowerOfTwo
