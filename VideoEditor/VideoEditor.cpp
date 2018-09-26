@@ -11,12 +11,14 @@
 #include <QMessageBox>
 #include"MediaManager.h"
 
+
 VideoEditor::VideoEditor(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	MediaManager::LoadWidget(ui.preview);
 	MediaManager::LoadWidget(ui.timeLine);
+	settings.reset(new ProjectSettingsWIndow);
 	connectWdigets();
 	ConfigureWindow();
 }
@@ -34,7 +36,7 @@ void VideoEditor::open()
 
 void VideoEditor::connectWdigets()
 {
-	//connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
+	connect(ui.actionNew, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::show);
 	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::show);
 }
 

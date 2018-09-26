@@ -19,6 +19,11 @@ void GausianBlur::Initialize(std::shared_ptr<cv::VideoCapture> capture, GausianB
 	this->parameters = param;
 }
 
+void GausianBlur::Initialize(GausianBlurParam param)
+{
+	this->parameters = param;
+}
+
 GausianBlur::~GausianBlur()
 {
 //	capture->release();
@@ -33,38 +38,17 @@ std::vector<cv::Mat> GausianBlur::ExecuteEffect()
 void GausianBlur::Calculate(cv::Mat& frame)
 {
 	clock_t start = clock();
-	//	if (frame.channels() == 3) {
-			try
-			{
-				cv::cuda::Stream stream;
-				//cv::cuda::HostMem locked(frame);
-				cv::cuda::GpuMat input;
-				input.upload(frame,stream);
-				cv::cuda::GpuMat output;
-				auto filter = cv::cuda::createGaussianFilter(input.type(), output.type(), cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
-				filter->apply(input, output,stream);
-				frame = cv::Mat(output);
-			}
-			catch (const std::exception& e)
-			{
-				e.what();
-			}
-		//}
-	/*	else
-		{
-			try
-			{
-				cv::cuda::GpuMat input(frame);
-				cv::cuda::GpuMat output;
-				auto filter = cv::cuda::createGaussianFilter(input.type(), output.type(), cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
-				filter->apply(input, output);
-				frame = cv::Mat(output);
-			}
-			catch (const std::exception& e)
-			{
-				e.what();
-			}
-		}*/
+	if (CheckParams())
+	{
+		cv::cuda::Stream stream;
+		//cv::cuda::HostMem locked(frame);
+		cv::cuda::GpuMat input;
+		input.upload(frame, stream);
+		cv::cuda::GpuMat output;
+		auto filter = cv::cuda::createGaussianFilter(input.type(), output.type(), cv::Size(parameters.Xsize, parameters.Ysize), parameters.x, parameters.y);
+		filter->apply(input, output, stream);
+		frame = cv::Mat(output);
+	}
 
 	clock_t stop = clock();
 	clock_t time = stop - start;

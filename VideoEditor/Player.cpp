@@ -35,6 +35,7 @@ bool Player::loadFile(QString filename)
 		{
 			frameRate = (int)capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
+			capture->set(cv::CAP_PROP_BUFFERSIZE,1);
 		}
 		return true;
 	}
@@ -49,8 +50,8 @@ void Player::Play()
 		}
 		if(video)
 		start(LowPriority);
-		//if (audio)
-		//	mediaplayer->play();
+		if (audio)
+			mediaplayer->play();
 	}
 }
 bool Player::CheckFile()
@@ -90,7 +91,6 @@ void Player::run()
 	{
 		if (isEffectApplied)
 		{
-			PlayEffect();
 			if (isFirstFrame && audio)
 			{
 				mediaplayer->play();

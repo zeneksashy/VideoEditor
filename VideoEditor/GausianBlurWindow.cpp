@@ -37,9 +37,9 @@ void GausianBlurWindow::applyEffect()
 	uint sizeY = ui.SizeY->value();
 	GausianBlurParam params;
 	params.Create(x, y, sizeX, sizeY);
-	auto cap = MediaManager::player->getVideCapture();
-	MediaManager::gBlur->Initialize(cap, params);
-	auto frames = MediaManager::gBlur->ExecuteEffect();
+	//auto cap = MediaManager::player->getVideCapture();
+	MediaManager::gBlur->Initialize(params);
+	//auto frames = MediaManager::gBlur->ExecuteEffect();
 	MediaManager::player->setEffect(MediaManager::gBlur);
 	this->hide();
 }
