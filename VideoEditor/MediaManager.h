@@ -4,6 +4,7 @@
 #include<qscopedpointer.h>
 #include "VideoLoader.h"
 #include "GausianBlur.h"
+#include "Project.h"
 class MediaManager
 {
 public:
@@ -13,6 +14,7 @@ public:
 	static void LoadMedia(QString);
 	static  Player* player;
 	static  GausianBlur* gBlur;
+	static Project* project;
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);

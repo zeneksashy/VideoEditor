@@ -124,7 +124,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="widthEdit"/>
+       <widget class="QLineEdit" name="widthEdit">
+        <property name="minimumSize">
+         <size>
+          <width>5</width>
+          <height>5</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

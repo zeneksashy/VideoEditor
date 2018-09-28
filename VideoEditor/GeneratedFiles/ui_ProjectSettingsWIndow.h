@@ -128,6 +128,7 @@ public:
 
         widthEdit = new QLineEdit(horizontalWidget);
         widthEdit->setObjectName(QStringLiteral("widthEdit"));
+        widthEdit->setMinimumSize(QSize(5, 5));
 
         horizontalLayout->addWidget(widthEdit);
 

@@ -1,5 +1,12 @@
 #pragma once
-#include "VideoEditor.h"
+#include<string>
+struct ProjectSettings
+{
+	int frameWidth;
+	int frameHeight;
+	double frameRate;
+	std::string path;
+};
 class Project
 {
 public:

@@ -34,6 +34,8 @@ void VideoEditor::open()
 	}
 }
 
+
+
 void VideoEditor::connectWdigets()
 {
 	connect(ui.actionNew, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::show);
