@@ -21,10 +21,10 @@ void Project::setProjectSettings(ProjectSettings settings)
 	this->settings = settings;
 }
 
-void Project::Serialize()
+void Project::Serialize(std::string)
 {
 }
 
-void Project::Deserialize()
+void Project::Deserialize(std::string)
 {
 }

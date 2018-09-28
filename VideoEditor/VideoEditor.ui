@@ -176,6 +176,7 @@ border-color:rgb(104, 104, 104)
     <addaction name="actionOpen"/>
     <addaction name="actionExport"/>
     <addaction name="actionInport"/>
+    <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -239,6 +240,11 @@ border-color:rgb(104, 104, 104)
   <action name="actionbilateral_blur">
    <property name="text">
     <string>bilateral blur</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

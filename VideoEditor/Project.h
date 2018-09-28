@@ -14,8 +14,8 @@ public:
 	~Project();
 	ProjectSettings getProjectSettings();
 	void setProjectSettings(ProjectSettings);
-	void Serialize();
-	void Deserialize();
+	void Serialize(std::string);
+	void Deserialize(std::string);
 private:
 	ProjectSettings settings;
 };

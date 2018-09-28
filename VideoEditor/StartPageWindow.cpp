@@ -3,6 +3,8 @@
 #include<qdir.h>
 #include<qlistwidget.h>
 #include "ProjectSettingsWIndow.h"
+#include<qmessagebox.h>
+#include "MediaManager.h"
 StartPageWindow::StartPageWindow(QWidget *parent)
 	: QDialog(parent)
 {
@@ -43,12 +45,20 @@ void StartPageWindow::buttonBoxClicked(QAbstractButton* button)
 {
 	if (button == ui.buttonBox->button(QDialogButtonBox::Ok))
 	{
-
+		if (projPath.isEmpty())
+		{
+			QMessageBox msgBox;
+			msgBox.setText("No project selected");
+			msgBox.exec();
+		}
+		else
+		{
+			MediaManager::project->Deserialize(projPath.toStdString());
+		}
 	}
 	else
 	{
 		exit(0);
-		//QApplication::exit();
 	}
 }
 void StartPageWindow::ConnectUi()

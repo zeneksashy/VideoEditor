@@ -42,6 +42,7 @@ void VideoEditor::connectWdigets()
 {
 	connect(ui.actionNew, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::exec);
 	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
+	connect(ui.actionSettings, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::exec);
 }
 
 void VideoEditor::ConfigureWindow()

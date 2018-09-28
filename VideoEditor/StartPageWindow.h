@@ -22,5 +22,5 @@ private:
 	void SetPath();
 	Ui::StartPageWindow ui;
 	QString dir;
-
+	QString projPath;
 };
