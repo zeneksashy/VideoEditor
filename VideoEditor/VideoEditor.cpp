@@ -10,7 +10,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include"MediaManager.h"
-
+#include "StartPageWindow.h"
 
 VideoEditor::VideoEditor(QWidget *parent)
 	: QMainWindow(parent)
@@ -21,6 +21,8 @@ VideoEditor::VideoEditor(QWidget *parent)
 	settings.reset(new ProjectSettingsWIndow);
 	connectWdigets();
 	ConfigureWindow();
+	StartPageWindow window;
+	window.exec();
 }
 
 void VideoEditor::open()
@@ -38,8 +40,8 @@ void VideoEditor::open()
 
 void VideoEditor::connectWdigets()
 {
-	connect(ui.actionNew, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::show);
-	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::show);
+	connect(ui.actionNew, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::exec);
+	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
 }
 
 void VideoEditor::ConfigureWindow()

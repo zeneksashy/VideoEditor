@@ -51,6 +51,9 @@
     <Filter Include="Custom Widgets">
       <UniqueIdentifier>{d5ed9c6e-9e6a-4989-aab3-98054cad6408}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{6194917a-6331-40ca-9fee-56a97f8396b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VideoEditor.cpp">
@@ -77,17 +80,11 @@
     <ClCompile Include="AudioAnalyser.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GausianBlurWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GausianBlur.cpp">
       <Filter>Video Effects</Filter>
     </ClCompile>
     <ClCompile Include="MedianBlur.cpp">
       <Filter>Video Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="MedianBlurWindow.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VideoFrame.cpp">
       <Filter>Custom Widgets</Filter>
@@ -107,11 +104,20 @@
     <ClCompile Include="MediaFrame.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectSettingsWIndow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Project.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GausianBlurWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="MedianBlurWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectSettingsWIndow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="StartPageWindow.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,12 +133,6 @@
     <QtMoc Include="Tester.cpp">
       <Filter>Source Files</Filter>
     </QtMoc>
-    <QtMoc Include="GausianBlurWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="MedianBlurWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="AudioFrame.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
@@ -145,7 +145,16 @@
     <QtMoc Include="VideoFrame.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
+    <QtMoc Include="GausianBlurWindow.h">
+      <Filter>Windows</Filter>
+    </QtMoc>
     <QtMoc Include="ProjectSettingsWIndow.h">
+      <Filter>Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="MedianBlurWindow.h">
+      <Filter>Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="StartPageWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -169,6 +178,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ProjectSettingsWIndow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="StartPageWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
