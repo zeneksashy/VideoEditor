@@ -181,10 +181,7 @@ bool SerializationTest::PlayerTest()
 		std::string path = "C:\\Users\\gzeniuk\\Downloads\\SampleVideo_720x480_30mb.mp4";
 		std::stringstream strm;
 		p.loadFile(QString::fromStdString(path));
-		std::cout << " mediaplayer pointer  ";
 		strm <<p;
-		std::cout << path;
-		std::cout << p;
 		if (path.compare(strm.str()) == 0)
 			return true;
 		return false;
@@ -197,9 +194,6 @@ bool SerializationTest::SettingsSerialization()
 	p.setProjectSettings(sett);
 	stringstream strm;
 	strm << p;
-	cout << p;
-	//p.Deserialize(strm.str());
-	//cout << p;
 	if (settingsExpected.compare(strm.str()) == 0)
 		return true;
 	return false;

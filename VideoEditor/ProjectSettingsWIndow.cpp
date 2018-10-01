@@ -83,8 +83,8 @@ void ProjectSettingsWIndow::addResolutions()
 {
 	ui.videoFormatCombo->addItem(tr("1920 x 1080 - HD"));
 	ui.videoFormatCombo->addItem(tr("1280 x 720 - HD"));
-	ui.videoFormatCombo->addItem(tr("3840 × 2160 - 4K"));
-	ui.videoFormatCombo->addItem(tr("7680 × 4320 - 8K"));
+	ui.videoFormatCombo->addItem(tr("3840 x 2160 - 4K"));
+	ui.videoFormatCombo->addItem(tr("7680 x 4320 - 8K"));
 	ui.videoFormatCombo->addItem(tr("15360 x 8640 - 16K"));
 	ui.videoFormatCombo->addItem(tr("640 x 480 - SD"));
 	ui.videoFormatCombo->addItem(tr("Manual"));

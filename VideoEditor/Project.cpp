@@ -78,16 +78,10 @@ void Project::Deserialize(std::string path)
 		}
 		if (strngs[i] == "FrameRate")
 		{
-			settings.frameRate = std::stod(strngs[i + 1]);
+			settings.frameRate = std::stof(strngs[i + 1]);
 			continue;
 		}	
 	}
-}
-
-std::string Project::Split(std::string sub)
-{
-
-	return std::string();
 }
 
 std::ostream & operator<<(std::ostream & os, const Project & proj)
@@ -97,9 +91,3 @@ std::ostream & operator<<(std::ostream & os, const Project & proj)
 		<<"#FrameRate# "<<proj.settings.frameRate<<"#F"<<"#V"<< "#S" << "#P";
 	return os;
 }
-
-//std::istream & operator>>(std::istream & is, const Project & proj)
-//{
-//	return is;
-//	// TODO: insert return statement here
-//}

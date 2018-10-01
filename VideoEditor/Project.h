@@ -4,7 +4,7 @@ struct ProjectSettings
 {
 	int frameWidth;
 	int frameHeight;
-	double frameRate;
+	float frameRate;
 	std::string path;
 	bool operator==(const ProjectSettings& sett)
 	{
@@ -27,9 +27,7 @@ public:
 	void Serialize(std::string);
 	void Deserialize(std::string);
 	friend std::ostream& operator<<(std::ostream& os, const Project& proj);
-	//friend std::istream& operator>>(std::istream& is, const Project& proj);
 private:
 	ProjectSettings settings;
-	std::string Split(std::string);
 };
 

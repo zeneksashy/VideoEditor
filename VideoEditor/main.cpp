@@ -25,9 +25,9 @@ private:
 	{
 		SerializationTest cut;
 		passed= cut.SettingsSerialization();
-		(passed) ? std::cout << "  == project serialization test passed" : std::cout << " == project serialization test not passed";
+		(passed) ? std::cout << " TRUE == project serialization test passed\n" : std::cout << "FALSE == project serialization test not passed\n";
 		passed = cut.SettingsDeserialization();
-		(passed) ? std::cout << "  == project deserialization test passed" : std::cout << " == project deserialization test not passed";
+		(passed) ? std::cout << " TRUE == project deserialization test passed\n" : std::cout << "FALSE == project deserialization test not passed\n";
 
 	}
 	bool passed;
