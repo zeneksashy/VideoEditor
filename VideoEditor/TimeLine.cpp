@@ -198,8 +198,7 @@ void TimeLine::LineSelected(MediaFrame * frame)
 		videoIt->second->deleteOutline();
 	}
 }
-const QStringList TimeLine::supportedFormats = QStringList{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3"};
-const std::list<std::string> TimeLine::supportedFormats1 = std::list<std::string>{ "audio/x-au","audio/aiff","application/octet-stream", "video/x-msvideo", "video/mp4", "audio/mpeg", "audio/mp4" ,"video/x-ms-wmv","video/avi" ,"video/mpeg","audio/x-mpeg-3","audio/mpeg3" };
+
 VideoFrame* TimeLine::CreateVideoFrame(QString path)
 {
 	auto videoframe = new VideoFrame(this);

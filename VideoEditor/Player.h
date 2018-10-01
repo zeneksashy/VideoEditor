@@ -44,7 +44,8 @@ public:
 	void Pause();
 	//check if the player has been stopped
 	bool isStopped() const;
-
+	friend std::ostream& operator<<(std::ostream& os, const Player& player);
+	friend std::istream& operator>>(std::istream& is, const Player& player);
 private:
 	QScopedPointer<QMediaPlayer> mediaplayer;
 	bool stop;
@@ -66,6 +67,7 @@ private:
 	bool CheckAudio();
 	bool CheckFile();
 	int delay;
+	std::string filename;
 	VideoEffect* current;
 	std::vector<QImage> effectedFrames;
 	std::vector<cv::Mat> effectedFramesMat;

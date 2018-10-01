@@ -1,9 +1,7 @@
-
-#include<qaudioformat.h>
-#include<qobject.h>
-#include<AudioRecognition.h>
-#include<GausianBlur.h>
-#include <QtTest/QtTest>
+#include "Tester.h"
+#include <string>
+#include <sstream>
+#include "Project.h"
 class AudioRecognitionTest : public QObject
 {
 	Q_OBJECT
@@ -176,12 +174,44 @@ private slots:
 	}
 
 };
-class MedianBlurTest :public QObject
+using namespace std;
+bool SerializationTest::PlayerTest()
+	{
+		Player p;
+		std::string path = "C:\\Users\\gzeniuk\\Downloads\\SampleVideo_720x480_30mb.mp4";
+		std::stringstream strm;
+		p.loadFile(QString::fromStdString(path));
+		std::cout << " mediaplayer pointer  ";
+		strm <<p;
+		std::cout << path;
+		std::cout << p;
+		if (path.compare(strm.str()) == 0)
+			return true;
+		return false;
+	}
+bool SerializationTest::SettingsSerialization()
 {
-	Q_OBJECT
-private slots:
+	Project p;
+	ProjectSettings sett{ 1,2,3.5,"smth" };
+	
+	p.setProjectSettings(sett);
+	stringstream strm;
+	strm << p;
+	cout << p;
+	//p.Deserialize(strm.str());
+	//cout << p;
+	if (settingsExpected.compare(strm.str()) == 0)
+		return true;
+	return false;
+}
 
-};
-//QTEST_MAIN(GausianBlurTest)
-
-#include "tester.moc"
+bool SerializationTest::SettingsDeserialization()
+{
+	Project p;
+	p.Deserialize(settingsExpected);
+	auto sett = p.getProjectSettings();
+	ProjectSettings set{ 1,2,3.5,"smth" };
+	if (set == sett)
+		return true;
+	return false;
+}

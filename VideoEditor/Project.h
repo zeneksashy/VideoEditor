@@ -6,6 +6,16 @@ struct ProjectSettings
 	int frameHeight;
 	double frameRate;
 	std::string path;
+	bool operator==(const ProjectSettings& sett)
+	{
+		if (sett.frameHeight != this->frameHeight)
+			return false;
+		if (sett.frameWidth != this->frameWidth)
+			return false;
+		if (sett.frameRate != this->frameRate)
+			return false;
+		return true;
+	}
 };
 class Project
 {
@@ -16,7 +26,10 @@ public:
 	void setProjectSettings(ProjectSettings);
 	void Serialize(std::string);
 	void Deserialize(std::string);
+	friend std::ostream& operator<<(std::ostream& os, const Project& proj);
+	//friend std::istream& operator>>(std::istream& is, const Project& proj);
 private:
 	ProjectSettings settings;
+	std::string Split(std::string);
 };
 

@@ -37,6 +37,7 @@ bool Player::loadFile(QString filename)
 			delay = (1000 / frameRate);
 			capture->set(cv::CAP_PROP_BUFFERSIZE,1);
 		}
+		this->filename = filename.toStdString();
 		return true;
 	}
 	else
@@ -231,4 +232,16 @@ Player::~Player()
 	condition.wakeOne();
 	mutex.unlock();
 	wait();
+}
+
+std::ostream & operator<<(std::ostream & os, const Player & player)
+{
+	os << player.mediaplayer->media().canonicalUrl().path().toStdString();
+	return os;
+}
+
+std::istream & operator>>(std::istream & is, const Player & player)
+{
+	// TODO: insert return statement here
+	return is;
 }

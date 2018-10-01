@@ -117,7 +117,7 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="StartPageWindow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,9 +129,6 @@
     </QtMoc>
     <QtMoc Include="AudioRecognition.h">
       <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Tester.cpp">
-      <Filter>Source Files</Filter>
     </QtMoc>
     <QtMoc Include="AudioFrame.h">
       <Filter>Custom Widgets</Filter>
@@ -155,6 +152,12 @@
       <Filter>Windows</Filter>
     </QtMoc>
     <QtMoc Include="StartPageWindow.h">
+      <Filter>Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Tester.cpp">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Tester.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
