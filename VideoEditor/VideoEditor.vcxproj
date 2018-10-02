@@ -153,6 +153,7 @@
     <ClCompile Include="TimeLine.cpp" />
     <ClCompile Include="TimeLineSlider.cpp" />
     <ClCompile Include="VideoEditor.cpp" />
+    <ClCompile Include="VideoEffect.cpp" />
     <ClCompile Include="VideoFrame.cpp" />
     <ClCompile Include="VideoLoader.cpp" />
   </ItemGroup>

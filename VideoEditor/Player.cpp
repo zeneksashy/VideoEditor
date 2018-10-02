@@ -221,12 +221,14 @@ Player::~Player()
 
 std::ostream & operator<<(std::ostream & os, const Player & player)
 {
-	os << player.mediaplayer->media().canonicalUrl().path().toStdString();
+	//os << 
+	
 	return os;
 }
 
 std::istream & operator>>(std::istream & is, const Player & player)
 {
+	
 	// TODO: insert return statement here
 	return is;
 }

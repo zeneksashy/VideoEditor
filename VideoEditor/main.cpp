@@ -27,7 +27,10 @@ private:
 		(passed) ? std::cout << " TRUE == project serialization test passed\n" : std::cout << "FALSE == project serialization test not passed\n";
 		passed = cut.SettingsDeserialization();
 		(passed) ? std::cout << " TRUE == project deserialization test passed\n" : std::cout << "FALSE == project deserialization test not passed\n";
-
+		passed = cut.EffectsSerialization();
+		(passed) ? std::cout << " TRUE == gaussian serialization test passed\n" : std::cout << "FALSE == gaussian serialization  test not passed\n";
+		passed = cut.EffectsDeserialization();
+		(passed) ? std::cout << " TRUE == gaussian deserialization test passed\n" : std::cout << "FALSE == gaussian deserialization  test not passed\n";
 	}
 	bool passed;
 };

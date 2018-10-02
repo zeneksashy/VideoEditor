@@ -16,8 +16,11 @@ class SerializationTest :QObject
 public:
 	bool PlayerTest();
 	bool SettingsSerialization();
+	bool EffectsSerialization();
 	bool SettingsDeserialization();
+	bool EffectsDeserialization();
 
 private:
+	std::string gaussianExpected = "#GaussianBlur##Parameters##XParam#3.5#X#YParam#4.2#Y#XSize#5#X#YSize#11#Y#P#G";
 	std::string settingsExpected = "#Project##Settings##Video##Width#1#W#Height#2#H#FrameRate# 3.5#F#V#S#P";
 };

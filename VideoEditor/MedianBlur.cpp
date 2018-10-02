@@ -66,3 +66,11 @@ void MedianBlur::Calculate(cv::Mat &)
 	//clock_t time = stop - start;
 	//double result = time / (double)CLOCKS_PER_SEC;
 }
+
+void MedianBlur::Print(std::ostream & out) const
+{
+}
+
+void MedianBlur::Deserialize(std::string)
+{
+}

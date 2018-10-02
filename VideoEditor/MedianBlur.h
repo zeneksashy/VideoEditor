@@ -19,5 +19,11 @@ private:
 	uint framecount;
 	std::shared_ptr<cv::VideoCapture> capture;
 	std::vector<cv::Mat> pureFrames;
+
+	// Inherited via VideoEffect
+	virtual void Print(std::ostream & out) const override;
+
+	// Inherited via VideoEffect
+	virtual void Deserialize(std::string) override;
 };
 

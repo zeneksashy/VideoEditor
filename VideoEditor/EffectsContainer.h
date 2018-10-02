@@ -10,6 +10,7 @@ public:
 	~EffectsContainer();
 	void AddEffect(VideoEffect*);
 	void Run(cv::Mat&);
+	friend std::ostream& operator<<(std::ostream& os, const EffectsContainer& container);
 private:
 	vector<VideoEffect*> videoEffects;
 };

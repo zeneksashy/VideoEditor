@@ -199,6 +199,19 @@ bool SerializationTest::SettingsSerialization()
 	return false;
 }
 
+bool SerializationTest::EffectsSerialization()
+{
+	GausianBlur blur;
+	GausianBlurParam params;
+	params.Create(3.5, 4.2, 5, 11);
+	blur.Initialize(params);
+	stringstream strm;
+	strm << blur;
+	if (gaussianExpected.compare(strm.str()) == 0)
+		return true;
+	return false;
+}
+
 bool SerializationTest::SettingsDeserialization()
 {
 	Project p;
@@ -206,6 +219,17 @@ bool SerializationTest::SettingsDeserialization()
 	auto sett = p.getProjectSettings();
 	ProjectSettings set{ 1,2,3.5,"smth" };
 	if (set == sett)
+		return true;
+	return false;
+}
+
+bool SerializationTest::EffectsDeserialization()
+{
+	GausianBlurParam params;
+	params.Create(3.5, 4.2, 5, 11);
+	GausianBlur blur;
+	blur.Deserialize(gaussianExpected);
+	if (blur.getParams() == params)
 		return true;
 	return false;
 }

@@ -16,5 +16,9 @@ public:
 	virtual ~VideoEffect() {};
 	virtual std::vector<cv::Mat> ExecuteEffect()=0;
 	virtual void Calculate(cv::Mat&) = 0;
+	 friend std::ostream& operator<<(std::ostream& os, const VideoEffect& effect);
+	 virtual void Deserialize(std::string) = 0;
+protected:
+	virtual void Print(std::ostream& out) const = 0;
 };
 

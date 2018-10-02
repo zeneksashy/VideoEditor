@@ -122,6 +122,9 @@
     <ClCompile Include="EffectsContainer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="VideoEffect.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">

@@ -23,3 +23,9 @@ void EffectsContainer::Run(cv::Mat& frame)
 		e->Calculate(frame);
 	}
 }
+
+std::ostream & operator<<(std::ostream & os, const EffectsContainer & container)
+{
+	return os;
+	// TODO: insert return statement here
+}
