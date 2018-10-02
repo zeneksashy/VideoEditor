@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include<qmessagebox.h>
+#include<fstream>
 
 Player* MediaManager::player = new Player();
 Project* MediaManager::project = new Project();
@@ -21,6 +22,17 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 	LoadPlayer(path);
 	LoadMediaToWidget(path);
 }
+
+ void MediaManager::Serialize(std::string path)
+ {
+	 fstream handle;
+	 handle.open(path, std::ios::out);
+	 cout << *player<<"\n";
+	 handle << *player;
+	 cout << *project;
+	 handle << *project;
+	 handle.close();
+ }
 
  void MediaManager::LoadMediaToWidget(QString path)
  {

@@ -19,7 +19,7 @@ public:
 	VideoEditor(QWidget *parent = Q_NULLPTR);
 private slots:
 	void open();
-
+	void saveProject();
 private:
 	
 	QScopedPointer<ProjectSettingsWIndow> settings;

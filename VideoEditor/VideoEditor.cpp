@@ -38,11 +38,22 @@ void VideoEditor::open()
 
 
 
+void VideoEditor::saveProject()
+{
+	auto filename = QFileDialog::getSaveFileName(this, tr("Save Project"), ".",
+		tr("Project Files (*.ediproj)"));
+	MediaManager::Serialize(filename.toStdString());
+	/*QString filename = QFileDialog::getOpenFileName(this,
+		tr("Open Video"), ".",
+		tr("Video Files (*.avi *.mpg *.mp4)"));*/
+}
+
 void VideoEditor::connectWdigets()
 {
 	connect(ui.actionNew, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::exec);
 	connect(ui.actiongausian_blur, &QAction::triggered, new GausianBlurWindow(), &GausianBlurWindow::exec);
 	connect(ui.actionSettings, &QAction::triggered, settings.data(), &ProjectSettingsWIndow::exec);
+	connect(ui.actionSave, &QAction::triggered, this, &VideoEditor::saveProject);
 }
 
 void VideoEditor::ConfigureWindow()

@@ -15,6 +15,7 @@ public:
 	static  Player* player;
 	static  GausianBlur* gBlur;
 	static Project* project;
+	static void Serialize(std::string path);
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);

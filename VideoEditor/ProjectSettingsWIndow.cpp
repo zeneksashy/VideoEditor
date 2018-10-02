@@ -15,9 +15,9 @@ ProjectSettingsWIndow::~ProjectSettingsWIndow()
 void ProjectSettingsWIndow::saveSettings()
 {
 	ProjectSettings settings;
-	settings.frameHeight = ui.widthEdit->text().toInt();
+	settings.frameHeight = ui.heightEdit->text().toInt();
 	settings.frameWidth = ui.widthEdit->text().toInt();
-	settings.frameRate = ui.frameRateCombo->currentText().toInt();
+	settings.frameRate = ui.frameRateCombo->currentText().toFloat();
 	settings.path = (ui.pathEdit->text().append(ui.nameEdit->text())).toStdString();
 	MediaManager::project->setProjectSettings(settings);
 	this->hide();

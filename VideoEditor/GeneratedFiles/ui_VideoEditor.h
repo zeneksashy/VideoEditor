@@ -38,6 +38,7 @@ public:
     QAction *actionblur;
     QAction *actionbilateral_blur;
     QAction *actionSettings;
+    QAction *actionSave;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -82,6 +83,8 @@ public:
         actionbilateral_blur->setObjectName(QStringLiteral("actionbilateral_blur"));
         actionSettings = new QAction(VideoEditorClass);
         actionSettings->setObjectName(QStringLiteral("actionSettings"));
+        actionSave = new QAction(VideoEditorClass);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
         centralWidget = new QWidget(VideoEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setStyleSheet(QStringLiteral(""));
@@ -187,6 +190,7 @@ public:
         menuFIle->addAction(actionExport);
         menuFIle->addAction(actionInport);
         menuFIle->addAction(actionSettings);
+        menuFIle->addAction(actionSave);
         menuEffects->addAction(menublur->menuAction());
         menublur->addAction(actiongausian_blur);
         menublur->addAction(actionmedian_blur);
@@ -211,6 +215,7 @@ public:
         actionblur->setText(QApplication::translate("VideoEditorClass", "average blur", nullptr));
         actionbilateral_blur->setText(QApplication::translate("VideoEditorClass", "bilateral blur", nullptr));
         actionSettings->setText(QApplication::translate("VideoEditorClass", "Settings", nullptr));
+        actionSave->setText(QApplication::translate("VideoEditorClass", "Save", nullptr));
         menuFIle->setTitle(QApplication::translate("VideoEditorClass", "FIle", nullptr));
         menuEdit->setTitle(QApplication::translate("VideoEditorClass", "Edit", nullptr));
         menuEffects->setTitle(QApplication::translate("VideoEditorClass", "Effects", nullptr));

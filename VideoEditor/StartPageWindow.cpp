@@ -65,7 +65,7 @@ void StartPageWindow::ConnectUi()
 {
 	connect(ui.openToolButton, &QToolButton::clicked, this, &StartPageWindow::fileDialogShow);
 	connect(ui.buttonBox, &QDialogButtonBox::clicked, this, &StartPageWindow::buttonBoxClicked);
-	connect(ui.newProjectButton, &QPushButton::clicked, []() {auto x = new ProjectSettingsWIndow(); x ->exec(); });
+	connect(ui.newProjectButton, &QPushButton::clicked, [this]() {this->hide(); auto x = new ProjectSettingsWIndow(); x->exec(); });
 }
 
 void StartPageWindow::SetPath()

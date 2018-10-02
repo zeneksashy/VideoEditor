@@ -221,8 +221,7 @@ Player::~Player()
 
 std::ostream & operator<<(std::ostream & os, const Player & player)
 {
-	//os << 
-	
+	os << player.effects;
 	return os;
 }
 
