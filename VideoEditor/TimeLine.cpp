@@ -16,8 +16,7 @@
 //add resizinig to line drawing
 //change start position of resizing multipler to 10 , 1 to min and 20 to max
 //add auto scrolling when line get out of scope
-//add mutliplying i by resizer multipler
-//add label on top of timeline with time
+
 
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)

@@ -119,6 +119,9 @@
     <ClCompile Include="StartPageWindow.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="EffectsContainer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -224,6 +227,9 @@
       <Filter>Custom Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Project.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectsContainer.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

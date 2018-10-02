@@ -127,7 +127,7 @@ void Player::PlayEffect()
 {
 	if (CheckNextFrame())
 	{
-		current->Calculate(frame);
+		effects.Run(frame);
 		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
 		img = QImage((const unsigned char*)(RGBframe.data),
 		RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
@@ -135,18 +135,6 @@ void Player::PlayEffect()
 		emit positionChanged();
 		this->msleep(delay);
 	}
-
-	//if (i == effectedFramesMat.size())
-	//	stop = true;
-	//else
-	//{
-	//	img = QImage((const unsigned char*)(effectedFramesMat[i].data),
-	//		effectedFramesMat[i].cols, effectedFramesMat[i].rows, QImage::Format_RGB888);
-	//	emit processedImage(img);
-	//	emit positionChanged();
-	//	this->msleep(delay);
-	//}
-	
 }
 
 bool Player::CheckNextFrame()
@@ -209,16 +197,13 @@ QMediaPlayer* Player::getMediaPlayer() const
 }
 void Player::setEffect(VideoEffect* effect)
 {
-	current = effect;
+	effects.AddEffect(effect);
 	isEffectApplied = true;
 }
 void Player::setEffect(std::vector<cv::Mat> frames)
 {
 	effectedFramesMat = frames;
 	isEffectApplied = true;
-	//isEffectApplied = true;
-	//const QImage image = frames[35];
-	//emit processedImage(image);
 }
 bool Player::isStopped() const {
 	return this->stop;

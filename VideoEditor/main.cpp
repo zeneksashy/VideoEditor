@@ -1,5 +1,4 @@
 #include "VideoEditor.h"
-
 #include "Tester.h"
 #define TEST true;
 #ifdef TEST
@@ -32,6 +31,18 @@ private:
 	}
 	bool passed;
 };
+
+//TODO
+// figure out how to store multiple effects in the player ( maybe vector with video effects*)
+//serialize effects  with settings
+// deserialize whole project
+// change all tests
+// -- add some kind of layout to time line
+// -- alllow to shrink videos in time line
+// adding new elemnts to time line on the same path
+// add more effects
+//add audio effects
+//add rendering
 
 int main(int argc, char *argv[])
 {

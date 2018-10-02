@@ -8,6 +8,7 @@
 #include <QThread>
 #include "VideoEffect.h"
 #include<qmediaplayer.h>
+#include "EffectsContainer.h"
 class Player : public QThread
 {
 	Q_OBJECT
@@ -68,6 +69,7 @@ private:
 	bool CheckFile();
 	int delay;
 	std::string filename;
+	EffectsContainer effects;
 	VideoEffect* current;
 	std::vector<QImage> effectedFrames;
 	std::vector<cv::Mat> effectedFramesMat;
