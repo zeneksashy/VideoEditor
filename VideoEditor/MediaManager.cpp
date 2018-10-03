@@ -34,10 +34,12 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 	 handle << *player;
 	 cout << *project;
 	 handle << *project;
-	/* for each (auto var in mediaPaths)
+	 handle << "#MediaPaths#";
+	 for each (auto var in mediaPaths)
 	 {
-		 handle<<"#"
-	 }*/
+		 handle << "#Path#" << var << "#P";
+	 }
+	 handle << "#M";
 	 handle.close();
  }
 
@@ -53,6 +55,9 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 		 buf += line;
 	 }
 	 auto values = getValuesFromString(buf);
+	 project->Deserialize(values);
+	 player->Deserialize(values);
+	 Deserialize(values);
  }
 
  std::vector<std::string> MediaManager::getValuesFromString(std::string deserialized)
@@ -101,6 +106,18 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 		 ++i;
 	 }
 	 return strings;
+ }
+
+ void MediaManager::Deserialize(std::vector<std::string>&x )
+ {
+	 for (size_t i = 0; i < x.size(); i++)
+	 {
+		 if (x[i] == "Path")
+		 {
+			 LoadMedia(QString::fromStdString(x[i + 1]));
+			 continue;
+		 }
+	 }
  }
 
  void MediaManager::LoadMediaToWidget(QString path)

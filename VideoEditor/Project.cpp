@@ -24,46 +24,18 @@ void Project::setProjectSettings(ProjectSettings settings)
 
 void Project::Serialize(std::string path)
 {
-	
 
 }
 
-void Project::Deserialize(std::string path)
+void Project::Deserialize(std::string value)
 {
-	std::string tempstring = path;
-	std::string temp = "";
-	std::vector<std::string> strngs;
-	int i = 0;
-	char next;
-	std::map<char, int> hashes;
-	while (i < tempstring.length())
-	{
+   // auto values =	MediaManager::getValuesFromString(value);
+	//Deserialize(values);
+	std::cout << "project deserialization  not implemented" ;
+}
 
-		if (tempstring[i] == '#')
-		{
-			if (tempstring[i + 1] != '#')
-			{
-				auto it = hashes.find(tempstring[i + 1]);
-				if (it != hashes.end())
-				{
-					hashes[tempstring[i + 1]] += 1;
-					++i;
-				}
-				else
-				{
-					hashes[tempstring[i + 1]] = 1;
-				}
-			}
-			if(temp!="")
-				strngs.push_back(temp);
-			temp = "";
-		}
-		else
-		{
-			temp += tempstring[i];
-		}
-		++i;
-	}
+void Project::Deserialize(std::vector<std::string>& strngs)
+{
 	for (size_t i = 0; i < strngs.size(); i++)
 	{
 		if (strngs[i] == "Width")
@@ -80,7 +52,7 @@ void Project::Deserialize(std::string path)
 		{
 			settings.frameRate = std::stof(strngs[i + 1]);
 			continue;
-		}	
+		}
 	}
 }
 

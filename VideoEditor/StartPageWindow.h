@@ -14,6 +14,7 @@ public:
 	~StartPageWindow();
 private slots:
 	void fileDialogShow();
+	void itemSelected(QListWidgetItem*);
 	void buttonBoxClicked(QAbstractButton * button);
 private:
 	void ConifugreUi();

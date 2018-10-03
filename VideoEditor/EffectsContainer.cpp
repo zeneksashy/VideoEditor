@@ -28,6 +28,14 @@ void EffectsContainer::Deserialize(std::string )
 {
 }
 
+void EffectsContainer::Deserialize(std::vector<std::string>&x)
+{
+	for each (auto e in videoEffects)
+	{
+		e->Deserialize(x);
+	}
+}
+
 std::ostream & operator<<(std::ostream & os, const EffectsContainer & container)
 {
 	for each (auto e in container.videoEffects)

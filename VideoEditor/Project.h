@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#include<vector>
 struct ProjectSettings
 {
 	int frameWidth;
@@ -26,6 +27,7 @@ public:
 	void setProjectSettings(ProjectSettings);
 	void Serialize(std::string);
 	void Deserialize(std::string);
+	void Deserialize(std::vector<std::string>&);
 	friend std::ostream& operator<<(std::ostream& os, const Project& proj);
 private:
 	ProjectSettings settings;

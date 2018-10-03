@@ -12,6 +12,7 @@ public:
 	void Run(cv::Mat&);
 	friend std::ostream& operator<<(std::ostream& os, const EffectsContainer& container);
 	void Deserialize(std::string);
+	void Deserialize(std::vector<std::string>&);
 private:
 	vector<VideoEffect*> videoEffects;
 };

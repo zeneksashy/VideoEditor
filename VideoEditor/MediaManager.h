@@ -18,6 +18,7 @@ public:
 	static void Serialize(std::string path);
 	static void Deserialize(std::string path);
 	static std::vector<std::string> getValuesFromString(std::string);
+	static void Deserialize(std::vector<std::string>&);
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);

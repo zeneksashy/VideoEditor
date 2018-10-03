@@ -45,6 +45,7 @@ public:
 	void Pause();
 	//check if the player has been stopped
 	bool isStopped() const;
+	void Deserialize(std::vector<std::string>&);
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 	friend std::istream& operator>>(std::istream& is, const Player& player);
 private:

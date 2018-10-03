@@ -209,6 +209,11 @@ bool Player::isStopped() const {
 	return this->stop;
 }
 
+void Player::Deserialize(std::vector<std::string>&x)
+{
+	effects.Deserialize(x);
+}
+
 Player::~Player()
 {
 	mutex.lock();

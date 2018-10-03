@@ -114,11 +114,8 @@ void TimeLine::updateTime()
 {
 	update();
 	UpdateTimeLabel(i);
-
-	
 	ui.horizontalSlider->setValue(i);
 	++i;
-	//multipler =  MediaManager::player->getFrameRate();
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {
