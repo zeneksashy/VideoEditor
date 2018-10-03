@@ -11,6 +11,7 @@ public:
 	void AddEffect(VideoEffect*);
 	void Run(cv::Mat&);
 	friend std::ostream& operator<<(std::ostream& os, const EffectsContainer& container);
+	void Deserialize(std::string);
 private:
 	vector<VideoEffect*> videoEffects;
 };

@@ -24,6 +24,10 @@ void EffectsContainer::Run(cv::Mat& frame)
 	}
 }
 
+void EffectsContainer::Deserialize(std::string )
+{
+}
+
 std::ostream & operator<<(std::ostream & os, const EffectsContainer & container)
 {
 	for each (auto e in container.videoEffects)

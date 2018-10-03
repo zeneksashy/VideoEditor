@@ -66,52 +66,8 @@ void GausianBlur::Print(std::ostream& out) const
 	out << "#GaussianBlur#" << "#Parameters#" << "#XParam#" << parameters.x << "#X" << "#YParam#" << parameters.y << "#Y" << "#XSize#" << parameters.Xsize << "#X" << "#YSize#" << parameters.Ysize << "#Y" << "#P" << "#G";
 }
 
-void GausianBlur::Deserialize(std::string path)
+void GausianBlur::Deserialize(std::vector<std::string>& strngs)
 {
-	std::string tempstring = path;
-	std::string temp = "";
-	std::vector<std::string> strngs;
-	int i = 0;
-	char next;
-	std::map<char, int> hashes;
-	while (i < tempstring.length())
-	{
-		if (tempstring[i] == '#')
-		{
-			if (tempstring[i + 1] != '#')
-			{
-				auto it = hashes.find(tempstring[i + 1]);
-				if (it != hashes.end())
-				{
-					hashes[tempstring[i + 1]] += 1;
-					if (hashes[tempstring[i + 1]] == 2)
-					{
-						hashes[tempstring[i + 1]] = 1;
-						if (temp != "")
-							strngs.emplace_back(temp);
-						temp = "";
-					}
-					else
-					{
-						++i;
-					}
-					
-				}
-				else
-				{
-					hashes[tempstring[i + 1]] = 1;
-				}
-			}
-			if (temp != "")
-				strngs.emplace_back(temp);
-			temp = "";
-		}
-		else
-		{
-			temp += tempstring[i];
-		}
-		++i;
-	}
 	for (size_t i = 0; i < strngs.size(); i++)
 	{
 		if (strngs[i] == "XParam")
@@ -135,6 +91,12 @@ void GausianBlur::Deserialize(std::string path)
 			continue;
 		}
 	}
+}
+
+void GausianBlur::Deserialize(std::string value)
+{
+	auto strngs = MediaManager::getValuesFromString(value);
+	Deserialize(strngs);
 }
 
 GausianBlurParam GausianBlur::getParams() const

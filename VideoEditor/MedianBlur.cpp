@@ -1,5 +1,5 @@
 #include "MedianBlur.h"
-
+#include "MediaManager.h"
 
 
 MedianBlur::MedianBlur()
@@ -11,11 +11,8 @@ MedianBlur::~MedianBlur()
 {
 }
 
-void MedianBlur::Initialize(std::shared_ptr<cv::VideoCapture>, uint kernel)
+void MedianBlur::Initialize(uint kernel)
 {
-	//this->capture = capture;
-	//framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
-//	data.resize(framecount);
 	this->kernel = kernel;
 }
 
@@ -72,52 +69,8 @@ void MedianBlur::Print(std::ostream & out) const
 	out << "#MedianBlur#" << "#Kernel#" << kernel << "#K" << "#M";
 }
 
-void MedianBlur::Deserialize(std::string path)
+void MedianBlur::Deserialize(std::vector<std::string>&strngs)
 {
-	std::string tempstring = path;
-	std::string temp = "";
-	std::vector<std::string> strngs;
-	int i = 0;
-	char next;
-	std::map<char, int> hashes;
-	while (i < tempstring.length())
-	{
-		if (tempstring[i] == '#')
-		{
-			if (tempstring[i + 1] != '#')
-			{
-				auto it = hashes.find(tempstring[i + 1]);
-				if (it != hashes.end())
-				{
-					hashes[tempstring[i + 1]] += 1;
-					if (hashes[tempstring[i + 1]] == 2)
-					{
-						hashes[tempstring[i + 1]] = 1;
-						if (temp != "")
-							strngs.emplace_back(temp);
-						temp = "";
-					}
-					else
-					{
-						++i;
-					}
-
-				}
-				else
-				{
-					hashes[tempstring[i + 1]] = 1;
-				}
-			}
-			if (temp != "")
-				strngs.emplace_back(temp);
-			temp = "";
-		}
-		else
-		{
-			temp += tempstring[i];
-		}
-		++i;
-	}
 	for (size_t i = 0; i < strngs.size(); i++)
 	{
 		if (strngs[i] == "Kernel")
@@ -126,6 +79,12 @@ void MedianBlur::Deserialize(std::string path)
 			break;;
 		}
 	}
+}
+
+void MedianBlur::Deserialize(std::string value)
+{
+	auto strngs = MediaManager::getValuesFromString(value);
+	Deserialize(strngs);
 }
 
 uint MedianBlur::getKernel()

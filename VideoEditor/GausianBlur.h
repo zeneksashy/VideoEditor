@@ -1,6 +1,6 @@
 #pragma once
 #include "VideoEffect.h"
-
+#include "MediaManager.h"
 #include<qimage.h>
 struct GausianBlurParam
 {
@@ -41,6 +41,7 @@ public:
 	virtual void Calculate(cv::Mat&) override;
 	friend std::ostream& operator<<(std::ostream& os, const VideoEffect& effect);
 	virtual void Deserialize(std::string) override;
+	virtual void Deserialize(std::vector<std::string>&) override;
 	GausianBlurParam getParams() const;
 private:
 	cv::Mat RGBframe;
@@ -58,4 +59,8 @@ private:
 
 	// Inherited via VideoEffect
 	
+
+	// Inherited via VideoEffect
+	
+
 };

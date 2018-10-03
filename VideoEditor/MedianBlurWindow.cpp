@@ -12,8 +12,7 @@ MedianBlurWindow::~MedianBlurWindow()
 void MedianBlurWindow::applyEffect()
 {
 	MedianBlur blur;
-	auto cap = MediaManager::player->getVideCapture();
-	blur.Initialize(cap, ui.kernel->value());
+	blur.Initialize(ui.kernel->value());
 	auto frames = blur.ExecuteEffect();
 	MediaManager::player->setEffect(frames);
 	this->close();

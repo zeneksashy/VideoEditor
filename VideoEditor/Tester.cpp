@@ -241,7 +241,7 @@ bool SerializationTest::EffectContainerSerialization()
 	GausianBlur blur;
 	blur.Initialize(params);
 	MedianBlur median;
-	median.Initialize(nullptr, 5);
+	median.Initialize(5);
 	EffectsContainer cont;
 	cont.AddEffect(&blur);
 	cont.AddEffect(&median);
@@ -249,5 +249,13 @@ bool SerializationTest::EffectContainerSerialization()
 	strm << cont;
 	if (effectContainerExpected.compare(strm.str())==0)
 		return true;
+	return false;
+}
+
+bool SerializationTest::MediaManagerDeserialization()
+{
+	//std::string path = "C:\\Users\\gzeniuk\\Desktop\\test.ediproj";
+	//MediaManager::Deserialize(path);
+	cout << "Media manager deserialization test not implemented ";
 	return false;
 }

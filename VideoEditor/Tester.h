@@ -21,6 +21,7 @@ public:
 	bool SettingsDeserialization();
 	bool EffectsDeserialization();
 	bool EffectContainerSerialization();
+	bool MediaManagerDeserialization();
 
 private:
 	std::string gaussianExpected = "#GaussianBlur##Parameters##XParam#3.5#X#YParam#4.2#Y#XSize#5#X#YSize#11#Y#P#G";

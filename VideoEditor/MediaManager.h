@@ -13,10 +13,11 @@ public:
 	static void LoadWidget(VideoLoader*);
 	static void LoadMedia(QString);
 	static  Player* player;
-	static  GausianBlur* gBlur;
+//	static  GausianBlur* gBlur;
 	static Project* project;
 	static void Serialize(std::string path);
 	static void Deserialize(std::string path);
+	static std::vector<std::string> getValuesFromString(std::string);
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);

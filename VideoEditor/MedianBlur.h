@@ -7,11 +7,12 @@ class MedianBlur :public VideoEffect
 public:
 	MedianBlur();
 	~MedianBlur();
-	void Initialize(std::shared_ptr<cv::VideoCapture>, uint kernel);
+	void Initialize(uint kernel);
 	// Inherited via VideoEffect
 	virtual std::vector<cv::Mat> ExecuteEffect() override;
 	virtual void Calculate(cv::Mat&) override;
 	virtual void Deserialize(std::string) override;
+	virtual void Deserialize(std::vector<std::string>&) override;
 	uint getKernel();
 private:
 	cv::Mat RGBframe;
@@ -27,5 +28,9 @@ private:
 
 	// Inherited via VideoEffect
 	
+
+	// Inherited via VideoEffect
+	
+
 };
 

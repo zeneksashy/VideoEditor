@@ -33,6 +33,8 @@ private:
 		(passed) ? std::cout << " TRUE == gaussian deserialization test passed\n" : std::cout << "FALSE == gaussian deserialization  test not passed\n";
 		passed = cut.EffectContainerSerialization();
 		(passed) ? std::cout << " TRUE == effect container serialization test passed\n" : std::cout << "FALSE == effect container serialization  test not passed\n";
+		passed = cut.MediaManagerDeserialization();
+		(passed) ? std::cout << " TRUE == effect container serialization test passed\n" : std::cout << "FALSE == effect container serialization  test not passed\n";
 	}
 	bool passed;
 };

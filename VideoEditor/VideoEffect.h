@@ -9,6 +9,7 @@
 #include "opencv2/imgproc.hpp"
 #include <opencv2/highgui/highgui.hpp>
 #include<qscopedpointer.h>
+
 class VideoEffect
 {
 public:
@@ -18,6 +19,7 @@ public:
 	virtual void Calculate(cv::Mat&) = 0;
 	 friend std::ostream& operator<<(std::ostream& os, const VideoEffect& effect);
 	 virtual void Deserialize(std::string) = 0;
+	 virtual void Deserialize(std::vector<std::string>&) = 0;
 protected:
 	virtual void Print(std::ostream& out) const = 0;
 };
