@@ -233,3 +233,21 @@ bool SerializationTest::EffectsDeserialization()
 		return true;
 	return false;
 }
+
+bool SerializationTest::EffectContainerSerialization()
+{
+	GausianBlurParam params;
+	params.Create(3.5, 4.2, 5, 11);
+	GausianBlur blur;
+	blur.Initialize(params);
+	MedianBlur median;
+	median.Initialize(nullptr, 5);
+	EffectsContainer cont;
+	cont.AddEffect(&blur);
+	cont.AddEffect(&median);
+	stringstream strm;
+	strm << cont;
+	if (effectContainerExpected.compare(strm.str())==0)
+		return true;
+	return false;
+}

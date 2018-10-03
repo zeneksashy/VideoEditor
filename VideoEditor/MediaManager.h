@@ -16,9 +16,11 @@ public:
 	static  GausianBlur* gBlur;
 	static Project* project;
 	static void Serialize(std::string path);
+	static void Deserialize(std::string path);
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);
 	static QList<VideoLoader*>widgets;
+	static std::vector<std::string> mediaPaths;
 };
 

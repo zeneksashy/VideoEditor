@@ -123,7 +123,7 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="VideoEffect.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Video Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

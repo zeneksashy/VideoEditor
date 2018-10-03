@@ -31,14 +31,15 @@ private:
 		(passed) ? std::cout << " TRUE == gaussian serialization test passed\n" : std::cout << "FALSE == gaussian serialization  test not passed\n";
 		passed = cut.EffectsDeserialization();
 		(passed) ? std::cout << " TRUE == gaussian deserialization test passed\n" : std::cout << "FALSE == gaussian deserialization  test not passed\n";
+		passed = cut.EffectContainerSerialization();
+		(passed) ? std::cout << " TRUE == effect container serialization test passed\n" : std::cout << "FALSE == effect container serialization  test not passed\n";
 	}
 	bool passed;
 };
 
 //TODO
-// figure out how to store multiple effects in the player ( maybe vector with video effects*)
 //serialize effects  with settings
-// deserialize whole project
+// deserialize whole project -- player video path to serialize
 // change all tests
 // -- add some kind of layout to time line
 // -- alllow to shrink videos in time line

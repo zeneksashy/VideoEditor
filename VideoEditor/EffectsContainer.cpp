@@ -28,7 +28,7 @@ std::ostream & operator<<(std::ostream & os, const EffectsContainer & container)
 {
 	for each (auto e in container.videoEffects)
 	{
-		os << e;
+		os << *e;
 	}
 	return os;
 	// TODO: insert return statement here

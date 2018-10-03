@@ -9,6 +9,7 @@ Player* MediaManager::player = new Player();
 Project* MediaManager::project = new Project();
 GausianBlur* MediaManager::gBlur = new GausianBlur();
 QList<VideoLoader*> MediaManager::widgets;
+std::vector<std::string> MediaManager::mediaPaths;
 MediaManager::~MediaManager()
 {
 	delete player;
@@ -21,6 +22,7 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 {
 	LoadPlayer(path);
 	LoadMediaToWidget(path);
+	mediaPaths.emplace_back(path.toStdString());
 }
 
  void MediaManager::Serialize(std::string path)
@@ -31,7 +33,15 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 	 handle << *player;
 	 cout << *project;
 	 handle << *project;
+	/* for each (auto var in mediaPaths)
+	 {
+		 handle<<"#"
+	 }*/
 	 handle.close();
+ }
+
+ void MediaManager::Deserialize(std::string path)
+ {
  }
 
  void MediaManager::LoadMediaToWidget(QString path)

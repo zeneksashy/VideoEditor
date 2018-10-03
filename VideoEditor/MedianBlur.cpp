@@ -13,9 +13,9 @@ MedianBlur::~MedianBlur()
 
 void MedianBlur::Initialize(std::shared_ptr<cv::VideoCapture>, uint kernel)
 {
-	this->capture = capture;
-	framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
-	data.resize(framecount);
+	//this->capture = capture;
+	//framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
+//	data.resize(framecount);
 	this->kernel = kernel;
 }
 
