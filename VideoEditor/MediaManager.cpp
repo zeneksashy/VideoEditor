@@ -130,11 +130,12 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 
  void MediaManager::LoadPlayer(QString path)
 {
-	 Player pl = new Player();
 	if (!player->loadFile(path))
 	{
 		QMessageBox msgBox;
 		msgBox.setText("The selected video could not be opened!");
 		msgBox.exec();
+		return;
 	}
+	player->getVideCapture()->set(cv::CAP_PROP_FPS, project->getProjectSettings().frameRate);
 }

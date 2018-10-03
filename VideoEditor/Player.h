@@ -25,7 +25,7 @@ protected:
 	void run();
 	void msleep(int ms);
 public:
-	int getFrameRate();
+	float getFrameRate();
 	bool isAudioAvaible();
 	bool isVideoAvaible();
 	std::shared_ptr<cv::VideoCapture> getVideCapture();
@@ -54,7 +54,7 @@ private:
 	QMutex mutex;
 	QWaitCondition condition;
 	cv::Mat frame;
-	int frameRate;
+	float frameRate;
 	std::shared_ptr<cv::VideoCapture> capture;
 	cv::Mat RGBframe;
 	QImage img;

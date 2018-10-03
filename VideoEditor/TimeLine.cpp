@@ -29,8 +29,7 @@ TimeLine::TimeLine(QWidget *parent)
 	connect(scroll, &QScrollBar::sliderMoved, scroll1, &QScrollBar::setValue);
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
-	ui.horizontalSlider->setRange(0, 4800);
-	ui.horizontalSlider->setFixedWidth(4800);
+	
 	setMouseTracking(true);
 	i = 0;
 	scale = 5;
@@ -78,7 +77,7 @@ void TimeLine::wheelEvent(QWheelEvent *e)
 void TimeLine::UpdateTimeLabel(int pos)
 {
 	std::stringstream s;
-	int sec = pos / MediaManager::player->getFrameRate();
+	int sec = pos / MediaManager::project->getProjectSettings().frameRate;
 	int min = sec / 60;
 	int h = min / 60;
 	if (sec >= 60)
@@ -98,6 +97,8 @@ void TimeLine::loadFile(QString path)
 	//need to add format checker for item
 	auto item = new QListWidgetItem(path, ui.sourcesList);
 	connect(ui.sourcesList, &QListWidget::itemClicked, this, &TimeLine::itemSelected);
+	ui.horizontalSlider->setRange(0, MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT));
+	ui.horizontalSlider->setFixedWidth(MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT));
 	QListWidgetItem &dl = *item;
 	QBrush brush(QColor::fromRgb(128, 130, 128));
 	item->setBackground(brush);

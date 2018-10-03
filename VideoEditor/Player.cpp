@@ -28,12 +28,13 @@ bool Player::loadFile(QString filename)
 	capture->open(filename.toStdString());
 	if (CheckFile())
 	{
+	//	capture->set(cv::CAP_PROP_FPS, MediaManager::project->getProjectSettings().frameRate);
 		mediaplayer->setMedia(QUrl::fromLocalFile(filename));
 	    audio = CheckAudio();
 		video = CheckVideo();
 		if(video)
 		{
-			frameRate = (int)capture->get(CV_CAP_PROP_FPS);
+			frameRate = capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
 			capture->set(cv::CAP_PROP_BUFFERSIZE,1);
 		}
@@ -92,8 +93,10 @@ void Player::run()
 	{
 		if (isEffectApplied)
 		{
+			PlayEffect();
 			if (isFirstFrame && audio)
 			{
+				
 				mediaplayer->play();
 				isFirstFrame = false;
 			}
@@ -170,8 +173,7 @@ void Player::msleep(int ms) {
 	std::this_thread::sleep_for(std::chrono::nanoseconds((ms % 1000) * 1000 * 1000));
 }
 
-
-int Player::getFrameRate()
+float Player::getFrameRate()
 {
 	return frameRate;
 }

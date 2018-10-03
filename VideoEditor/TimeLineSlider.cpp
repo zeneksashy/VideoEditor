@@ -1,5 +1,6 @@
 #include "TimeLineSlider.h"
-
+#include"MediaManager.h"
+#include <cmath>
 //TimeLineSlider::TimeLineSlider(QWidget *parent)
 //	: QSlider(parent)
 //{
@@ -16,7 +17,7 @@
 
 	 // draw tick marks
 	 // do this manually because they are very badly behaved with style sheets
-	 int interval = tickInterval();
+	 int interval = MediaManager::project->getProjectSettings().frameRate;
 	 if (interval == 0)
 	 {
 		 interval = pageStep();
@@ -33,7 +34,7 @@
 			 if (tickPosition() == TicksBothSides || tickPosition() == TicksAbove)
 			 {
 				 int y = this->rect().top();
-				 if (i % 250 == 0 && i!=0)
+				 if (i%(interval *10) == 0 && i!=0)
 				 {
 					 p.setPen(Qt::black);
 					 p.drawLine(x, y, x, y + 12);
