@@ -9,6 +9,7 @@
 #include "VideoEffect.h"
 #include<qmediaplayer.h>
 #include "EffectsContainer.h"
+#include <chrono>   
 class Player : public QThread
 {
 	Q_OBJECT
@@ -23,8 +24,10 @@ signals:
 	void positionChanged();
 protected:
 	void run();
-	void msleep(int ms);
+	void msleep(double ms);
+	void msleep(std::chrono::nanoseconds ms);
 public:
+	void setFrameRate(float);
 	float getFrameRate();
 	bool isAudioAvaible();
 	bool isVideoAvaible();
@@ -72,6 +75,7 @@ private:
 	std::string filename;
 	EffectsContainer effects;
 	VideoEffect* current;
-	std::vector<QImage> effectedFrames;
+	std::vector<cv::Mat> pureFrames;
+	std::vector<QImage> pureImage;
 	std::vector<cv::Mat> effectedFramesMat;
 };

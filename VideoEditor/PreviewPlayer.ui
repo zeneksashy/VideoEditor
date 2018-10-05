@@ -116,19 +116,7 @@ background-color: &quot;white&quot;;
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="previewLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-background-color:&quot;black&quot;;
-border-style: solid;
-    border-width: 5px;
-    border-color: rgb(63, 63, 70)
-}</string>
-         </property>
-         <property name="text">
-          <string>Video</string>
-         </property>
-        </widget>
+        <widget class="QGLCanvas" name="canvas"/>
        </item>
       </layout>
      </item>
@@ -137,6 +125,13 @@ border-style: solid;
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QGLCanvas</class>
+   <extends>QOpenGLWidget</extends>
+   <header>qglcanvas.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

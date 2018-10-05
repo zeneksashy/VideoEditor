@@ -13,10 +13,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QWidget>
+#include "qglcanvas.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -32,7 +32,7 @@ public:
     QSlider *timeLine;
     QHBoxLayout *horizontalLayout_2;
     QSlider *volumeSlider;
-    QLabel *previewLabel;
+    QGLCanvas *canvas;
 
     void setupUi(QWidget *PreviewPlayer)
     {
@@ -115,16 +115,10 @@ public:
 
         horizontalLayout_2->addWidget(volumeSlider);
 
-        previewLabel = new QLabel(PreviewPlayer);
-        previewLabel->setObjectName(QStringLiteral("previewLabel"));
-        previewLabel->setStyleSheet(QLatin1String("QLabel{\n"
-"background-color:\"black\";\n"
-"border-style: solid;\n"
-"    border-width: 5px;\n"
-"    border-color: rgb(63, 63, 70)\n"
-"}"));
+        canvas = new QGLCanvas(PreviewPlayer);
+        canvas->setObjectName(QStringLiteral("canvas"));
 
-        horizontalLayout_2->addWidget(previewLabel);
+        horizontalLayout_2->addWidget(canvas);
 
 
         gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 1);
@@ -147,7 +141,6 @@ public:
         playButton->setText(QApplication::translate("PreviewPlayer", "...", nullptr));
         pauseButton->setText(QApplication::translate("PreviewPlayer", "...", nullptr));
         stopButton->setText(QApplication::translate("PreviewPlayer", "...", nullptr));
-        previewLabel->setText(QApplication::translate("PreviewPlayer", "Video", nullptr));
     } // retranslateUi
 
 };

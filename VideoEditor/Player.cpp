@@ -7,13 +7,15 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <thread>        
-#include <chrono>   
+
 #include<qmediaplayer.h>
 #include <QFileDevice>
 #include<qiodevice.h>
 #include <qbuffer.h>
 #include<qfile.h>
 #include<qmediametadata.h>
+#include<ctime>
+#include<iostream>
 Player::Player(QObject *parent)
 	: QThread(parent)
 {
@@ -22,21 +24,29 @@ Player::Player(QObject *parent)
 	capture.reset(new cv::VideoCapture);
 	isEffectApplied = false;
 	isFirstFrame = true;
+
 }
 bool Player::loadFile(QString filename) 
 {
 	capture->open(filename.toStdString());
 	if (CheckFile())
 	{
-	//	capture->set(cv::CAP_PROP_FPS, MediaManager::project->getProjectSettings().frameRate);
 		mediaplayer->setMedia(QUrl::fromLocalFile(filename));
 	    audio = CheckAudio();
 		video = CheckVideo();
 		if(video)
 		{
+			pureFrames.resize((int)capture->get(cv::CAP_PROP_FRAME_COUNT));
+			pureImage.resize((int)capture->get(cv::CAP_PROP_FRAME_COUNT));
 			frameRate = capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
-			capture->set(cv::CAP_PROP_BUFFERSIZE,1);
+			/*for (size_t i = 0; i < pureFrames.size(); i++)
+			{
+				capture->read(frame);
+				cv::cvtColor(frame, pureFrames[i], CV_BGR2RGB);
+				pureImage[i] = QImage((const unsigned char*)(pureFrames[i].data),
+					pureFrames[i].cols, pureFrames[i].rows, QImage::Format_RGB888);
+			}*/
 		}
 		this->filename = filename.toStdString();
 		return true;
@@ -50,8 +60,8 @@ void Player::Play()
 		if (isStopped()) {
 			stop = false;
 		}
-		if(video)
-		start(LowPriority);
+		if (video)
+			start(HighestPriority);
 		if (audio)
 			mediaplayer->play();
 	}
@@ -89,28 +99,54 @@ void Player::setVideoPosition(int pos)
 
 void Player::run()
 {
+	int i = 0;
+	clock_t start = clock();
+	delay -= 1;
 	while (!stop)
 	{
-		if (isEffectApplied)
+		auto start = std::chrono::system_clock::now();
+		//CaptureNextFrame();
+		if (CheckNextFrame())
+		{
+			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+			img = QImage((const unsigned char*)(RGBframe.data),
+				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
+			emit processedImage(std::move(img));
+			emit positionChanged();
+			
+		}
+		++i;
+		auto end = std::chrono::system_clock::now();
+		auto nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
+		auto mili = std::chrono::milliseconds(delay);
+
+		//std::chrono::nanoseconds del = mil
+		//time -= std::chrono::milliseconds(delay);
+		this->msleep(mili-nano);
+		/*if (isEffectApplied)
 		{
 			PlayEffect();
-			if (isFirstFrame && audio)
-			{
-				
-				mediaplayer->play();
-				isFirstFrame = false;
-			}
 		}
 		else
 		{
 			CaptureNextFrame();
-			if (isFirstFrame && audio)
-			{
-				mediaplayer->play();
-				isFirstFrame = false;
-			}
-		}
+		}*/
+		//if (!capture->read(frame))
+		//{
+		//	stop = true;
+		//	//return false;
+		//}
+	
+
+		
+		
 	}
+	clock_t stop = clock();
+	clock_t time = stop - start;
+	double result = time / (double)CLOCKS_PER_SEC;
+	//188
+	//13 746 -- in brakets
+	//13 731 -- normal
 }
 
 void Player::Stop()
@@ -128,6 +164,7 @@ void Player::Pause()
 
 void Player::PlayEffect()
 {
+
 	if (CheckNextFrame())
 	{
 		effects.Run(frame);
@@ -153,24 +190,41 @@ void Player::CaptureNextFrame()
 {
 	if (CheckNextFrame())
 	{
-		if (frame.channels() == 3) {
-			cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+	/*	if (frame.channels() == 3) {*/
+			/*cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
 			img = QImage((const unsigned char*)(RGBframe.data),
-				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
-		}
+				RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);*/
+	/*	}
 		else
 		{
 			img = QImage((const unsigned char*)(frame.data),
 				frame.cols, frame.rows, QImage::Format_Indexed8);
-		}
-		emit processedImage(img);
-		emit positionChanged();
+		}*/
+		//emit processedImage(img);
+		//emit positionChanged();
 		this->msleep(delay);
 	}
 }
 
-void Player::msleep(int ms) {
-	std::this_thread::sleep_for(std::chrono::nanoseconds((ms % 1000) * 1000 * 1000));
+void Player::msleep(double ms) 
+{
+	std::this_thread::sleep_for(std::chrono::nanoseconds(((int)ms % 1000) * 1000 * 1000));
+}
+
+void Player::msleep(std::chrono::nanoseconds ms)
+{
+	std::this_thread::sleep_for(ms);
+}
+
+void Player::setFrameRate(float rate)
+{
+	//long before = capture->get(cv::CAP_PROP_FRAME_COUNT);
+	//
+	//frameRate = rate;
+	//capture->set(cv::CAP_PROP_FPS, frameRate);
+	//long frames = capture->get(cv::CAP_PROP_FRAME_COUNT);
+	//delay = (1000 / frameRate)/2;
+	
 }
 
 float Player::getFrameRate()

@@ -45,15 +45,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Video Effects">
-      <UniqueIdentifier>{3b35fe34-c4b4-4fb4-96a3-967397f2aa7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Custom Widgets">
-      <UniqueIdentifier>{d5ed9c6e-9e6a-4989-aab3-98054cad6408}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows">
-      <UniqueIdentifier>{6194917a-6331-40ca-9fee-56a97f8396b4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VideoEditor.cpp">
@@ -62,119 +53,119 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MediaManager.cpp">
+    <ClCompile Include="AudioAnalyser.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="VideoLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FastFourierTransform.cpp">
+    <ClCompile Include="AudioFrame.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="AudioRecognition.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="AudioAnalyser.cpp">
+    <ClCompile Include="EffectsContainer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FastFourierTransform.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="GausianBlur.cpp">
-      <Filter>Video Effects</Filter>
+      <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="MedianBlur.cpp">
-      <Filter>Video Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="VideoFrame.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeLineSlider.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeLine.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="PreviewPlayer.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioFrame.cpp">
-      <Filter>Custom Widgets</Filter>
+    <ClCompile Include="GausianBlurWindow.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="MediaFrame.cpp">
-      <Filter>Custom Widgets</Filter>
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaManager.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MedianBlur.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MedianBlurWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewPlayer.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="Project.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GausianBlurWindow.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="MedianBlurWindow.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectSettingsWIndow.cpp">
-      <Filter>Windows</Filter>
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QGLCanvas.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="StartPageWindow.cpp">
-      <Filter>Windows</Filter>
+      <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="EffectsContainer.cpp">
+    <ClCompile Include="TimeLine.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeLineSlider.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="VideoEffect.cpp">
-      <Filter>Video Effects</Filter>
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoFrame.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoLoader.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Tester.cpp">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PreviewPlayer.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
     <QtMoc Include="Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TimeLine.h">
+      <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="AudioRecognition.h">
       <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="AudioFrame.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="PreviewPlayer.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="TimeLine.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="VideoFrame.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="GausianBlurWindow.h">
-      <Filter>Windows</Filter>
-    </QtMoc>
-    <QtMoc Include="ProjectSettingsWIndow.h">
-      <Filter>Windows</Filter>
+      <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="MedianBlurWindow.h">
-      <Filter>Windows</Filter>
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ProjectSettingsWIndow.h">
+      <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="StartPageWindow.h">
-      <Filter>Windows</Filter>
-    </QtMoc>
-    <QtMoc Include="Tester.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="Tester.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="QGLCanvas.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="GausianBlurWindow.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VideoFrame.h">
+      <Filter>Generated Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="VideoEditor.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="PreviewPlayer.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="TimeLine.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="AudioFrame.ui">
@@ -186,10 +177,16 @@
     <QtUic Include="MedianBlurWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="PreviewPlayer.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="ProjectSettingsWIndow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="StartPageWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="TimeLine.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -202,37 +199,37 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MediaManager.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VideoLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastFourierTransform.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="AudioAnalyser.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="VideoEffect.h">
-      <Filter>Video Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="GausianBlur.h">
-      <Filter>Video Effects</Filter>
+    <ClInclude Include="EffectsContainer.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="MedianBlur.h">
-      <Filter>Video Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeLineSlider.h">
-      <Filter>Custom Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="MediaFrame.h">
-      <Filter>Custom Widgets</Filter>
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Project.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="EffectsContainer.h">
+    <ClInclude Include="VideoEffect.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastFourierTransform.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GausianBlur.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaFrame.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaManager.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeLineSlider.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoLoader.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

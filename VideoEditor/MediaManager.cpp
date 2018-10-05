@@ -137,5 +137,4 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 		msgBox.exec();
 		return;
 	}
-	player->getVideCapture()->set(cv::CAP_PROP_FPS, project->getProjectSettings().frameRate);
 }
