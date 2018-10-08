@@ -9,6 +9,7 @@
 #include "VideoEffect.h"
 #include<qmediaplayer.h>
 #include "EffectsContainer.h"
+#include<qaudiooutput.h>
 #include <chrono>   
 class Player : public QThread
 {
@@ -17,7 +18,7 @@ class Player : public QThread
 
 public  slots:
 	void setVideoPosition(int pos);
-	
+	void recieveTime(std::chrono::nanoseconds);
 signals:
 	//Signal to output frame to be displayed
 	void processedImage(const QImage &image);
@@ -72,10 +73,9 @@ private:
 	bool CheckAudio();
 	bool CheckFile();
 	int delay;
+	std::chrono::nanoseconds del;
 	std::string filename;
 	EffectsContainer effects;
-	VideoEffect* current;
-	std::vector<cv::Mat> pureFrames;
-	std::vector<QImage> pureImage;
-	std::vector<cv::Mat> effectedFramesMat;
+	long framceount;
+	std::chrono::nanoseconds playerDelay;
 };
