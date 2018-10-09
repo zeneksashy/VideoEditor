@@ -5,13 +5,11 @@
 PreviewPlayer::PreviewPlayer(QWidget *parent)
 	: QWidget(parent)
 {
+	i = 0;
 	ui.setupUi(this);
-	player.reset(new Player);
 	auto media = MediaManager::player->getMediaPlayer();
-	connect(media, &QMediaPlayer::durationChanged, this, &PreviewPlayer::setMaxToTimeLine);
-	connect(media, &QMediaPlayer::positionChanged, this, &PreviewPlayer::updateTimeLine);
-	//connect(MediaManager::player, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
 	connect(MediaManager::player, &Player::processedImage, ui.canvas, &QGLCanvas::setImage);
+	connect(MediaManager::player, &Player::positionChanged, this, &PreviewPlayer::updatePlayerUI);
 	connect(ui.volumeSlider, &QSlider::valueChanged, media, &QMediaPlayer::setVolume);
 	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
 	connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
@@ -23,7 +21,6 @@ PreviewPlayer::PreviewPlayer(QWidget *parent)
 PreviewPlayer::~PreviewPlayer()
 {
 }
-
 
 void PreviewPlayer::setMaxToTimeLine(int max)
 {
@@ -50,7 +47,6 @@ void PreviewPlayer::onStopButtonClicked()
 {
 	if (!MediaManager::player->isStopped())
 	{
-		
 		MediaManager::player->Stop();
 	}
 }
@@ -79,11 +75,12 @@ void PreviewPlayer::loadFile(QString path)
 		msgBox.setText("The selected video could not be opened!");
 		msgBox.exec();
 	}
+	ui.timeLine->setRange(0, MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT));
 }
-void PreviewPlayer::updatePlayerUI(QImage img)
+void PreviewPlayer::updatePlayerUI()
 {
-	ui.canvas->setImage(img);
-	//ui.previewLabel->setPixmap(QPixmap::fromImage(img).scaled(ui.previewLabel->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+	updateTimeLine(i);
+	++i; 
 }
 void PreviewPlayer::configureButtons()
 {

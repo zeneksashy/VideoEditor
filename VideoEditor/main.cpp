@@ -49,6 +49,7 @@ private:
 // add more effects
 //add audio effects
 //add rendering
+// create audio and video frames in another thread 
 
 int main(int argc, char *argv[])
 {

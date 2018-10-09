@@ -376,9 +376,9 @@ public:
 "}\n"
 "QSlider::handle:horizontal {\n"
 "    background: rgb(255, 170, 0);\n"
-"    width:5px;\n"
+"    width:6px;\n"
 "	height: 15px;\n"
-"	border:1px solid red;\n"
+"	margin: -5px 0 -1px 0;\n"
 "}"));
         horizontalSlider->setMaximum(200);
         horizontalSlider->setOrientation(Qt::Horizontal);

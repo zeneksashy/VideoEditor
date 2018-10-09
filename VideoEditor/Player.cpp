@@ -108,7 +108,6 @@ void Player::setVideoPosition(int pos)
 
 void Player::recieveTime(std::chrono::nanoseconds nano)
 {
-	//this->msleep(nano);
 	playerDelay = nano;
 }
 
@@ -134,11 +133,11 @@ void Player::run()
 			break;
 		end = std::chrono::high_resolution_clock::now();
 		nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
-		this->msleep((del - nano) -chrono::nanoseconds(1077152)-playerDelay); // rember to add player delay if this wont work
+		this->msleep((del - nano) -chrono::nanoseconds(1077152)-playerDelay); //1077152 is time of singe while iteration 
 	}
 	auto nend = std::chrono::high_resolution_clock::now();
 	auto nnano = std::chrono::duration_cast<chrono::milliseconds>(nend - nstart);
-	cout << "czas wykonania "<< nnano.count() << "\n";
+	cout << "execution time "<< nnano.count() << "\n";
 	//13872
 	//13800
 	// should be 13480
@@ -159,7 +158,6 @@ void Player::Pause()
 
 void Player::PlayEffect()
 {
-
 	if (CheckNextFrame())
 	{
 		effects.Run(frame);
@@ -188,8 +186,7 @@ void Player::CaptureNextFrame()
 		img = QImage((const unsigned char*)(RGBframe.data), RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
 		emit processedImage(std::move(img));
 		emit positionChanged();
-	}
-		
+	}	
 }
 
 void Player::msleep(double ms) 
@@ -204,13 +201,7 @@ void Player::msleep(std::chrono::nanoseconds ms)
 
 void Player::setFrameRate(float rate)
 {
-	//long before = capture->get(cv::CAP_PROP_FRAME_COUNT);
-	//
-	//frameRate = rate;
-	//capture->set(cv::CAP_PROP_FPS, frameRate);
-	//long frames = capture->get(cv::CAP_PROP_FRAME_COUNT);
-	//delay = (1000 / frameRate)/2;
-	
+	// dynamic time warp ?
 }
 
 float Player::getFrameRate()
@@ -244,7 +235,7 @@ void Player::setEffect(VideoEffect* effect)
 }
 void Player::setEffect(std::vector<cv::Mat> frames)
 {
-	effectedFramesMat = frames;
+//	effectedFramesMat = frames;
 	isEffectApplied = true;
 }
 bool Player::isStopped() const {

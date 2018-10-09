@@ -11,6 +11,9 @@
 #include "EffectsContainer.h"
 #include<qaudiooutput.h>
 #include <chrono>   
+///
+///Player class
+///
 class Player : public QThread
 {
 	Q_OBJECT
@@ -40,14 +43,11 @@ public:
 	Player(QObject *parent = 0);
 	//Destructor
 	~Player();
-	//Load a video from memory
+	///Load a video from memory
 	bool loadFile(QString filename);
-	//Play the video
 	void Play();
-	//Stop the video
 	void Stop();
 	void Pause();
-	//check if the player has been stopped
 	bool isStopped() const;
 	void Deserialize(std::vector<std::string>&);
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);

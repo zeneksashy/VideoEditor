@@ -17,7 +17,7 @@
 
 	 // draw tick marks
 	 // do this manually because they are very badly behaved with style sheets
-	 int interval = MediaManager::project->getProjectSettings().frameRate;
+	 int interval = MediaManager::player->getFrameRate();
 	 if (interval == 0)
 	 {
 		 interval = pageStep();

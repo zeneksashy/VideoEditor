@@ -433,9 +433,9 @@ background:white;
 }
 QSlider::handle:horizontal {
     background: rgb(255, 170, 0);
-    width:5px;
+    width:6px;
 	height: 15px;
-	border:1px solid red;
+	margin: -5px 0 -1px 0;
 }</string>
               </property>
               <property name="maximum">

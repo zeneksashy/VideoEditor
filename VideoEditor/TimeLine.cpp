@@ -29,7 +29,6 @@ TimeLine::TimeLine(QWidget *parent)
 	connect(scroll, &QScrollBar::sliderMoved, scroll1, &QScrollBar::setValue);
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
-	
 	setMouseTracking(true);
 	i = 0;
 	scale = 5;
@@ -77,7 +76,7 @@ void TimeLine::wheelEvent(QWheelEvent *e)
 void TimeLine::UpdateTimeLabel(int pos)
 {
 	std::stringstream s;
-	int sec = pos / MediaManager::project->getProjectSettings().frameRate;
+	int sec = pos / MediaManager::player->getFrameRate();
 	int min = sec / 60;
 	int h = min / 60;
 	if (sec >= 60)

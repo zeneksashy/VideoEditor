@@ -8,6 +8,7 @@
 #include<qmediaplayer.h>
 #include"VideoLoader.h"
 
+
 class PreviewPlayer :public QWidget, public VideoLoader
 {
 	Q_OBJECT
@@ -17,7 +18,7 @@ public:
 	~PreviewPlayer();
 	void loadFile(QString path) override;
 private slots:
-	void updatePlayerUI(QImage img);
+	void updatePlayerUI();
 	void onPlayButtonClicked();
 	void onStopButtonClicked();
 	void onPauseButtonCLicked();
@@ -27,7 +28,7 @@ private slots:
 	void updateTimeLine(int value);
 	
 private:
-	QScopedPointer<Player> player;
+	int i;
 	Ui::PreviewPlayer ui;
 	void configureButtons();
 };
