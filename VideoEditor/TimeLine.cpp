@@ -34,6 +34,7 @@ TimeLine::TimeLine(QWidget *parent)
 	i = 0;
 	scale = 5;
 	multipler = scale;
+	
 	ui.Content->installEventFilter(this);
 	ui.scrollAreaWidgetContents->installEventFilter(this);
 }
@@ -102,10 +103,11 @@ void TimeLine::loadFile(QString path)
 {
 	//auto item = new QListWidgetItem();
 	//need to add format checker for item
+	framesCount = MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT);
 	auto item = new QListWidgetItem(path, ui.sourcesList);
 	connect(ui.sourcesList, &QListWidget::itemClicked, this, &TimeLine::itemSelected);
-	ui.horizontalSlider->setRange(0, MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT));
-	ui.horizontalSlider->setFixedWidth(MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT));
+	ui.horizontalSlider->setRange(0, framesCount);
+	ui.horizontalSlider->setFixedWidth(framesCount);
 	QListWidgetItem &dl = *item;
 	QBrush brush(QColor::fromRgb(128, 130, 128));
 	item->setBackground(brush);
@@ -117,13 +119,20 @@ void TimeLine::loadFile(QString path)
 	{
 		audioSources.insert({ item , CreateAudioFrame(path) });
 	}
+	timeLineSizeMultipler = ui.widget->width();
 }
 void TimeLine::updateTime()
 {
 	update();
 	UpdateTimeLabel(i);
 	ui.horizontalSlider->setValue(i);
+	if (i == timeLineSizeMultipler-15)
+	{
+		timeLineSizeMultipler += timeLineSizeMultipler;
+		ui.scrollArea->horizontalScrollBar()->setValue(i);
+	}
 	++i;
+	
 }
 void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 {

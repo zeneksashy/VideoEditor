@@ -85,10 +85,22 @@ void AudioFrame::drawOutline()
 	repaint();
 }
 
-void AudioFrame::mousePressEvent(QMouseEvent *)
+void AudioFrame::mousePressEvent(QMouseEvent *e)
 {
+	offset = e->pos();
 	drawOutline();
 	emit LineSelected(this);
+}
+
+void AudioFrame::mouseMoveEvent(QMouseEvent *e)
+{
+	int y = this->pos().y();
+	if (e->buttons() & Qt::LeftButton)
+	{
+		int x = e->pos().x();
+		
+		this->move(mapToParent(QPoint(x-offset.x(),y)));
+	}
 }
 
 void AudioFrame::deleteOutline()

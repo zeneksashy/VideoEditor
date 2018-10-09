@@ -33,6 +33,8 @@ private:
 	uint i;
 	uint scale;
 	float multipler;
+	uint framesCount;
+	int timeLineSizeMultipler;
 	void wheelEvent(QWheelEvent *e)override;
 	void UpdateTimeLabel(int);
 	QScopedPointer<QAudioDecoder> decoder;

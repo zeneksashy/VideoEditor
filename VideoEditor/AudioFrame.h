@@ -10,6 +10,8 @@
 #include <ctime>
 #include<qlistwidget.h>
 #include"MediaFrame.h"
+#include <qmouseeventtransition.h>
+#include <QMouseEvent>
 class AudioRecognition;
 class AudioFrame : public QWidget,public MediaFrame
 {
@@ -24,6 +26,7 @@ public:
 	void paintEvent(QPaintEvent *)override;
 	void drawOutline() override;
 	void mousePressEvent(QMouseEvent *);
+	void mouseMoveEvent(QMouseEvent *) override;
 	void deleteOutline() override;
 	void ResizeFrame(int) override;
 signals:
@@ -33,6 +36,7 @@ private slots:
 	void readBuffer();
 	void audioDecoded();
 private:
+	QPoint offset;
 	std::vector<double> audioFrames;
 	std::vector<double> audioSamples;
 	QScopedPointer<QAudioDecoder> decoder;
