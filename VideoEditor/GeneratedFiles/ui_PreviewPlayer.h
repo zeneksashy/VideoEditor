@@ -74,7 +74,7 @@ public:
         timeLine = new QSlider(PreviewPlayer);
         timeLine->setObjectName(QStringLiteral("timeLine"));
         timeLine->setStyleSheet(QLatin1String("QSlider{\n"
-"background-color:rgb(104, 104, 104)\n"
+"background:rgb(104, 104, 104);\n"
 "}\n"
 "QSlider::groove:horizontal {\n"
 "height: 5px;\n"
@@ -84,11 +84,27 @@ public:
 "QSlider::handle:horizontal {\n"
 "background: orange;\n"
 "height: 5px;\n"
-"width: 8px;\n"
+"width: 5px;\n"
 "margin: -10px 0;\n"
-"border-radius: 18px;\n"
-"}l"));
+"}l\n"
+"QSlider::sub-page:horizontal {\n"
+"background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,\n"
+"    stop: 0 #66e, stop: 1 #bbf);\n"
+"background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,\n"
+"    stop: 0 #bbf, stop: 1 #55f);\n"
+"border: 1px solid #777;\n"
+"height: 10px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"QSlider::sub-page:horizontal:disabled {\n"
+"background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,\n"
+"    stop: 0 #66e, stop: 1 #bbf);\n"
+"background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,\n"
+"    stop: 0 #bbf, stop: 1 #55f);\n"
+"}\n"
+""));
         timeLine->setMaximum(15000);
+        timeLine->setValue(0);
         timeLine->setOrientation(Qt::Horizontal);
         timeLine->setInvertedAppearance(false);
         timeLine->setInvertedControls(false);

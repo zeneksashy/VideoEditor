@@ -28,6 +28,7 @@ TimeLine::TimeLine(QWidget *parent)
 	auto scroll1 = ui.scrollArea->horizontalScrollBar();
 	connect(scroll, &QScrollBar::sliderMoved, scroll1, &QScrollBar::setValue);
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
+	connect(MediaManager::player, &Player::videoStopped, this, &TimeLine::stopTimeLine);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
 	setMouseTracking(true);
 	i = 0;
@@ -57,6 +58,13 @@ void TimeLine::ResizeFrames(int p)
 		e.what();
 	}
 	
+}
+
+void TimeLine::stopTimeLine()
+{
+	i = 0;
+	updateTime();
+	i = 0;
 }
 
 void TimeLine::wheelEvent(QWheelEvent *e)

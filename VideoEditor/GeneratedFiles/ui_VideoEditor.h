@@ -125,12 +125,7 @@ public:
         preview->setSizePolicy(sizePolicy1);
         preview->setMinimumSize(QSize(700, 400));
         preview->setLayoutDirection(Qt::LeftToRight);
-        preview->setStyleSheet(QLatin1String("PreviewPlayer\n"
-"{\n"
-"border-style: outset;\n"
-"    border-width: 2px;\n"
-"border-color:rgb(104, 104, 104)\n"
-"}"));
+        preview->setStyleSheet(QStringLiteral(""));
 
         horizontalLayout_2->addWidget(preview);
 

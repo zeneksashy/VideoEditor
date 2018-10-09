@@ -25,6 +25,7 @@ public  slots:
 signals:
 	//Signal to output frame to be displayed
 	void processedImage(const QImage &image);
+	void videoStopped();
 	void positionChanged();
 protected:
 	void run();

@@ -55,7 +55,7 @@
         <widget class="QSlider" name="timeLine">
          <property name="styleSheet">
           <string notr="true">QSlider{
-background-color:rgb(104, 104, 104)
+background:rgb(104, 104, 104);
 }
 QSlider::groove:horizontal {
 height: 5px;
@@ -65,13 +65,31 @@ margin: 2px 0;
 QSlider::handle:horizontal {
 background: orange;
 height: 5px;
-width: 8px;
+width: 5px;
 margin: -10px 0;
-border-radius: 18px;
-}l</string>
+}l
+QSlider::sub-page:horizontal {
+background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
+    stop: 0 #66e, stop: 1 #bbf);
+background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
+    stop: 0 #bbf, stop: 1 #55f);
+border: 1px solid #777;
+height: 10px;
+border-radius: 4px;
+}
+QSlider::sub-page:horizontal:disabled {
+background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
+    stop: 0 #66e, stop: 1 #bbf);
+background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
+    stop: 0 #bbf, stop: 1 #55f);
+}
+</string>
          </property>
          <property name="maximum">
           <number>15000</number>
+         </property>
+         <property name="value">
+          <number>0</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

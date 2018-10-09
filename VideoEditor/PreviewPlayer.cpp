@@ -10,6 +10,7 @@ PreviewPlayer::PreviewPlayer(QWidget *parent)
 	auto media = MediaManager::player->getMediaPlayer();
 	connect(MediaManager::player, &Player::processedImage, ui.canvas, &QGLCanvas::setImage);
 	connect(MediaManager::player, &Player::positionChanged, this, &PreviewPlayer::updatePlayerUI);
+	connect(MediaManager::player, &Player::videoStopped, this, &PreviewPlayer::stopTimeLine);
 	connect(ui.volumeSlider, &QSlider::valueChanged, media, &QMediaPlayer::setVolume);
 	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
 	connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
@@ -42,6 +43,11 @@ void PreviewPlayer::updateTimeLine(int value)
 		ui.timeLine->blockSignals(false);
 	}
 		
+}
+void PreviewPlayer::stopTimeLine()
+{
+	i = 0;
+	updateTimeLine(i);
 }
 void PreviewPlayer::onStopButtonClicked()
 {

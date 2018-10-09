@@ -86,12 +86,7 @@ background-color:&quot;white&quot;;
            <enum>Qt::LeftToRight</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">PreviewPlayer
-{
-border-style: outset;
-    border-width: 2px;
-border-color:rgb(104, 104, 104)
-}</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>

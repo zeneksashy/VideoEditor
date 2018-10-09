@@ -26,7 +26,7 @@ private slots:
 	void setVideoPosition(int pos);
 	void setMaxToTimeLine(int max);
 	void updateTimeLine(int value);
-	
+	void stopTimeLine();
 private:
 	int i;
 	Ui::PreviewPlayer ui;

@@ -148,6 +148,7 @@ void Player::Stop()
 	capture->set(cv::CAP_PROP_POS_FRAMES, 0);
 	mediaplayer->stop();
 	stop = true;
+	emit videoStopped();
 }
 
 void Player::Pause()

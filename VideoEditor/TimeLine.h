@@ -28,6 +28,7 @@ private slots:
 	void itemSelected(QListWidgetItem*);
 	void LineSelected(MediaFrame*);
 	void ResizeFrames(int);
+	void stopTimeLine();
 private:
 	uint i;
 	uint scale;
