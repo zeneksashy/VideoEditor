@@ -172,10 +172,13 @@
     <QtMoc Include="SingleTrack.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AudioTrack.h">
+    <QtMoc Include="MediaTrack.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
     <QtMoc Include="VideoTrack.h">
+      <Filter>Custom Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="AudioTrack.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
   </ItemGroup>
@@ -245,9 +248,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="TimeLineSlider.h">
-      <Filter>Custom Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="MediaTrack.h">
       <Filter>Custom Widgets</Filter>
     </ClInclude>
   </ItemGroup>

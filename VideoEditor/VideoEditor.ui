@@ -66,6 +66,93 @@ background-color:rgb(45, 45, 48)
 background-color:&quot;white&quot;;
 }</string>
           </property>
+          <widget class="QListWidget" name="sourcesList">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>911</width>
+             <height>481</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QListWidget
+{
+background-color: rgb(62, 62, 66)
+}
+QListWidget::item:selected
+{
+    background: rgb(128,128,255);
+}
+
+ QScrollBar:vertical {
+	background:rgb(238, 238, 238);
+    width: 10px;
+}
+QScrollBar::handle:vertical {
+    background: rgb(58, 64, 85);
+    min-heigth: 6px;
+	heigth:10px;
+	max-heigth:15px;
+	border: 1px solid rgb(29, 0, 58);
+	border-radius:5px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+}
+QScrollBar::right-arrow:vertical, QScrollBar::left-arrow:vertical
+{
+background:none;
+color:none;
+}
+QScrollBar::add-line:vertical {
+      border: none;
+      background: none;
+}
+
+QScrollBar::sub-line:vertical {
+      border: none;
+      background: none;
+}
+ QScrollBar:horizontal {
+	background:rgb(238, 238, 238);
+    height: 10px;
+}
+QScrollBar::handle:horizontal {
+    background: rgb(58, 64, 85);
+    min-width: 6px;
+	width:10px;
+	max-width:15px;
+	border: 1px solid rgb(29, 0, 58);
+	border-radius:5px;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+background: none;
+}
+QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal
+{
+background:none;
+color:none;
+}
+QScrollBar::add-line:horizontal {
+      border: none;
+      background: none;
+}
+
+QScrollBar::sub-line:horizontal {
+      border: none;
+      background: none;
+}
+
+ </string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>

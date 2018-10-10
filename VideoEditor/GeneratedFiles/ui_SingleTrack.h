@@ -24,25 +24,32 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QPushButton *TrackButton;
     QSpacerItem *horizontalSpacer;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *tracksLayout;
 
     void setupUi(QWidget *SingleTrack)
     {
         if (SingleTrack->objectName().isEmpty())
             SingleTrack->setObjectName(QStringLiteral("SingleTrack"));
         SingleTrack->resize(1071, 155);
-        horizontalLayout_2 = new QHBoxLayout(SingleTrack);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        TrackButton = new QPushButton(SingleTrack);
-        TrackButton->setObjectName(QStringLiteral("TrackButton"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(TrackButton->sizePolicy().hasHeightForWidth());
-        TrackButton->setSizePolicy(sizePolicy);
-        TrackButton->setMinimumSize(QSize(27, 27));
+        sizePolicy.setHeightForWidth(SingleTrack->sizePolicy().hasHeightForWidth());
+        SingleTrack->setSizePolicy(sizePolicy);
+        SingleTrack->setMinimumSize(QSize(0, 60));
+        horizontalLayout_2 = new QHBoxLayout(SingleTrack);
+        horizontalLayout_2->setSpacing(0);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, -1, -1, -1);
+        TrackButton = new QPushButton(SingleTrack);
+        TrackButton->setObjectName(QStringLiteral("TrackButton"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Maximum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(TrackButton->sizePolicy().hasHeightForWidth());
+        TrackButton->setSizePolicy(sizePolicy1);
+        TrackButton->setMinimumSize(QSize(35, 32));
         QFont font;
         font.setFamily(QStringLiteral("Arial"));
         font.setPointSize(9);
@@ -64,11 +71,11 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        tracksLayout = new QHBoxLayout();
+        tracksLayout->setSpacing(6);
+        tracksLayout->setObjectName(QStringLiteral("tracksLayout"));
 
-        horizontalLayout_2->addLayout(horizontalLayout);
+        horizontalLayout_2->addLayout(tracksLayout);
 
 
         retranslateUi(SingleTrack);

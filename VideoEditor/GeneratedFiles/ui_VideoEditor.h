@@ -15,6 +15,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -44,6 +45,7 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QWidget *widget;
+    QListWidget *sourcesList;
     PreviewPlayer *preview;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
@@ -113,16 +115,94 @@ public:
 "{\n"
 "background-color:\"white\";\n"
 "}"));
+        sourcesList = new QListWidget(widget);
+        sourcesList->setObjectName(QStringLiteral("sourcesList"));
+        sourcesList->setGeometry(QRect(0, 0, 911, 481));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(sourcesList->sizePolicy().hasHeightForWidth());
+        sourcesList->setSizePolicy(sizePolicy1);
+        sourcesList->setStyleSheet(QLatin1String("QListWidget\n"
+"{\n"
+"background-color: rgb(62, 62, 66)\n"
+"}\n"
+"QListWidget::item:selected\n"
+"{\n"
+"    background: rgb(128,128,255);\n"
+"}\n"
+"\n"
+" QScrollBar:vertical {\n"
+"	background:rgb(238, 238, 238);\n"
+"    width: 10px;\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"    background: rgb(58, 64, 85);\n"
+"    min-heigth: 6px;\n"
+"	heigth:10px;\n"
+"	max-heigth:15px;\n"
+"	border: 1px solid rgb(29, 0, 58);\n"
+"	border-radius:5px;\n"
+"}\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+"background: none;\n"
+"}\n"
+"QScrollBar::right-arrow:vertical, QScrollBar::left-arrow:vertical\n"
+"{\n"
+"background:none;\n"
+"color:none;\n"
+"}\n"
+"QScrollBar::add-line:vertical {\n"
+"      border: none;\n"
+"      background: none;\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"      border: none;\n"
+"      background: none;\n"
+"}\n"
+" QScrollBar:horizontal {\n"
+"	background:rgb(238, 238, 238);\n"
+"    height: 10px;\n"
+"}\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgb(58, 64, 85);\n"
+"    m"
+                        "in-width: 6px;\n"
+"	width:10px;\n"
+"	max-width:15px;\n"
+"	border: 1px solid rgb(29, 0, 58);\n"
+"	border-radius:5px;\n"
+"}\n"
+"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+"background: none;\n"
+"}\n"
+"QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal\n"
+"{\n"
+"background:none;\n"
+"color:none;\n"
+"}\n"
+"QScrollBar::add-line:horizontal {\n"
+"      border: none;\n"
+"      background: none;\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:horizontal {\n"
+"      border: none;\n"
+"      background: none;\n"
+"}\n"
+"\n"
+" "));
 
         horizontalLayout_2->addWidget(widget);
 
         preview = new PreviewPlayer(centralWidget);
         preview->setObjectName(QStringLiteral("preview"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(preview->sizePolicy().hasHeightForWidth());
-        preview->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(preview->sizePolicy().hasHeightForWidth());
+        preview->setSizePolicy(sizePolicy2);
         preview->setMinimumSize(QSize(700, 400));
         preview->setLayoutDirection(Qt::LeftToRight);
         preview->setStyleSheet(QStringLiteral(""));
@@ -142,8 +222,8 @@ public:
         horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         timeLine = new TimeLine(centralWidget);
         timeLine->setObjectName(QStringLiteral("timeLine"));
-        sizePolicy1.setHeightForWidth(timeLine->sizePolicy().hasHeightForWidth());
-        timeLine->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(timeLine->sizePolicy().hasHeightForWidth());
+        timeLine->setSizePolicy(sizePolicy2);
         timeLine->setMinimumSize(QSize(1800, 350));
         timeLine->setBaseSize(QSize(1800, 350));
         timeLine->setStyleSheet(QStringLiteral(""));

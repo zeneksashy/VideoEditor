@@ -1,7 +1,7 @@
 #include "VideoTrack.h"
 #include<qpainter.h>
 VideoTrack::VideoTrack(QWidget *parent)
-	: QWidget(parent)
+	: MediaTrack(parent)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	setMinimumHeight(60);

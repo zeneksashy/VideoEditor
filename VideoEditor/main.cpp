@@ -50,6 +50,7 @@ private:
 //add audio effects
 //add rendering
 // create audio and video frames in another thread 
+//create buffer for player opencv mat based on queue
 
 int main(int argc, char *argv[])
 {

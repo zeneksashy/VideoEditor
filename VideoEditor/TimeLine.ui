@@ -177,89 +177,11 @@ border-radius: 4px;
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QListWidget" name="sourcesList">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QListWidget
-{
-background-color: rgb(62, 62, 66)
-}
-QListWidget::item:selected
-{
-    background: rgb(128,128,255);
-}
-
- QScrollBar:vertical {
-	background:rgb(238, 238, 238);
-    width: 10px;
-}
-QScrollBar::handle:vertical {
-    background: rgb(58, 64, 85);
-    min-heigth: 6px;
-	heigth:10px;
-	max-heigth:15px;
-	border: 1px solid rgb(29, 0, 58);
-	border-radius:5px;
-}
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-background: none;
-}
-QScrollBar::right-arrow:vertical, QScrollBar::left-arrow:vertical
-{
-background:none;
-color:none;
-}
-QScrollBar::add-line:vertical {
-      border: none;
-      background: none;
-}
-
-QScrollBar::sub-line:vertical {
-      border: none;
-      background: none;
-}
- QScrollBar:horizontal {
-	background:rgb(238, 238, 238);
-    height: 10px;
-}
-QScrollBar::handle:horizontal {
-    background: rgb(58, 64, 85);
-    min-width: 6px;
-	width:10px;
-	max-width:15px;
-	border: 1px solid rgb(29, 0, 58);
-	border-radius:5px;
-}
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
-background: none;
-}
-QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal
-{
-background:none;
-color:none;
-}
-QScrollBar::add-line:horizontal {
-      border: none;
-      background: none;
-}
-
-QScrollBar::sub-line:horizontal {
-      border: none;
-      background: none;
-}
-
- </string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QWidget" name="widget" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QScrollArea" name="scrollArea">
           <property name="sizePolicy">
@@ -371,8 +293,8 @@ QScrollBar::sub-line:vertical {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1198</width>
-             <height>430</height>
+             <width>1469</width>
+             <height>393</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -402,24 +324,42 @@ border:0px solid black;
              <number>0</number>
             </property>
             <item>
-             <widget class="TimeLineSlider" name="horizontalSlider">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="autoFillBackground">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QWidget
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>85</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="TimeLineSlider" name="horizontalSlider">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>150</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QWidget
 {
 background-color:rgba(255, 255, 255, 0);
 border:0px solid black;
@@ -437,20 +377,22 @@ QSlider::handle:horizontal {
 	height: 15px;
 	margin: -5px 0 -1px 0;
 }</string>
-              </property>
-              <property name="maximum">
-               <number>200</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="tickPosition">
-               <enum>QSlider::TicksAbove</enum>
-              </property>
-              <property name="tickInterval">
-               <number>25</number>
-              </property>
-             </widget>
+                </property>
+                <property name="maximum">
+                 <number>200</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="tickPosition">
+                 <enum>QSlider::TicksAbove</enum>
+                </property>
+                <property name="tickInterval">
+                 <number>25</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="QScrollArea" name="scrollArea_2">
@@ -461,7 +403,7 @@ QSlider::handle:horizontal {
                </sizepolicy>
               </property>
               <property name="horizontalScrollBarPolicy">
-               <enum>Qt::ScrollBarAsNeeded</enum>
+               <enum>Qt::ScrollBarAlwaysOff</enum>
               </property>
               <property name="widgetResizable">
                <bool>true</bool>
@@ -474,8 +416,8 @@ QSlider::handle:horizontal {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1189</width>
-                 <height>388</height>
+                 <width>1460</width>
+                 <height>349</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_3">

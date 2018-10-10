@@ -13,7 +13,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
@@ -32,12 +31,13 @@ public:
     QSlider *zoomingSlider;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout;
-    QListWidget *sourcesList;
     QWidget *widget;
     QVBoxLayout *verticalLayout_4;
     QScrollArea *scrollArea;
     QWidget *Content;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_2;
     TimeLineSlider *horizontalSlider;
     QScrollArea *scrollArea_2;
     QWidget *scrollAreaWidgetContents;
@@ -165,99 +165,20 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        sourcesList = new QListWidget(TimeLine);
-        sourcesList->setObjectName(QStringLiteral("sourcesList"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(sourcesList->sizePolicy().hasHeightForWidth());
-        sourcesList->setSizePolicy(sizePolicy2);
-        sourcesList->setStyleSheet(QLatin1String("QListWidget\n"
-"{\n"
-"background-color: rgb(62, 62, 66)\n"
-"}\n"
-"QListWidget::item:selected\n"
-"{\n"
-"    background: rgb(128,128,255);\n"
-"}\n"
-"\n"
-" QScrollBar:vertical {\n"
-"	background:rgb(238, 238, 238);\n"
-"    width: 10px;\n"
-"}\n"
-"QScrollBar::handle:vertical {\n"
-"    background: rgb(58, 64, 85);\n"
-"    min-heigth: 6px;\n"
-"	heigth:10px;\n"
-"	max-heigth:15px;\n"
-"	border: 1px solid rgb(29, 0, 58);\n"
-"	border-radius:5px;\n"
-"}\n"
-"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
-"background: none;\n"
-"}\n"
-"QScrollBar::right-arrow:vertical, QScrollBar::left-arrow:vertical\n"
-"{\n"
-"background:none;\n"
-"color:none;\n"
-"}\n"
-"QScrollBar::add-line:vertical {\n"
-"      border: none;\n"
-"      background: none;\n"
-"}\n"
-"\n"
-"QScrollBar::sub-line:vertical {\n"
-"      border: none;\n"
-"      background: none;\n"
-"}\n"
-" QScrollBar:horizontal {\n"
-"	background:rgb(238, 238, 238);\n"
-"    height: 10px;\n"
-"}\n"
-"QScrollBar::handle:horizontal {\n"
-"    background: rgb(58, 64, 85);\n"
-"    m"
-                        "in-width: 6px;\n"
-"	width:10px;\n"
-"	max-width:15px;\n"
-"	border: 1px solid rgb(29, 0, 58);\n"
-"	border-radius:5px;\n"
-"}\n"
-"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-"background: none;\n"
-"}\n"
-"QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal\n"
-"{\n"
-"background:none;\n"
-"color:none;\n"
-"}\n"
-"QScrollBar::add-line:horizontal {\n"
-"      border: none;\n"
-"      background: none;\n"
-"}\n"
-"\n"
-"QScrollBar::sub-line:horizontal {\n"
-"      border: none;\n"
-"      background: none;\n"
-"}\n"
-"\n"
-" "));
-
-        horizontalLayout->addWidget(sourcesList);
-
         widget = new QWidget(TimeLine);
         widget->setObjectName(QStringLiteral("widget"));
         verticalLayout_4 = new QVBoxLayout(widget);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(0, -1, -1, -1);
         scrollArea = new QScrollArea(widget);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        QSizePolicy sizePolicy3(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
-        scrollArea->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
+        scrollArea->setSizePolicy(sizePolicy2);
         scrollArea->setMinimumSize(QSize(1000, 395));
         scrollArea->setStyleSheet(QLatin1String("QScrollArea\n"
 "{\n"
@@ -336,12 +257,12 @@ public:
         scrollArea->setAlignment(Qt::AlignCenter);
         Content = new QWidget();
         Content->setObjectName(QStringLiteral("Content"));
-        Content->setGeometry(QRect(0, 0, 1198, 430));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(Content->sizePolicy().hasHeightForWidth());
-        Content->setSizePolicy(sizePolicy4);
+        Content->setGeometry(QRect(0, 0, 1469, 393));
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(Content->sizePolicy().hasHeightForWidth());
+        Content->setSizePolicy(sizePolicy3);
         Content->setMinimumSize(QSize(0, 0));
         Content->setStyleSheet(QLatin1String("QWidget\n"
 "{\n"
@@ -353,13 +274,20 @@ public:
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, -1, -1);
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer_2 = new QSpacerItem(85, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_2);
+
         horizontalSlider = new TimeLineSlider(Content);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        QSizePolicy sizePolicy5(QSizePolicy::Minimum, QSizePolicy::Maximum);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
-        horizontalSlider->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
+        horizontalSlider->setSizePolicy(sizePolicy4);
         horizontalSlider->setMinimumSize(QSize(150, 20));
         horizontalSlider->setAutoFillBackground(false);
         horizontalSlider->setStyleSheet(QLatin1String("QWidget\n"
@@ -385,21 +313,24 @@ public:
         horizontalSlider->setTickPosition(QSlider::TicksAbove);
         horizontalSlider->setTickInterval(25);
 
-        verticalLayout->addWidget(horizontalSlider);
+        horizontalLayout_3->addWidget(horizontalSlider);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
 
         scrollArea_2 = new QScrollArea(Content);
         scrollArea_2->setObjectName(QStringLiteral("scrollArea_2"));
-        QSizePolicy sizePolicy6(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(scrollArea_2->sizePolicy().hasHeightForWidth());
-        scrollArea_2->setSizePolicy(sizePolicy6);
-        scrollArea_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(scrollArea_2->sizePolicy().hasHeightForWidth());
+        scrollArea_2->setSizePolicy(sizePolicy5);
+        scrollArea_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scrollArea_2->setWidgetResizable(true);
         scrollArea_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1189, 388));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1460, 349));
         verticalLayout_3 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);

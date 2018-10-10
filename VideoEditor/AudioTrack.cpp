@@ -4,8 +4,7 @@
 #include<qbytearray.h>
 #include"MediaManager.h"
 #include<AudioRecognition.h>
-AudioTrack::AudioTrack(QWidget *parent)
-	: QWidget(parent)
+AudioTrack::AudioTrack(QWidget *parent):MediaTrack(parent)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	setMinimumHeight(60);
@@ -71,10 +70,9 @@ void AudioTrack::paintEvent(QPaintEvent*)
 	for (int i = 0; i <audioSamples.size(); i++)
 	{
 		double plot = 0;
-			plot = audioSamples[i]*30;
-			QLine line(i, (size.height() / 2)+plot, i, (size.height() / 2) - plot);
-			 painter.drawLine(line);
-			
+		plot = audioSamples[i]*30;
+		QLine line(i, (size.height() / 2)+plot, i, (size.height() / 2) - plot);
+		painter.drawLine(line);
 	}
 }
 

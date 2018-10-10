@@ -5,10 +5,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include"MediaTrack.h"
-class VideoTrack : public QWidget,public MediaTrack
+class VideoTrack : public MediaTrack
 {
 	Q_OBJECT
-
 public:
 	VideoTrack(QWidget *parent);
 	~VideoTrack();

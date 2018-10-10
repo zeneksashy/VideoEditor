@@ -12,9 +12,9 @@
 #include <qmouseeventtransition.h>
 #include <QMouseEvent>
 class AudioRecognition;
-class AudioTrack : public QWidget,public MediaTrack
+class AudioTrack : public MediaTrack
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
 	AudioTrack(QWidget *parent);
