@@ -95,12 +95,6 @@
     <ClCompile Include="MedianBlurWindow.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="AudioFrame.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="MediaFrame.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
     <ClCompile Include="VideoEffect.cpp">
       <Filter>Video fx</Filter>
     </ClCompile>
@@ -125,11 +119,17 @@
     <ClCompile Include="TimeLineSlider.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="VideoFrame.cpp">
+    <ClCompile Include="SingleTrack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioTrack.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="SingleLine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="VideoTrack.cpp">
+      <Filter>Custom Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaTrack.cpp">
+      <Filter>Custom Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,9 +157,6 @@
     <QtMoc Include="MedianBlurWindow.h">
       <Filter>Windows</Filter>
     </QtMoc>
-    <QtMoc Include="AudioFrame.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
     <QtMoc Include="GausianBlurWindow.h">
       <Filter>Windows</Filter>
     </QtMoc>
@@ -172,11 +169,14 @@
     <QtMoc Include="TimeLine.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
-    <QtMoc Include="VideoFrame.h">
+    <QtMoc Include="SingleTrack.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AudioTrack.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
-    <QtMoc Include="SingleLine.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="VideoTrack.h">
+      <Filter>Custom Widgets</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +204,7 @@
     <QtUic Include="TimeLine.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="SingleLine.ui">
+    <QtUic Include="SingleTrack.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -232,9 +232,6 @@
     <ClInclude Include="VideoLoader.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="MediaFrame.h">
-      <Filter>Custom Widgets</Filter>
-    </ClInclude>
     <ClInclude Include="VideoEffect.h">
       <Filter>Video fx</Filter>
     </ClInclude>
@@ -248,6 +245,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="TimeLineSlider.h">
+      <Filter>Custom Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaTrack.h">
       <Filter>Custom Widgets</Filter>
     </ClInclude>
   </ItemGroup>

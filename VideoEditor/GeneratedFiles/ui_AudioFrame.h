@@ -15,30 +15,30 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_AudioFrame
+class Ui_AudioTrack
 {
 public:
 
-    void setupUi(QWidget *AudioFrame)
+    void setupUi(QWidget *AudioTrack)
     {
-        if (AudioFrame->objectName().isEmpty())
-            AudioFrame->setObjectName(QStringLiteral("AudioFrame"));
-        AudioFrame->resize(400, 300);
+        if (AudioTrack->objectName().isEmpty())
+            AudioTrack->setObjectName(QStringLiteral("AudioTrack"));
+        AudioTrack->resize(400, 300);
 
-        retranslateUi(AudioFrame);
+        retranslateUi(AudioTrack);
 
-        QMetaObject::connectSlotsByName(AudioFrame);
+        QMetaObject::connectSlotsByName(AudioTrack);
     } // setupUi
 
-    void retranslateUi(QWidget *AudioFrame)
+    void retranslateUi(QWidget *AudioTrack)
     {
-        AudioFrame->setWindowTitle(QApplication::translate("AudioFrame", "AudioFrame", nullptr));
+        AudioTrack->setWindowTitle(QApplication::translate("AudioTrack", "AudioTrack", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class AudioFrame: public Ui_AudioFrame {};
+    class AudioTrack: public Ui_AudioTrack {};
 } // namespace Ui
 
 QT_END_NAMESPACE

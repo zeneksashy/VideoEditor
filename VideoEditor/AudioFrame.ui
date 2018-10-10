@@ -1,8 +1,8 @@
 <UI version="4.0" >
- <class>AudioFrame</class>
- <widget class="QWidget" name="AudioFrame" >
+ <class>AudioTrack</class>
+ <widget class="QWidget" name="AudioTrack" >
   <property name="objectName" >
-   <string notr="true">AudioFrame</string>
+   <string notr="true">AudioTrack</string>
   </property>
   <property name="geometry" >
    <rect>
@@ -13,7 +13,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>AudioFrame</string>
+   <string>AudioTrack</string>
   </property>
  </widget>
  <layoutDefault spacing="6" margin="11" />

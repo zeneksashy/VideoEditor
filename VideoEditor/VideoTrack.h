@@ -4,14 +4,14 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include"MediaFrame.h"
-class VideoFrame : public QWidget,public MediaFrame
+#include"MediaTrack.h"
+class VideoTrack : public QWidget,public MediaTrack
 {
 	Q_OBJECT
 
 public:
-	VideoFrame(QWidget *parent);
-	~VideoFrame();
+	VideoTrack(QWidget *parent);
+	~VideoTrack();
 	void paintEvent(QPaintEvent *)override;
 	void Initliaize(QString filename);
 	QImage loadFrame(long pos);
@@ -20,7 +20,7 @@ public:
 	void ResizeFrame(int) override;
 	void deleteOutline() override;
 signals:
-	void LineSelected(VideoFrame*);
+	void LineSelected(VideoTrack*);
 private:
 	int scale;
 	cv::Mat frame;

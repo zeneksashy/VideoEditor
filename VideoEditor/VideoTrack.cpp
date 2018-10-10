@@ -1,6 +1,6 @@
-#include "VideoFrame.h"
+#include "VideoTrack.h"
 #include<qpainter.h>
-VideoFrame::VideoFrame(QWidget *parent)
+VideoTrack::VideoTrack(QWidget *parent)
 	: QWidget(parent)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -10,11 +10,11 @@ VideoFrame::VideoFrame(QWidget *parent)
 	isSelected = false;
 }
 
-VideoFrame::~VideoFrame()
+VideoTrack::~VideoTrack()
 {
 	capture.release();
 }
-void VideoFrame::paintEvent(QPaintEvent*)
+void VideoTrack::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	painter.fillRect(rect(), Qt::gray);
@@ -30,7 +30,7 @@ void VideoFrame::paintEvent(QPaintEvent*)
 		painter.drawRoundedRect(0, 0, width() - 1, height() - 1, 0, 0);
 	}
 }
-void VideoFrame::Initliaize(QString filename)
+void VideoTrack::Initliaize(QString filename)
 {
 	capture.open(filename.toStdString());
 	if (capture.isOpened())
@@ -46,7 +46,7 @@ void VideoFrame::Initliaize(QString filename)
 	}
 }
 
-QImage VideoFrame::loadFrame(long pos)
+QImage VideoTrack::loadFrame(long pos)
 {
 	capture.set(CV_CAP_PROP_POS_MSEC, pos);
 	QImage img;
@@ -67,18 +67,18 @@ QImage VideoFrame::loadFrame(long pos)
 	return img;
 }
 
-void VideoFrame::drawOutline()
+void VideoTrack::drawOutline()
 {
 	isSelected = true;
 	repaint();
 }
 
-void VideoFrame::mousePressEvent(QMouseEvent *)
+void VideoTrack::mousePressEvent(QMouseEvent *)
 {
 	emit LineSelected(this);
 }
 
-void VideoFrame::ResizeFrame(int p)
+void VideoTrack::ResizeFrame(int p)
 {
 	try
 	{
@@ -94,7 +94,7 @@ void VideoFrame::ResizeFrame(int p)
 
 }
 
-void VideoFrame::deleteOutline()
+void VideoTrack::deleteOutline()
 {
 	isSelected = false;
 	repaint();

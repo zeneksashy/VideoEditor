@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_AudioFrame.h"
 #include<qaudiodecoder.h>
 #include<qaudioformat.h>
 #include<qpixmap.h>
@@ -9,18 +8,18 @@
 #include<AudioRecognition.h>
 #include <ctime>
 #include<qlistwidget.h>
-#include"MediaFrame.h"
+#include"MediaTrack.h"
 #include <qmouseeventtransition.h>
 #include <QMouseEvent>
 class AudioRecognition;
-class AudioFrame : public QWidget,public MediaFrame
+class AudioTrack : public QWidget,public MediaTrack
 {
 	Q_OBJECT
 
 public:
-	AudioFrame(QWidget *parent);
-	AudioFrame();
-	~AudioFrame();
+	AudioTrack(QWidget *parent);
+	AudioTrack();
+	~AudioTrack();
 	void Initialize(QString);
 	void Initialize(AudioAnalyser*,const QAudioFormat &format, qint64 audioBufferSize);
 	void paintEvent(QPaintEvent *)override;
@@ -30,7 +29,7 @@ public:
 	void deleteOutline() override;
 	void ResizeFrame(int) override;
 signals:
-	void LineSelected(AudioFrame*);
+	void LineSelected(AudioTrack*);
 private slots:
 	void ChangeFormat(const QAudioFormat&);
 	void readBuffer();
@@ -45,7 +44,6 @@ private:
 	AudioRecognition recognizer;
 	QString path;
 	FastFourierTransform fft;
-	Ui::AudioFrame ui;
 	uint templenght;
 	uint lenght;
 	uint sampleSize;

@@ -1,13 +1,12 @@
-#include "AudioFrame.h"
+#include "AudioTrack.h"
 #include <qpaintdevice.h>
 #include<qpainter.h>
 #include<qbytearray.h>
 #include"MediaManager.h"
 #include<AudioRecognition.h>
-AudioFrame::AudioFrame(QWidget *parent)
+AudioTrack::AudioTrack(QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	setMinimumHeight(60);
 	setFixedHeight(60);
@@ -15,45 +14,45 @@ AudioFrame::AudioFrame(QWidget *parent)
 	isSelected = false;
 }
 
-AudioFrame::~AudioFrame()
+AudioTrack::~AudioTrack()
 {
 
 }
 
 
-void AudioFrame::Initialize(QString path)
+void AudioTrack::Initialize(QString path)
 {
 	
 	this->path = path;
 	decoder.reset(new QAudioDecoder());
 	decoder->setSourceFilename(path);
-	connect(decoder.data(), &QAudioDecoder::formatChanged, this, &AudioFrame::ChangeFormat);
+	connect(decoder.data(), &QAudioDecoder::formatChanged, this, &AudioTrack::ChangeFormat);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
-	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioFrame::audioDecoded);
+	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioTrack::audioDecoded);
 	clk = std::clock();
 	decoder->start();	
 }
-void AudioFrame::ChangeFormat(const QAudioFormat& format)
+void AudioTrack::ChangeFormat(const QAudioFormat& format)
 {
 	this->format = format;
 	sampleSize = format.sampleRate();
 	analyser.reset(recognizer.RrecognizeFrameType(format));
 }
-void AudioFrame::readBuffer()
+void AudioTrack::readBuffer()
 {
 	auto tempBuff = decoder->read();
 	auto data = analyser->LoadDataFromBuffer(tempBuff);
 	audioFrames.insert(audioFrames.end(), data.begin(), data.end());
 }
 
-void AudioFrame::Initialize(AudioAnalyser *analyser, const QAudioFormat & format, qint64 audioBufferSize)
+void AudioTrack::Initialize(AudioAnalyser *analyser, const QAudioFormat & format, qint64 audioBufferSize)
 {
 	this -> format = format;
 	//tileLenght = audioBufferSize;
 	this->analyser.reset(analyser);
 	
 }
-void AudioFrame::paintEvent(QPaintEvent*)
+void AudioTrack::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	painter.fillRect(rect(), Qt::gray);
@@ -79,20 +78,20 @@ void AudioFrame::paintEvent(QPaintEvent*)
 	}
 }
 
-void AudioFrame::drawOutline()
+void AudioTrack::drawOutline()
 {
 	isSelected = true;
 	repaint();
 }
 
-void AudioFrame::mousePressEvent(QMouseEvent *e)
+void AudioTrack::mousePressEvent(QMouseEvent *e)
 {
 	offset = e->pos();
 	drawOutline();
 	emit LineSelected(this);
 }
 
-void AudioFrame::mouseMoveEvent(QMouseEvent *e)
+void AudioTrack::mouseMoveEvent(QMouseEvent *e)
 {
 	int y = this->pos().y();
 	if (e->buttons() & Qt::LeftButton)
@@ -103,13 +102,13 @@ void AudioFrame::mouseMoveEvent(QMouseEvent *e)
 	}
 }
 
-void AudioFrame::deleteOutline()
+void AudioTrack::deleteOutline()
 {
 	isSelected = false;
 	repaint();
 }
 
-void AudioFrame::ResizeFrame(int p)
+void AudioTrack::ResizeFrame(int p)
 {
 	templenght = sampleSize;
 
@@ -126,7 +125,7 @@ void AudioFrame::ResizeFrame(int p)
 //3 seconds for audiobuffer
 //2.4 without pushback // 0,02 sec after ordering private variables // 0,02  after changing qvariant to double
 //0.3 second for rms and normalization 
-void AudioFrame::audioDecoded()
+void AudioTrack::audioDecoded()
 {
 	clock_t endTime = clock();
 	clock_t clockTicksTaken = endTime - clk;

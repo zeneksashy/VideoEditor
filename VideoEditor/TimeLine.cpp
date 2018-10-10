@@ -9,7 +9,7 @@
 #include <QAudioDecoder>
 #include<complex>
 #include<vector>
-#include <AudioFrame.h>
+#include <AudioTrack.h>
 
 //TODO
 // add correct slider range
@@ -113,11 +113,11 @@ void TimeLine::loadFile(QString path)
 	item->setBackground(brush);
 	if (MediaManager::player->isVideoAvaible())
 	{
-		videoSources.insert({ item , CreateVideoFrame(path) });
+		videoSources.insert({ item , CreateVideoTrack(path) });
 	}
 	if (MediaManager::player->isAudioAvaible())
 	{
-		audioSources.insert({ item , CreateAudioFrame(path) });
+		audioSources.insert({ item , CreateAudioTrack(path) });
 	}
 	timeLineSizeMultipler = ui.widget->width();
 }
@@ -177,7 +177,7 @@ void TimeLine::itemSelected(QListWidgetItem* item)
 	videoSources.find(item)->second->drawOutline();
 }
 
-void TimeLine::LineSelected(MediaFrame * frame)
+void TimeLine::LineSelected(MediaTrack * frame)
 {
 	auto  audioIt = audioSources.begin();
 	auto  videoIt = videoSources.begin();
@@ -212,20 +212,20 @@ void TimeLine::LineSelected(MediaFrame * frame)
 	}
 }
 
-VideoFrame* TimeLine::CreateVideoFrame(QString path)
+VideoTrack* TimeLine::CreateVideoTrack(QString path)
 {
-	auto videoframe = new VideoFrame(this);
-	connect(videoframe, &VideoFrame::LineSelected, this, &TimeLine::LineSelected);
+	auto videoframe = new VideoTrack(this);
+	connect(videoframe, &VideoTrack::LineSelected, this, &TimeLine::LineSelected);
 	videoframe->Initliaize(path);
 	videoframe->show();
 	ui.timeline->addWidget(videoframe);
 	videoframe->installEventFilter(this);
 	return videoframe;
 }
-AudioFrame* TimeLine::CreateAudioFrame(QString path)
+AudioTrack* TimeLine::CreateAudioTrack(QString path)
 {
-	auto audioframe = new AudioFrame(this);
-	connect(audioframe, &AudioFrame::LineSelected, this, &TimeLine::LineSelected);
+	auto audioframe = new AudioTrack(this);
+	connect(audioframe, &AudioTrack::LineSelected, this, &TimeLine::LineSelected);
 	audioframe->Initialize(path);
 	audioframe->show();
 	ui.timeline->addWidget(audioframe);

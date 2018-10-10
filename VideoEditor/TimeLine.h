@@ -5,9 +5,9 @@
 #include <QDragEnterEvent>
 #include"AudioRecognition.h"
 #include"VideoLoader.h"
-#include<AudioFrame.h>
+#include<AudioTrack.h>
 #include <QAudioDecoder>
-#include"VideoFrame.h"
+#include"VideoTrack.h"
 #include<qpainter.h>
 #include<map>
 #include <QtGui>
@@ -26,7 +26,7 @@ public:
 private slots:
 	void updateTime();
 	void itemSelected(QListWidgetItem*);
-	void LineSelected(MediaFrame*);
+	void LineSelected(MediaTrack*);
 	void ResizeFrames(int);
 	void stopTimeLine();
 private:
@@ -42,13 +42,13 @@ private:
 	bool CheckAudio();
 	bool CheckVideo();
 	AudioRecognition recognizer;
-	VideoFrame* CreateVideoFrame(QString);
+	VideoTrack* CreateVideoTrack(QString);
 	std::vector<QAudioBuffer> buffers;
-	AudioFrame* CreateAudioFrame(QString);
+	AudioTrack* CreateAudioTrack(QString);
 	static const  QStringList supportedFormats;
 	static const  std::list<std::string> supportedFormats1;
 	Ui::TimeLine ui;
 	QScopedPointer<QHBoxLayout> layout;
-	std::map<QListWidgetItem*, AudioFrame*> audioSources;
-	std::map<QListWidgetItem*, VideoFrame*> videoSources;
+	std::map<QListWidgetItem*, AudioTrack*> audioSources;
+	std::map<QListWidgetItem*, VideoTrack*> videoSources;
 };
