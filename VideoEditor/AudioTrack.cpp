@@ -19,10 +19,8 @@ AudioTrack::~AudioTrack()
 
 }
 
-
 void AudioTrack::Initialize(QString path)
 {
-	
 	this->path = path;
 	decoder.reset(new QAudioDecoder());
 	decoder->setSourceFilename(path);
@@ -116,7 +114,6 @@ void AudioTrack::ResizeFrame(int p)
 	}
 	audioSamples = fft.RootMeanSquare(audioFrames, (double)templenght);
 	fft.Normalize(audioSamples);
-	//setFixedWidth(audioSamples.size());
 	templenght = lenght * p;
 	setFixedWidth(templenght);
 	std::cout << "Audio track size " << templenght << "\n";
@@ -127,9 +124,7 @@ void AudioTrack::ResizeFrame(int p)
 //0.3 second for rms and normalization 
 void AudioTrack::audioDecoded()
 {
-
 	audioFrames.shrink_to_fit();
-	//sampleSize /= MediaManager::player->getFrameRate();
 	audioSamples = fft.RootMeanSquare(audioFrames,(int)sampleSize);
 	fft.Normalize(audioSamples);
 	templenght = lenght = audioSamples.size();

@@ -14,7 +14,6 @@
 	 initStyleOption(&opt);
 	 painter.setPen(Qt::white);
 	 QRect handle = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
-
 	 // draw tick marks
 	 // do this manually because they are very badly behaved with style sheets
 	 int interval = MediaManager::player->getFrameRate();
@@ -54,12 +53,10 @@
 			 ++sec;
 		 }
 	 }
-
 	 // draw the slider (this is basically copy/pasted from QSlider::paintEvent)
 	 opt.subControls = QStyle::SC_SliderGroove;
 	 p.setPen(QColor("#a5a294"));
 	 p.drawComplexControl(QStyle::CC_Slider, opt);
-
 	 // draw the slider handle
 	 opt.subControls = QStyle::SC_SliderHandle;
 	 p.drawComplexControl(QStyle::CC_Slider, opt);
@@ -78,7 +75,6 @@
 	 (min > 10) ? s << min << ":" : s << "0" << min << ":";
 	 (sec > 10) ? s << sec : s << "0" << sec;
 	 std::string time = s.str();
-
 	 return QString::fromStdString(time);
  }
 

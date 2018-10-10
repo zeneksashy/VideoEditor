@@ -8,7 +8,6 @@
 class SingleTrack : public QWidget
 {
 	Q_OBJECT
-
 public:
 	SingleTrack(QWidget *parent = Q_NULLPTR);
 	~SingleTrack();
@@ -19,6 +18,7 @@ private:
 	void ConnectUi();
 	void ChangeButtonColor();
 	void TurnOnOffTrack();
+	MediaTrack* currentTrack;
 	bool isClicked;
 	Ui::SingleTrack ui;
 	uint audioTracks;

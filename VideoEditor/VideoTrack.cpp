@@ -92,7 +92,6 @@ void VideoTrack::ResizeFrame(int p)
 	{
 		e.what();
 	}
-
 }
 
 void VideoTrack::deleteOutline()

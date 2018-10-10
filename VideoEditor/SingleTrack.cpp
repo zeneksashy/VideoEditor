@@ -26,7 +26,7 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 		 ++videoCounter;
 		 ui.TrackButton->setText(tr("V")+ QString::number(videoCounter));
 	 }
-		 
+	 currentTrack = track;
 	ui.tracksLayout->addWidget(track);
 }
 

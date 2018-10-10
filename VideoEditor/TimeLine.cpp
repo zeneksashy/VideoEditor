@@ -98,7 +98,7 @@ void TimeLine::UpdateTimeLabel(int pos)
 
 void TimeLine::loadFile(QString path)
 {
-	//auto item = new QListWidgetItem();
+	auto item = new QListWidgetItem();
 	//need to add format checker for item
 	framesCount = MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT);
 //	auto item = new QListWidgetItem(path, ui.sourcesList);
@@ -110,12 +110,12 @@ void TimeLine::loadFile(QString path)
 	//item->setBackground(brush);
 	if (MediaManager::player->isVideoAvaible())
 	{
-		videoSources.insert({ nullptr , CreateVideoTrack(path) });
+		videoSources.insert({ item , CreateVideoTrack(path) });
 		//auto  x = CreateVideoTrack(path);
 	}
 	if (MediaManager::player->isAudioAvaible())
 	{
-		audioSources.insert({ nullptr , CreateAudioTrack(path) });
+		audioSources.insert({ item , CreateAudioTrack(path) });
 		//auto x = CreateAudioTrack(path);
 	}
 	timeLineSizeMultipler = ui.widget->width();
@@ -220,7 +220,6 @@ VideoTrack* TimeLine::CreateVideoTrack(QString path)
 	singleTrack->CreateMediaTrack(videoframe);
 	//connect(videoframe, &VideoTrack::LineSelected, this, &TimeLine::LineSelected);
 	videoframe->Initliaize(path);
-	//videoframe->show();
 	ui.timeline->addWidget(singleTrack);
 	videoframe->installEventFilter(this);
 	return videoframe;
