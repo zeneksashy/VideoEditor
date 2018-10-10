@@ -1,5 +1,6 @@
 #include "VideoTrack.h"
 #include<qpainter.h>
+#include<iostream>
 VideoTrack::VideoTrack(QWidget *parent)
 	: MediaTrack(parent)
 {
@@ -82,9 +83,9 @@ void VideoTrack::ResizeFrame(int p)
 {
 	try
 	{
-		templenght = lenght;
 		templenght = lenght * p;
 		setFixedWidth(templenght);
+		std::cout <<"Video track size "<<templenght << "\n";
 		repaint();
 	}
 	catch (const std::exception& e )

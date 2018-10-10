@@ -44,7 +44,7 @@ private:
 	AudioRecognition recognizer;
 	QString path;
 	FastFourierTransform fft;
-	uint templenght;
+	double templenght;
 	uint lenght;
 	uint sampleSize;
 	uint sampleLenght;

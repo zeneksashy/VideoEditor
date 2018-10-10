@@ -41,7 +41,8 @@ public:
         horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, -1, -1, -1);
+        horizontalLayout_2->setSizeConstraint(QLayout::SetFixedSize);
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         TrackButton = new QPushButton(SingleTrack);
         TrackButton->setObjectName(QStringLiteral("TrackButton"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Maximum);
@@ -67,7 +68,7 @@ public:
 
         horizontalLayout_2->addWidget(TrackButton);
 
-        horizontalSpacer = new QSpacerItem(50, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(52, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
 

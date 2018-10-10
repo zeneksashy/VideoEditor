@@ -4,7 +4,8 @@
 #include<qbytearray.h>
 #include"MediaManager.h"
 #include<AudioRecognition.h>
-AudioTrack::AudioTrack(QWidget *parent):MediaTrack(parent)
+#include<iostream>
+AudioTrack::AudioTrack(QWidget *parent):MediaTrack(parent),lenght(0)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	setMinimumHeight(60);
@@ -28,7 +29,6 @@ void AudioTrack::Initialize(QString path)
 	connect(decoder.data(), &QAudioDecoder::formatChanged, this, &AudioTrack::ChangeFormat);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioTrack::audioDecoded);
-	clk = std::clock();
 	decoder->start();	
 }
 void AudioTrack::ChangeFormat(const QAudioFormat& format)
@@ -67,7 +67,7 @@ void AudioTrack::paintEvent(QPaintEvent*)
 		painter.setPen(pen);
 		painter.drawRoundedRect(0, 0, width()-1, height()-1, 0, 0);
 	}
-	for (int i = 0; i <audioSamples.size(); i++)
+	for (int i = 0; i <templenght; i++)
 	{
 		double plot = 0;
 		plot = audioSamples[i]*30;
@@ -109,15 +109,17 @@ void AudioTrack::deleteOutline()
 void AudioTrack::ResizeFrame(int p)
 {
 	templenght = sampleSize;
-
 	templenght = sampleSize / p;
 	if (templenght <= 0)
 	{
 		int x = templenght;
 	}
-	audioSamples = fft.RootMeanSquare(audioFrames, templenght);
+	audioSamples = fft.RootMeanSquare(audioFrames, (double)templenght);
 	fft.Normalize(audioSamples);
-	setFixedWidth(audioSamples.size());
+	//setFixedWidth(audioSamples.size());
+	templenght = lenght * p;
+	setFixedWidth(templenght);
+	std::cout << "Audio track size " << templenght << "\n";
 	repaint();
 }
 //3 seconds for audiobuffer
@@ -125,17 +127,11 @@ void AudioTrack::ResizeFrame(int p)
 //0.3 second for rms and normalization 
 void AudioTrack::audioDecoded()
 {
-	clock_t endTime = clock();
-	clock_t clockTicksTaken = endTime - clk;
-	double timeInSeconds = clockTicksTaken / (double)CLOCKS_PER_SEC;
-	clock_t str = clock();
+
 	audioFrames.shrink_to_fit();
 	//sampleSize /= MediaManager::player->getFrameRate();
-	audioSamples = fft.RootMeanSquare(audioFrames,sampleSize);
+	audioSamples = fft.RootMeanSquare(audioFrames,(int)sampleSize);
 	fft.Normalize(audioSamples);
-	clock_t end = clock();
-	clock_t time = end - str;
-	double time2 = time / (double)CLOCKS_PER_SEC;
 	templenght = lenght = audioSamples.size();
 	setFixedWidth(audioSamples.size());
 	update();

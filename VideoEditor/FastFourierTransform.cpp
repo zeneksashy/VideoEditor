@@ -98,8 +98,6 @@ std::vector<double> FastFourierTransform::CalculatedBLevel(std::vector<double> f
 
  std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, int sampleSize)
 {
-	clock_t start = clock();
-
 	auto size = samples.size() / sampleSize;
 	int k = 0;
 	std::vector<double> outputSamples(size);
@@ -114,8 +112,24 @@ std::vector<double> FastFourierTransform::CalculatedBLevel(std::vector<double> f
 		outputSamples[i-1]=std::sqrt(temp);
 		k += sampleSize;
 	}
-	clock_t endTime = clock();
-	clock_t clockTicksTaken = endTime - start; 
-	auto time =(float)clockTicksTaken / CLOCKS_PER_SEC;
 	return outputSamples;
 }
+
+ std::vector<double> FastFourierTransform::RootMeanSquare(std::vector<double>& samples, double sampleSize)
+ {
+	 auto size = samples.size() / sampleSize;
+	 int k = 0;
+	 std::vector<double> outputSamples(size);
+	 for (size_t i = 1; i <= size; ++i)
+	 {
+		 double temp = 0;
+		 for (size_t j = k; j < sampleSize * i; ++j)
+		 {
+			 temp += samples[j] * samples[j];
+		 }
+		 temp /= sampleSize;
+		 outputSamples[i - 1] = std::sqrt(temp);
+		 k += sampleSize;
+	 }
+	 return outputSamples;
+ }
