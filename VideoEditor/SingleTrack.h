@@ -19,11 +19,13 @@ private slots:
 public slots:
 	void itemMoved();
 private:
+	void InsertToMediaTrack(MediaTrack*);
 	void ConnectUi();
 	void ChangeButtonColor();
 	void TurnOnOffTrack();
 	MediaTrack* currentTrack;
 	bool isClicked;
+	bool AudioVideo; // true  = video, false = audio ,default is video
 	Ui::SingleTrack ui;
 	uint audioTracks;
 	uint videoTracks;

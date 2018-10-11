@@ -27,8 +27,6 @@ public:
 	void Initialize(AudioAnalyser*,const QAudioFormat &format, qint64 audioBufferSize);
 	void paintEvent(QPaintEvent *)override;
 	void drawOutline() override;
-	void mousePressEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *) override;
 	void deleteOutline() override;
 	void ResizeFrame(int) override;
 signals:

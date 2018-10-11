@@ -2,7 +2,7 @@
 #include<iostream>
 uint SingleTrack::videoCounter = 0;
 uint SingleTrack::audioCounter = 0;
-SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0)
+SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true)
 {
 	ui.setupUi(this);
 	ConnectUi();
@@ -25,6 +25,7 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 	 {
 		 ++audioCounter;
 		 ui.TrackButton->setText(tr("A") + QString::number(audioCounter));
+		 AudioVideo = false;
 	 }
 	 if (video)
 	 {
@@ -38,23 +39,9 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 void SingleTrack::dropEvent(QDropEvent * e)
 {
 	auto str = e->mimeData()->text();
-	std::cout <<"drop string"<< str.toStdString()<<"\n";
 	auto i = str.toLongLong();
-	std::cout << "Drop int" << i<<"\n";
 	AudioTrack*  track = (AudioTrack*)i;
-	//track = (AudioTrack*)i;
-	std::cout << track;
-	currentTrack = track;
-	ui.tracksLayout->addWidget(track);
-//	dataStream >> tr;
-//	tr << dataStream;
-	//currentTrack = tr;
-
-	//textBrowser->setPlainText(e->mimeData()->text());
-	//mimeTypeCombo->clear();
-	//mimeTypeCombo->addItems(e->mimeData()->formats());
-
-	//e->acceptProposedAction();
+	InsertToMediaTrack(track);
 }
 
 void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
@@ -69,6 +56,21 @@ void SingleTrack::OnButtonClick()
 	ChangeButtonColor();
 	TurnOnOffTrack();
 
+}
+void SingleTrack::InsertToMediaTrack(MediaTrack *track)
+{
+	auto audio = dynamic_cast<AudioTrack*>(track);
+	auto video = dynamic_cast<VideoTrack*>(track);
+	if (audio && !AudioVideo)
+	{
+		currentTrack = track;
+		ui.tracksLayout->addWidget(track);
+	}
+	if (video && AudioVideo)
+	{
+		currentTrack = track;
+		ui.tracksLayout->addWidget(track);
+	}
 }
 void SingleTrack::ConnectUi()
 {

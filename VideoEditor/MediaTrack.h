@@ -1,5 +1,20 @@
 #pragma once
 #include<qwidget.h>
+#include<iostream>
+#include <QWidget>
+#include<qaudiodecoder.h>
+#include<qaudioformat.h>
+#include<qpixmap.h>
+#include<AudioAnalyser.h>
+#include<AudioRecognition.h>
+#include <ctime>
+#include<qlistwidget.h>
+#include"MediaTrack.h"
+#include <qmouseeventtransition.h>
+#include <QMouseEvent>
+#include<qdrag.h>
+#include<qmimedata.h>
+#include<qbytearray.h>
 class MediaTrack: public QWidget
 {
 	Q_OBJECT

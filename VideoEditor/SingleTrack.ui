@@ -98,7 +98,11 @@ font-family: Arial;
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="tracksLayout"/>
+    <layout class="QHBoxLayout" name="tracksLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+    </layout>
    </item>
   </layout>
  </widget>

@@ -74,11 +74,6 @@ void VideoTrack::drawOutline()
 	repaint();
 }
 
-void VideoTrack::mousePressEvent(QMouseEvent *)
-{
-	emit LineSelected(this);
-}
-
 void VideoTrack::ResizeFrame(int p)
 {
 	try

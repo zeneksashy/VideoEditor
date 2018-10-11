@@ -73,7 +73,7 @@ public:
         horizontalLayout_2->addItem(horizontalSpacer);
 
         tracksLayout = new QHBoxLayout();
-        tracksLayout->setSpacing(6);
+        tracksLayout->setSpacing(0);
         tracksLayout->setObjectName(QStringLiteral("tracksLayout"));
 
         horizontalLayout_2->addLayout(tracksLayout);

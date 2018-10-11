@@ -15,7 +15,6 @@ public:
 	void Initliaize(QString filename);
 	QImage loadFrame(long pos);
 	void drawOutline() override;
-	void mousePressEvent(QMouseEvent *);
 	void ResizeFrame(int) override;
 	void deleteOutline() override;
 signals:

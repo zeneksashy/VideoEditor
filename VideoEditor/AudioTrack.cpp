@@ -79,55 +79,31 @@ void AudioTrack::drawOutline()
 	repaint();
 }
 
-void AudioTrack::mousePressEvent(QMouseEvent *e)
-{
-	//offset = e->pos();
-	drawOutline();
-	emit LineSelected(this);
-	if (e->button() == Qt::LeftButton
-		&& this->geometry().contains(e->pos())) {
+//void AudioTrack::mousePressEvent(QMouseEvent *e)
+//{
+//	drawOutline();
+//	emit LineSelected(this);
+//}
 
-		/*QDrag *drag = new QDrag(this);
-		QMimeData *mimeData = new QMimeData;
-		QByteArray itemData;
-		QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-		dataStream << this;
-		mimeData->setData("application/x-dnditemdata", itemData);*/
-		//mimeData->setText(commentEdit->toPlainText());
-	//	drag->setMimeData(mimeData);
-	//	drag->setPixmap(iconPixmap);
-
-		//Qt::DropAction dropAction = drag->exec();
-	}
-}
-
-void AudioTrack::mouseMoveEvent(QMouseEvent *e)
-{
-	int y = this->pos().y();
-	
-	if (e->buttons() & Qt::LeftButton)
-	{
-	//	int x = e->pos().x();
-	//	std::cout << "P("<<x<<","<<y<<")";
-		//this->move(mapToParent(e->pos()-offset));
-		//emit Moving();
-		QDrag *drag = new QDrag(this);
-		QMimeData *mimeData = new QMimeData;
-		QByteArray itemData;
-		QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-		dataStream << this;
-		std::cout << this<<"\n";
-		std::stringstream ss;
-		ss << this;
-		long long addr = (long long)this;
-		std::string str = ss.str();
-		auto x  = stoull(str,nullptr,16);
-		std::cout <<"Drag int "<< addr<<"\n";
-		mimeData->setText(QString::number(addr));
-		drag->setMimeData(mimeData);
-		Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
-	}
-}
+//void AudioTrack::mouseMoveEvent(QMouseEvent *e)
+//{
+//	int y = this->pos().y();
+//	
+//	if (e->buttons() & Qt::LeftButton)
+//	{
+//	//	int x = e->pos().x();
+//	//	std::cout << "P("<<x<<","<<y<<")";
+//		//this->move(mapToParent(e->pos()-offset));
+//		//emit Moving();
+//		QDrag *drag = new QDrag(this);
+//		QMimeData *mimeData = new QMimeData;
+//		long long addr = (long long)this;
+//		std::cout <<"Drag int "<< addr<<"\n";
+//		mimeData->setText(QString::number(addr));
+//		drag->setMimeData(mimeData);
+//		Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
+//	}
+//}
 
 void AudioTrack::deleteOutline()
 {
