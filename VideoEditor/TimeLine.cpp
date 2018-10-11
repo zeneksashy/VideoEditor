@@ -54,7 +54,6 @@ void TimeLine::ResizeFrames(int p)
 	{
 		e.what();
 	}
-	
 }
 
 void TimeLine::stopTimeLine()
@@ -103,8 +102,12 @@ void TimeLine::loadFile(QString path)
 	framesCount = MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT);
 //	auto item = new QListWidgetItem(path, ui.sourcesList);
 	//connect(ui.sourcesList, &QListWidget::itemClicked, this, &TimeLine::itemSelected);
-	ui.horizontalSlider->setRange(0, framesCount);
-	ui.horizontalSlider->setFixedWidth(framesCount);
+	if (framesCount > ui.horizontalSlider->width())
+	{
+		ui.horizontalSlider->setRange(0, framesCount);
+		ui.horizontalSlider->setFixedWidth(framesCount);
+	}
+	
 	//QListWidgetItem &dl = *item;
 	QBrush brush(QColor::fromRgb(128, 130, 128));
 	//item->setBackground(brush);
@@ -229,7 +232,7 @@ AudioTrack* TimeLine::CreateAudioTrack(QString path)
 	auto singleTrack = new SingleTrack(this);
 	auto audioframe = new AudioTrack(this);
 	singleTrack->CreateMediaTrack(audioframe);
-	//connect(audioframe, &AudioTrack::LineSelected, this, &TimeLine::LineSelected);
+	connect(audioframe, &AudioTrack::Moving, singleTrack, &SingleTrack::itemMoved);
 	audioframe->Initialize(path);
 	audioframe->show();
 	ui.timeline->addWidget(singleTrack);

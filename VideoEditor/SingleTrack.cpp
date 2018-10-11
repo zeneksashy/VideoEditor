@@ -1,17 +1,22 @@
 #include "SingleTrack.h"
-
+#include<iostream>
 uint SingleTrack::videoCounter = 0;
 uint SingleTrack::audioCounter = 0;
 SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0)
 {
 	ui.setupUi(this);
 	ConnectUi();
+	setAcceptDrops(true);
 }
 
 SingleTrack::~SingleTrack()
 {
 }
-
+void SingleTrack::itemMoved()
+{
+	ui.tracksLayout->removeWidget(currentTrack);
+	currentTrack->show();
+}
 void SingleTrack::CreateMediaTrack(MediaTrack * track)
 {
 	 auto audio = dynamic_cast<AudioTrack*>(track);
@@ -28,6 +33,34 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 	 }
 	 currentTrack = track;
 	ui.tracksLayout->addWidget(track);
+}
+
+void SingleTrack::dropEvent(QDropEvent * e)
+{
+	auto str = e->mimeData()->text();
+	std::cout <<"drop string"<< str.toStdString()<<"\n";
+	auto i = str.toLongLong();
+	std::cout << "Drop int" << i<<"\n";
+	AudioTrack*  track = (AudioTrack*)i;
+	//track = (AudioTrack*)i;
+	std::cout << track;
+	currentTrack = track;
+	ui.tracksLayout->addWidget(track);
+//	dataStream >> tr;
+//	tr << dataStream;
+	//currentTrack = tr;
+
+	//textBrowser->setPlainText(e->mimeData()->text());
+	//mimeTypeCombo->clear();
+	//mimeTypeCombo->addItems(e->mimeData()->formats());
+
+	//e->acceptProposedAction();
+}
+
+void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
+{
+//	if (event->mimeData()->hasFormat("application/x-dnditemdata"))
+		event->acceptProposedAction();
 }
 
 void SingleTrack::OnButtonClick()

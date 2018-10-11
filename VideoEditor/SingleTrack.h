@@ -12,8 +12,12 @@ public:
 	SingleTrack(QWidget *parent = Q_NULLPTR);
 	~SingleTrack();
 	void CreateMediaTrack(MediaTrack*);
+	void dropEvent(QDropEvent *e);
+	void dragEnterEvent(QDragEnterEvent *event);
 private slots:
 	void OnButtonClick();
+public slots:
+	void itemMoved();
 private:
 	void ConnectUi();
 	void ChangeButtonColor();

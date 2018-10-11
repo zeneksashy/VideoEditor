@@ -277,13 +277,14 @@ public:
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setSizeConstraint(QLayout::SetFixedSize);
         horizontalSpacer_2 = new QSpacerItem(85, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_2);
 
         horizontalSlider = new TimeLineSlider(Content);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        QSizePolicy sizePolicy4(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
         sizePolicy4.setHorizontalStretch(0);
         sizePolicy4.setVerticalStretch(0);
         sizePolicy4.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());

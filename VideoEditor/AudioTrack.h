@@ -11,6 +11,9 @@
 #include"MediaTrack.h"
 #include <qmouseeventtransition.h>
 #include <QMouseEvent>
+#include<qdrag.h>
+#include<qmimedata.h>
+#include<qbytearray.h>
 class AudioRecognition;
 class AudioTrack : public MediaTrack
 {
@@ -30,6 +33,7 @@ public:
 	void ResizeFrame(int) override;
 signals:
 	void LineSelected(AudioTrack*);
+	void Moving();
 private slots:
 	void ChangeFormat(const QAudioFormat&);
 	void readBuffer();

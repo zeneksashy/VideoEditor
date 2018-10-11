@@ -9,5 +9,7 @@ public:
 	virtual void drawOutline() = 0;
 	virtual void deleteOutline() = 0;
 	virtual void ResizeFrame(int) = 0;
-};
+	void mousePressEvent(QMouseEvent *);
+	void mouseMoveEvent(QMouseEvent *);
+}; 
 

@@ -5,6 +5,8 @@
 #include"MediaManager.h"
 #include<AudioRecognition.h>
 #include<iostream>
+#include<qsizegrip.h>
+#include<qgridlayout.h>
 AudioTrack::AudioTrack(QWidget *parent):MediaTrack(parent),lenght(0)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -27,7 +29,7 @@ void AudioTrack::Initialize(QString path)
 	connect(decoder.data(), &QAudioDecoder::formatChanged, this, &AudioTrack::ChangeFormat);
 	connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(readBuffer()));
 	connect(decoder.data(), &QAudioDecoder::finished, this, &AudioTrack::audioDecoded);
-	decoder->start();	
+	decoder->start();
 }
 void AudioTrack::ChangeFormat(const QAudioFormat& format)
 {
@@ -45,9 +47,7 @@ void AudioTrack::readBuffer()
 void AudioTrack::Initialize(AudioAnalyser *analyser, const QAudioFormat & format, qint64 audioBufferSize)
 {
 	this -> format = format;
-	//tileLenght = audioBufferSize;
 	this->analyser.reset(analyser);
-	
 }
 void AudioTrack::paintEvent(QPaintEvent*)
 {
@@ -58,7 +58,6 @@ void AudioTrack::paintEvent(QPaintEvent*)
 	QPainter p(&spectrPixmap);
 	QPen pen(Qt::blue);
 	painter.setPen(pen);
-	
 	if (isSelected)
 	{
 		pen.setColor(QColor::fromRgb(126, 253, 61));
@@ -82,19 +81,51 @@ void AudioTrack::drawOutline()
 
 void AudioTrack::mousePressEvent(QMouseEvent *e)
 {
-	offset = e->pos();
+	//offset = e->pos();
 	drawOutline();
 	emit LineSelected(this);
+	if (e->button() == Qt::LeftButton
+		&& this->geometry().contains(e->pos())) {
+
+		/*QDrag *drag = new QDrag(this);
+		QMimeData *mimeData = new QMimeData;
+		QByteArray itemData;
+		QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+		dataStream << this;
+		mimeData->setData("application/x-dnditemdata", itemData);*/
+		//mimeData->setText(commentEdit->toPlainText());
+	//	drag->setMimeData(mimeData);
+	//	drag->setPixmap(iconPixmap);
+
+		//Qt::DropAction dropAction = drag->exec();
+	}
 }
 
 void AudioTrack::mouseMoveEvent(QMouseEvent *e)
 {
 	int y = this->pos().y();
+	
 	if (e->buttons() & Qt::LeftButton)
 	{
-		int x = e->pos().x();
-		
-		this->move(mapToParent(QPoint(x-offset.x(),y)));
+	//	int x = e->pos().x();
+	//	std::cout << "P("<<x<<","<<y<<")";
+		//this->move(mapToParent(e->pos()-offset));
+		//emit Moving();
+		QDrag *drag = new QDrag(this);
+		QMimeData *mimeData = new QMimeData;
+		QByteArray itemData;
+		QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+		dataStream << this;
+		std::cout << this<<"\n";
+		std::stringstream ss;
+		ss << this;
+		long long addr = (long long)this;
+		std::string str = ss.str();
+		auto x  = stoull(str,nullptr,16);
+		std::cout <<"Drag int "<< addr<<"\n";
+		mimeData->setText(QString::number(addr));
+		drag->setMimeData(mimeData);
+		Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
 	}
 }
 

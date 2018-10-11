@@ -325,6 +325,9 @@ border:0px solid black;
             </property>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetFixedSize</enum>
+              </property>
               <item>
                <spacer name="horizontalSpacer_2">
                 <property name="orientation">
@@ -344,7 +347,7 @@ border:0px solid black;
               <item>
                <widget class="TimeLineSlider" name="horizontalSlider">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>

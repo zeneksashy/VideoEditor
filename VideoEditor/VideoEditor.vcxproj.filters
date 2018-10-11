@@ -119,9 +119,6 @@
     <ClCompile Include="TimeLineSlider.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="SingleTrack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AudioTrack.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
       <Filter>Custom Widgets</Filter>
     </ClCompile>
     <ClCompile Include="MediaTrack.cpp">
+      <Filter>Custom Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTrack.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,9 +169,6 @@
     <QtMoc Include="TimeLine.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
-    <QtMoc Include="SingleTrack.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="MediaTrack.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
@@ -179,6 +176,9 @@
       <Filter>Custom Widgets</Filter>
     </QtMoc>
     <QtMoc Include="AudioTrack.h">
+      <Filter>Custom Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="SingleTrack.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
   </ItemGroup>
