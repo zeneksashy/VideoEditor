@@ -5,6 +5,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include"MediaTrack.h"
+#include<qpainter.h>
 class VideoTrack : public MediaTrack
 {
 	Q_OBJECT

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QWidget>
 #include<qaudiodecoder.h>
 #include<qaudioformat.h>
 #include<qpixmap.h>
@@ -9,11 +8,11 @@
 #include <ctime>
 #include<qlistwidget.h>
 #include"MediaTrack.h"
-#include <qmouseeventtransition.h>
-#include <QMouseEvent>
-#include<qdrag.h>
-#include<qmimedata.h>
+#include <qpaintdevice.h>
+#include<qpainter.h>
 #include<qbytearray.h>
+#include"MediaManager.h"
+#include<AudioRecognition.h>
 class AudioRecognition;
 class AudioTrack : public MediaTrack
 {

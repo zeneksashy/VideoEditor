@@ -1,5 +1,4 @@
 #include "SingleTrack.h"
-#include<iostream>
 uint SingleTrack::videoCounter = 0;
 uint SingleTrack::audioCounter = 0;
 SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true)
@@ -46,8 +45,7 @@ void SingleTrack::dropEvent(QDropEvent * e)
 
 void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
 {
-//	if (event->mimeData()->hasFormat("application/x-dnditemdata"))
-		event->acceptProposedAction();
+	event->acceptProposedAction();
 }
 
 void SingleTrack::OnButtonClick()

@@ -40,7 +40,6 @@ void GausianBlur::Calculate(cv::Mat& frame)
 	if (CheckParams())
 	{
 		cv::cuda::Stream stream;
-		//cv::cuda::HostMem locked(frame);
 		cv::cuda::GpuMat input;
 		input.upload(frame, stream);
 		cv::cuda::GpuMat output;
@@ -51,7 +50,6 @@ void GausianBlur::Calculate(cv::Mat& frame)
 	clock_t stop = clock();
 	clock_t time = stop - start;
 	double result = time / (double)CLOCKS_PER_SEC;
-
 }
 
 bool GausianBlur::CheckParams()

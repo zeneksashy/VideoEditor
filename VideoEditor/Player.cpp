@@ -38,20 +38,11 @@ bool Player::loadFile(QString filename)
 		if(video)
 		{
 			capture->set(cv::CAP_PROP_BUFFERSIZE,12);
-			
-			//pureFrames.resize((int)capture->get(cv::CAP_PROP_FRAME_COUNT));
-			//pureImage.resize((int)capture->get(cv::CAP_PROP_FRAME_COUNT));
+
 			frameRate = capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
 			auto mili = std::chrono::milliseconds(delay);
 			del = std::chrono::duration_cast<std::chrono::nanoseconds> (mili);
-			/*for (size_t i = 0; i < pureFrames.size(); i++)
-			{
-				capture->read(frame);
-				cv::cvtColor(frame, pureFrames[i], CV_BGR2RGB);
-				pureImage[i] = QImage((const unsigned char*)(pureFrames[i].data),
-					pureFrames[i].cols, pureFrames[i].rows, QImage::Format_RGB888);
-			}*/
 		}
 		this->filename = filename.toStdString();
 		return true;
@@ -69,10 +60,8 @@ void Player::Play()
 			start(LowPriority);
 		if (audio)
 		{
-			
+			mediaplayer->play();
 		}
-			
-			//mediaplayer->play();
 	}
 }
 bool Player::CheckFile()
@@ -113,7 +102,6 @@ void Player::recieveTime(std::chrono::nanoseconds nano)
 
 void Player::run()
 {
-	mediaplayer->play();
 	auto nstart = std::chrono::high_resolution_clock::now();
 	auto start = std::chrono::high_resolution_clock::now();
 	auto end = std::chrono::high_resolution_clock::now();
@@ -236,7 +224,6 @@ void Player::setEffect(VideoEffect* effect)
 }
 void Player::setEffect(std::vector<cv::Mat> frames)
 {
-//	effectedFramesMat = frames;
 	isEffectApplied = true;
 }
 bool Player::isStopped() const {

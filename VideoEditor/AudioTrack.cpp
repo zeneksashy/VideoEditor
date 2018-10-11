@@ -1,12 +1,5 @@
 #include "AudioTrack.h"
-#include <qpaintdevice.h>
-#include<qpainter.h>
-#include<qbytearray.h>
-#include"MediaManager.h"
-#include<AudioRecognition.h>
-#include<iostream>
-#include<qsizegrip.h>
-#include<qgridlayout.h>
+
 AudioTrack::AudioTrack(QWidget *parent):MediaTrack(parent),lenght(0)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -79,32 +72,6 @@ void AudioTrack::drawOutline()
 	repaint();
 }
 
-//void AudioTrack::mousePressEvent(QMouseEvent *e)
-//{
-//	drawOutline();
-//	emit LineSelected(this);
-//}
-
-//void AudioTrack::mouseMoveEvent(QMouseEvent *e)
-//{
-//	int y = this->pos().y();
-//	
-//	if (e->buttons() & Qt::LeftButton)
-//	{
-//	//	int x = e->pos().x();
-//	//	std::cout << "P("<<x<<","<<y<<")";
-//		//this->move(mapToParent(e->pos()-offset));
-//		//emit Moving();
-//		QDrag *drag = new QDrag(this);
-//		QMimeData *mimeData = new QMimeData;
-//		long long addr = (long long)this;
-//		std::cout <<"Drag int "<< addr<<"\n";
-//		mimeData->setText(QString::number(addr));
-//		drag->setMimeData(mimeData);
-//		Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
-//	}
-//}
-
 void AudioTrack::deleteOutline()
 {
 	isSelected = false;
@@ -123,7 +90,6 @@ void AudioTrack::ResizeFrame(int p)
 	fft.Normalize(audioSamples);
 	templenght = lenght * p;
 	setFixedWidth(templenght);
-	std::cout << "Audio track size " << templenght << "\n";
 	repaint();
 }
 //3 seconds for audiobuffer
