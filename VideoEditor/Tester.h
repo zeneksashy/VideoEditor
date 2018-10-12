@@ -9,6 +9,7 @@
 #include <QtWidgets/QApplication>
 #include<QtQml/qqmlapplicationengine.h>
 #include <QObject>
+#include<TimeLine.h>
 #include "MedianBlur.h"
 
 class SerializationTest :QObject
@@ -53,7 +54,7 @@ public:
 		ft.Normalize(actual);
 		for (size_t i = 0; i < actual.size(); i++)
 		{
-			if(actual[i] * multipler!= expected[i] * multipler);
+			if((actual[i] * multipler)!= (expected[i] * multipler))
 				return false;
 		}
 		return true;

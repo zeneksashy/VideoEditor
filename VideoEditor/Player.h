@@ -77,7 +77,7 @@ public:
 	float getFrameRate();
 	bool isAudioAvaible();
 	bool isVideoAvaible();
-	std::shared_ptr<cv::VideoCapture> getVideCapture();
+	std::shared_ptr<cv::VideoCapture> getVideCapture()const;
 	QMediaPlayer* getMediaPlayer() const;
 	void setEffect(VideoEffect*);
 	void setEffect(std::vector<cv::Mat>);

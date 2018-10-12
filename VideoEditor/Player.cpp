@@ -23,10 +23,6 @@ bool Player::loadFile(QString filename)
 		framceount =(int)capture->get(cv::CAP_PROP_FRAME_COUNT);
 		audio = CheckAudio();
 		video = CheckVideo();
-		try
-		{
-
-		
 		if(video)
 		{
 			capture->set(cv::CAP_PROP_BUFFERSIZE,12);
@@ -41,11 +37,6 @@ bool Player::loadFile(QString filename)
 		}
 		this->filename = filename.toStdString();
 		return true;
-		}
-		catch (const std::exception& ex)
-		{
-			ex.what();
-		}
 	}
 	else
 		return false;
@@ -204,7 +195,7 @@ bool Player::isVideoAvaible()
 	return video;
 }
 
-std::shared_ptr<cv::VideoCapture> Player::getVideCapture()
+std::shared_ptr<cv::VideoCapture> Player::getVideCapture() const
 {
 	return capture;
 }
@@ -225,12 +216,10 @@ void Player::setEffect(std::vector<cv::Mat> frames)
 bool Player::isStopped() const {
 	return this->stop;
 }
-
 void Player::Deserialize(std::vector<std::string>&x)
 {
 	effects.Deserialize(x);
 }
-
 Player::~Player()
 {
 	mutex.lock();
@@ -240,7 +229,6 @@ Player::~Player()
 	mutex.unlock();
 	wait();
 }
-
 std::ostream & operator<<(std::ostream & os, const Player & player)
 {
 	os << player.effects;

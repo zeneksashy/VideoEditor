@@ -5,8 +5,10 @@
 #include "VideoLoader.h"
 #include "GausianBlur.h"
 #include "Project.h"
+
 class MediaManager
 {
+	friend class MediaManagerTest;
 public:
 	~MediaManager();
 	MediaManager();
@@ -26,3 +28,17 @@ private:
 	static std::vector<std::string> mediaPaths;
 };
 
+class MediaManagerTest
+{
+public:
+	MediaManagerTest()
+	{
+	}
+
+	~MediaManagerTest()
+	{
+	}
+
+private:
+
+};
