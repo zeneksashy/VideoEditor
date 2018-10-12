@@ -1,7 +1,6 @@
 #pragma once
 #include<complex>
 #include<valarray>
-#include<qmath.h>
 #include<vector>
 #include <ctime>
 

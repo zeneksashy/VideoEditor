@@ -131,13 +131,13 @@
     <ClCompile Include="SingleTrack.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="Tester.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
       <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Tester.cpp">
-      <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="Player.h">
       <Filter>Generated Files</Filter>

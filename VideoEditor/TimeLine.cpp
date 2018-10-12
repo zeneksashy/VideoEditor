@@ -30,7 +30,6 @@ TimeLine::TimeLine(QWidget *parent)
 	setMouseTracking(true);
 	i = 0;
 	scale = 5;
-	multipler = scale;
 	ui.Content->installEventFilter(this);
 	ui.scrollAreaWidgetContents->installEventFilter(this);
 }
@@ -62,21 +61,6 @@ void TimeLine::stopTimeLine()
 	UpdateTimeLabel(i);
 	update();
 	ui.horizontalSlider->setValue(i);
-}
-
-void TimeLine::wheelEvent(QWheelEvent *e)
-{
-	/*try
-	{
-		auto p = e->angleDelta();
-		p.setY(p.y() / 120);
-		e->accept();
-		ResizeFrames(p);
-	}
-	catch (const std::exception& e)
-	{
-		e.what();
-	}*/
 }
 void TimeLine::UpdateTimeLabel(int pos)
 {

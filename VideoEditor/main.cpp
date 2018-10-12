@@ -18,8 +18,27 @@ public:
 	void RunTests()
 	{
 		serialization_tests();
+		audio_tests();
+		video_tests();
 	}
 private:
+	void video_tests()
+	{
+		GausianBlurTest gaussTest;
+		passed = gaussTest.GausianBlurParamsNonOddNumbers();
+	}
+	void audio_tests()
+	{
+		FastFourierTransformTest  fftTest;
+		passed = fftTest.CalculatedBLevel();
+		passed = fftTest.NormalizeSamples();
+		passed = fftTest.RootMeanSquare();
+		AudioRecognitionTest recTest;
+		passed = recTest.AudioFormatRegonitionTest_SampleSize32();
+		passed= recTest.AudioFormatRegonitionTest_SampleSize8();
+		AudioAnalyserTest analyserTest;
+		passed = analyserTest.ConvertDataS16S();
+	}
 	void serialization_tests()
 	{
 		SerializationTest cut;

@@ -12,11 +12,11 @@ GausianBlur::GausianBlur()
 
 void GausianBlur::Initialize(std::shared_ptr<cv::VideoCapture> capture, GausianBlurParam param)
 {
-	this->capture = capture;
+	/*this->capture = capture;
 	framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
 	convertedFrames.resize(framecount);
 	data.resize(framecount);
-	this->parameters = param;
+	this->parameters = param;*/
 }
 
 void GausianBlur::Initialize(GausianBlurParam param)
@@ -30,7 +30,7 @@ GausianBlur::~GausianBlur()
 std::vector<cv::Mat> GausianBlur::ExecuteEffect()
 {
 	//Calculate();
-	return data;
+	return std::vector<cv::Mat>();
 }
 //23 seconds size 3x9 y = 1 x = 4.5 on cpu
 //3.2 second size 3x9 y =1 x =4.5 on gpu

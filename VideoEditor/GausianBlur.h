@@ -43,16 +43,12 @@ public:
 	virtual void Deserialize(std::string) override;
 	virtual void Deserialize(std::vector<std::string>&) override;
 	GausianBlurParam getParams() const;
+	bool CheckParams();
 private:
 	cv::Mat RGBframe;
 	cv::Mat frame;
-	bool CheckParams();
-	uint framecount;
+
 	GausianBlurParam parameters;
-	std::vector<cv::Mat> data;
-	std::shared_ptr<cv::VideoCapture> capture;
-	std::vector<QImage> convertedFrames;
-	std::vector<cv::Mat> pureFrames;
 
 	// Inherited via VideoEffect
 	virtual void Print(std::ostream& out) const override;

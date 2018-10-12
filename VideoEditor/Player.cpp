@@ -271,7 +271,6 @@ void Buffer::LoadToBuffer()
 {	
 	while (true)
 	{
-		std::cout << "buffer while";
 		locker.lock();
 		if (!stop)
 		{
@@ -280,6 +279,7 @@ void Buffer::LoadToBuffer()
 				if (!capture.read(frame))
 				{
 					stop = true;
+					break;
 				}
 				else
 				{

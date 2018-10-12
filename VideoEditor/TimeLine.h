@@ -32,21 +32,13 @@ private slots:
 private:
 	uint i;
 	uint scale;
-	float multipler;
 	uint framesCount;
 	int timeLineSizeMultipler;
-	void wheelEvent(QWheelEvent *e)override;
 	void UpdateTimeLabel(int);
-	QScopedPointer<QAudioDecoder> decoder;
 	QScopedPointer<AudioAnalyser> analyser;
-	bool CheckAudio();
-	bool CheckVideo();
 	AudioRecognition recognizer;
 	VideoTrack* CreateVideoTrack(QString);
-	std::vector<QAudioBuffer> buffers;
 	AudioTrack* CreateAudioTrack(QString);
-	static const  QStringList supportedFormats;
-	static const  std::list<std::string> supportedFormats1;
 	Ui::TimeLine ui;
 	QScopedPointer<QHBoxLayout> layout;
 	std::map<QListWidgetItem*, AudioTrack*> audioSources;
