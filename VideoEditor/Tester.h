@@ -107,17 +107,13 @@ public:
 		if (result != 0)
 		{
 			delete result;
-			delete actual;
 			return true;
 		}
 		else
 		{
 			delete result;
-			delete actual;
 			return false;
 		}
-		delete result;
-		delete actual;
 	}
 	bool AudioFormatRegonitionTest_SampleSize32()
 	{
@@ -127,17 +123,15 @@ public:
 		format.setSampleType(QAudioFormat::SampleType::Float);
 		AudioRecognition rec;
 		auto actual = rec.RrecognizeFrameType(format);
-		S32FAudioAnalyser* result = dynamic_cast<S32FAudioAnalyser*>(actual);
+		S32FAudioAnalyser* result = dynamic_cast<S32FAudioAnalyser*>(actual);// 32 float audioanalyser has not all functions implemented
 		if (result != 0)
 		{
 			delete result;
-			delete actual;
 			return true;
 		}
 		else
 		{
 			delete result;
-			delete actual;
 			return false;
 		}
 
@@ -158,7 +152,6 @@ public:
 		int expected = exp * multipler; // simple work around 
 		int actual = act * multipler;	// of rounding errors
 		delete analyser;
-		QTRY_COMPARE(actual, expected);
 		if (actual == expected)
 			return true;
 		return false;

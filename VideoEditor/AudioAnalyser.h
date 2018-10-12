@@ -21,9 +21,11 @@ class AudioAnalyser
 {
 public:
 	AudioAnalyser() {}
+	virtual ~AudioAnalyser(){}
 	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer)=0;
 	virtual std::valarray<std::complex<double>> Calculate()=0;
 	virtual double ConvertInput(double)=0;
+
 protected:
 	std::valarray<std::complex<double>> Calculate(AudioAnalyser*);
 	template <typename T>
@@ -33,6 +35,7 @@ class S8SAudioAnalyser:public AudioAnalyser
 {
 public:
 	S8SAudioAnalyser() :AudioAnalyser() {}
+	~S8SAudioAnalyser(){}
 	// Inherited via AudioAnalyser
 	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 	virtual std::valarray<std::complex<double>> Calculate() override;
@@ -82,6 +85,10 @@ class S8UAudioAnalyser :public AudioAnalyser
 {
 public:
 	S8UAudioAnalyser() :AudioAnalyser() {}
+	~S8UAudioAnalyser()
+	{
+
+	}
 	// Inherited via AudioAnalyser
 	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
 
@@ -98,9 +105,9 @@ class S32FAudioAnalyser :public AudioAnalyser
 {
 public:
 	S32FAudioAnalyser() :AudioAnalyser() {}
-	// Inherited via AudioAnalyser
+	~S32FAudioAnalyser() {}
+// Inherited via AudioAnalyser
 	virtual std::vector<double> LoadDataFromBuffer(QAudioBuffer) override;
-
 	virtual std::valarray<std::complex<double>> Calculate() override;
 private:
 	const char maxValue = 3321321 ;

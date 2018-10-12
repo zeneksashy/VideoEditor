@@ -34,8 +34,9 @@ private:
 		passed = fftTest.NormalizeSamples();
 		passed = fftTest.RootMeanSquare();
 		AudioRecognitionTest recTest;
+		passed = recTest.AudioFormatRegonitionTest_SampleSize8();
 		passed = recTest.AudioFormatRegonitionTest_SampleSize32();
-		passed= recTest.AudioFormatRegonitionTest_SampleSize8();
+		
 		AudioAnalyserTest analyserTest;
 		passed = analyserTest.ConvertDataS16S();
 	}
