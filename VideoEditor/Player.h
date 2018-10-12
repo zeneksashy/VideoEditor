@@ -7,18 +7,59 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <QThread>
 #include "VideoEffect.h"
-#include<qmediaplayer.h>
 #include "EffectsContainer.h"
-#include<qaudiooutput.h>
 #include <chrono>   
+#include <thread>        
+#include<qaudiodecoder.h>
+#include<qmediaplayer.h>
+#include<iostream>
+#include<atomic>
+#include<queue>
+
+class SpinLock
+{
+public:
+	void lock()
+	{
+		while (lck.test_and_set(std::memory_order_acquire))
+		{
+		}
+	}
+
+	void unlock()
+	{
+		lck.clear(std::memory_order_release);
+	}
+
+private:
+	std::atomic_flag lck = ATOMIC_FLAG_INIT;
+};
+
+class Buffer
+{
+public:
+	Buffer();
+	void SetVideoCapture(cv::VideoCapture cap);
+	~Buffer();
+	void LoadToBuffer();
+	bool GetNextFrame(cv::Mat & frame);
+	void SetCapturePosition(int pos);
+private:
+	std::queue<cv::Mat> buff;
+	cv::Mat frame;
+	const uint bufferMaxSize = 30;
+	cv::VideoCapture capture;
+	SpinLock locker;
+	bool stop;
+};
+
+
 ///
 ///Player class
 ///
 class Player : public QThread
 {
 	Q_OBJECT
-
-
 public  slots:
 	void setVideoPosition(int pos);
 	void recieveTime(std::chrono::nanoseconds);
@@ -79,4 +120,12 @@ private:
 	EffectsContainer effects;
 	long framceount;
 	std::chrono::nanoseconds playerDelay;
+	Buffer buffer;
+	std::thread worker;
 };
+
+
+
+
+
+

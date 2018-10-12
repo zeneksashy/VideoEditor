@@ -1,21 +1,9 @@
 #include "Player.h"
-#include <QMutex>
-#include <QThread>
-#include <QImage>
-#include <QWaitCondition>
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <thread>        
-#include<qaudiodecoder.h>
-#include<qmediaplayer.h>
-#include <QFileDevice>
-#include<qiodevice.h>
-#include <qbuffer.h>
-#include<qfile.h>
-#include<qmediametadata.h>
-#include<ctime>
-#include<iostream>
+
+#pragma region Player class
+
+
+
 Player::Player(QObject *parent)
 	: QThread(parent)
 {
@@ -35,17 +23,29 @@ bool Player::loadFile(QString filename)
 		framceount =(int)capture->get(cv::CAP_PROP_FRAME_COUNT);
 		audio = CheckAudio();
 		video = CheckVideo();
+		try
+		{
+
+		
 		if(video)
 		{
 			capture->set(cv::CAP_PROP_BUFFERSIZE,12);
-
 			frameRate = capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
 			auto mili = std::chrono::milliseconds(delay);
 			del = std::chrono::duration_cast<std::chrono::nanoseconds> (mili);
+			buffer.SetVideoCapture(*capture);
+			worker = std::thread([this]() {buffer.LoadToBuffer(); });
+			worker.detach();
+			auto x = 5;
 		}
 		this->filename = filename.toStdString();
 		return true;
+		}
+		catch (const std::exception& ex)
+		{
+			ex.what();
+		}
 	}
 	else
 		return false;
@@ -91,6 +91,7 @@ void Player::setVideoPosition(int pos)
 {
 	Pause();
 	mediaplayer->setPosition(pos);
+	buffer.SetCapturePosition(pos);
 	capture->set(CV_CAP_PROP_POS_MSEC, pos);
 	Play();
 }
@@ -108,6 +109,8 @@ void Player::run()
 	auto nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
 	while (true)
 	{
+		if (!buffer.GetNextFrame(frame)||stop)
+			break;
 		start = std::chrono::high_resolution_clock::now();
 		if (isEffectApplied)
 		{
@@ -117,8 +120,6 @@ void Player::run()
 		{
 			CaptureNextFrame();
 		}
-		if (stop)
-			break;
 		end = std::chrono::high_resolution_clock::now();
 		nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
 		this->msleep((del - nano) -chrono::nanoseconds(1077152)-playerDelay); //1077152 is time of singe while iteration 
@@ -134,6 +135,7 @@ void Player::run()
 void Player::Stop()
 {
 	capture->set(cv::CAP_PROP_POS_FRAMES, 0);
+	buffer.SetCapturePosition(0);
 	mediaplayer->stop();
 	stop = true;
 	emit videoStopped();
@@ -147,15 +149,12 @@ void Player::Pause()
 
 void Player::PlayEffect()
 {
-	if (CheckNextFrame())
-	{
-		effects.Run(frame);
-		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-		img = QImage((const unsigned char*)(RGBframe.data),
-		RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
-		emit processedImage(std::move(img));
-		emit positionChanged();
-	}
+	effects.Run(frame);
+	cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+	img = QImage((const unsigned char*)(RGBframe.data),
+	RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
+	emit processedImage(std::move(img));
+	emit positionChanged();
 }
 
 bool Player::CheckNextFrame()
@@ -169,13 +168,10 @@ bool Player::CheckNextFrame()
 }
 void Player::CaptureNextFrame()
 {
-	if (CheckNextFrame())
-	{
-		cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-		img = QImage((const unsigned char*)(RGBframe.data), RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
-		emit processedImage(std::move(img));
-		emit positionChanged();
-	}	
+	cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+	img = QImage((const unsigned char*)(RGBframe.data), RGBframe.cols, RGBframe.rows, QImage::Format_RGB888);
+	emit processedImage(std::move(img));
+	emit positionChanged();
 }
 
 void Player::msleep(double ms) 
@@ -250,10 +246,70 @@ std::ostream & operator<<(std::ostream & os, const Player & player)
 	os << player.effects;
 	return os;
 }
-
 std::istream & operator>>(std::istream & is, const Player & player)
 {
 	
 	// TODO: insert return statement here
 	return is;
 }
+#pragma endregion
+
+#pragma region Buffer class
+Buffer::Buffer():stop(false)
+{
+}
+void Buffer::SetVideoCapture(cv::VideoCapture cap)
+{
+	capture = cap;
+}
+
+Buffer::~Buffer()
+{
+
+}
+void Buffer::LoadToBuffer()
+{	
+	while (true)
+	{
+		std::cout << "buffer while";
+		locker.lock();
+		if (!stop)
+		{
+			if (buff.size() < bufferMaxSize)
+			{
+				if (!capture.read(frame))
+				{
+					stop = true;
+				}
+				else
+				{
+					buff.emplace(frame);
+				}
+			}
+		}
+		locker.unlock();
+	}
+}
+bool Buffer::GetNextFrame(cv::Mat & frame)
+{
+	locker.lock();
+	if (buff.size() > 1)
+	{
+	    frame = buff.front();
+		buff.pop();
+		locker.unlock();
+		return true;
+	}
+	locker.unlock();
+	return false;
+}
+void Buffer::SetCapturePosition(int pos)
+{
+	locker.lock();
+	stop = true;
+	capture.set(CV_CAP_PROP_POS_MSEC, pos);
+	stop = false;
+	locker.unlock();
+}
+#pragma endregion
+
