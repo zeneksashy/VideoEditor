@@ -16,6 +16,7 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "timelineslider.h"
@@ -43,6 +44,13 @@ public:
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_3;
     QVBoxLayout *timeline;
+    QHBoxLayout *horizontalLayout_5;
+    QToolButton *playButton;
+    QToolButton *pauseButton;
+    QToolButton *stopButton;
+    QToolButton *moveButton;
+    QToolButton *razzerButton;
+    QSpacerItem *horizontalSpacer_3;
 
     void setupUi(QWidget *TimeLine)
     {
@@ -358,6 +366,41 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(2);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        playButton = new QToolButton(TimeLine);
+        playButton->setObjectName(QStringLiteral("playButton"));
+
+        horizontalLayout_5->addWidget(playButton);
+
+        pauseButton = new QToolButton(TimeLine);
+        pauseButton->setObjectName(QStringLiteral("pauseButton"));
+
+        horizontalLayout_5->addWidget(pauseButton);
+
+        stopButton = new QToolButton(TimeLine);
+        stopButton->setObjectName(QStringLiteral("stopButton"));
+
+        horizontalLayout_5->addWidget(stopButton);
+
+        moveButton = new QToolButton(TimeLine);
+        moveButton->setObjectName(QStringLiteral("moveButton"));
+
+        horizontalLayout_5->addWidget(moveButton);
+
+        razzerButton = new QToolButton(TimeLine);
+        razzerButton->setObjectName(QStringLiteral("razzerButton"));
+
+        horizontalLayout_5->addWidget(razzerButton);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_3);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_5);
+
 
         retranslateUi(TimeLine);
 
@@ -368,6 +411,11 @@ public:
     {
         TimeLine->setWindowTitle(QApplication::translate("TimeLine", "TimeLine", nullptr));
         timeLabel->setText(QApplication::translate("TimeLine", "Media duration", nullptr));
+        playButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        pauseButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        stopButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        moveButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        razzerButton->setText(QApplication::translate("TimeLine", "...", nullptr));
     } // retranslateUi
 
 };

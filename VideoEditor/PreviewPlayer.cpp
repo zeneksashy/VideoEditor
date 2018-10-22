@@ -15,7 +15,6 @@ PreviewPlayer::PreviewPlayer(QWidget *parent)
 	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
 	connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
 	configureButtons();
-	
 	//ui.previewLabel->setAlignment(Qt::AlignCenter);
 }
 

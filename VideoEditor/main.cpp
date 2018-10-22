@@ -84,18 +84,17 @@ private:
 // change all tests
 // -- add some kind of layout to time line
 // -- alllow to shrink videos in time line
-// adding new elemnts to time line on the same path
+// adding new elemnts to time line on the same path-- half done
 // add more effects
 //add audio effects
 //add rendering
 // create audio and video frames in another thread 
-//create buffer for player opencv mat based on queue
+//create buffer for player opencv mat based on queue- done
 
 int main(int argc, char *argv[])
 {
 	Tests t;
 	t.ConfigureConsole();
-	
 	QApplication a(argc, argv);
 	t.RunTests();
 	VideoEditor w;

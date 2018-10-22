@@ -25,12 +25,10 @@ public:
 		{
 		}
 	}
-
 	void unlock()
 	{
 		lck.clear(std::memory_order_release);
 	}
-
 private:
 	std::atomic_flag lck = ATOMIC_FLAG_INIT;
 };

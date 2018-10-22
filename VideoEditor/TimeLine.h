@@ -37,6 +37,8 @@ private:
 	void UpdateTimeLabel(int);
 	VideoTrack* CreateVideoTrack(QString);
 	AudioTrack* CreateAudioTrack(QString);
+	void ConfigureButtons();
+	void ConnectUi();
 	Ui::TimeLine ui;
 	QScopedPointer<QHBoxLayout> layout;
 	std::map<QListWidgetItem*, AudioTrack*> audioSources;

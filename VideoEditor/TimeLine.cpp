@@ -11,6 +11,7 @@
 #include<vector>
 #include <AudioTrack.h>
 #include<SingleTrack.h>
+#include<qstyle.h>
 //TODO
 // add correct slider range
 //add resizinig to line drawing
@@ -22,10 +23,9 @@ TimeLine::TimeLine(QWidget *parent)
 	ui.setupUi(this);
 	setAcceptDrops(true);
 	layout.reset(new QHBoxLayout);
-	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
-	connect(MediaManager::player, &Player::videoStopped, this, &TimeLine::stopTimeLine);
-	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
+	ConnectUi();
 	setMouseTracking(true);
+	ConfigureButtons();
 	i = 0;
 	scale = 5;
 	ui.Content->installEventFilter(this);
@@ -214,4 +214,21 @@ AudioTrack* TimeLine::CreateAudioTrack(QString path)
 	ui.timeline->addWidget(singleTrack);
 	audioframe->installEventFilter(this);
 	return audioframe;
+}
+
+void TimeLine::ConfigureButtons()
+{
+	ui.playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+	ui.stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+	ui.pauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+}
+
+void TimeLine::ConnectUi()
+{
+	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
+	connect(MediaManager::player, &Player::videoStopped, this, &TimeLine::stopTimeLine);
+	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
+	connect(ui.playButton, &QToolButton::clicked, this, [this]() {if (MediaManager::player->isStopped()) MediaManager::player->Play(); });
+	connect(ui.pauseButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::player->isStopped()) MediaManager::player->Pause(); });
+	connect(ui.stopButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::player->isStopped()) MediaManager::player->Stop(); });
 }
