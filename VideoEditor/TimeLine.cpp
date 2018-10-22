@@ -16,8 +16,6 @@
 //add resizinig to line drawing
 //change start position of resizing multipler to 10 , 1 to min and 20 to max
 //add auto scrolling when line get out of scope -- done
-
-
 TimeLine::TimeLine(QWidget *parent)
 	: QWidget(parent)
 {
@@ -33,7 +31,6 @@ TimeLine::TimeLine(QWidget *parent)
 	ui.Content->installEventFilter(this);
 	ui.scrollAreaWidgetContents->installEventFilter(this);
 }
-
 void TimeLine::ResizeFrames(int p)
 {
 	scale = p;
@@ -54,7 +51,6 @@ void TimeLine::ResizeFrames(int p)
 		e.what();
 	}
 }
-
 void TimeLine::stopTimeLine()
 {
 	i = 0;
@@ -78,7 +74,6 @@ void TimeLine::UpdateTimeLabel(int pos)
 	std::string time = s.str();
 	ui.timeLabel->setText(QString::fromStdString(time));
 }
-
 void TimeLine::loadFile(QString path)
 {
 	auto item = new QListWidgetItem();
@@ -125,7 +120,6 @@ void TimeLine::dragEnterEvent(QDragEnterEvent * e)
 		e->acceptProposedAction();
 	}
 }
-
 bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 {//for now is 1 move per frames,  25 frames per second
 	if (event->type() == QEvent::Paint)
@@ -164,7 +158,6 @@ void TimeLine::itemSelected(QListWidgetItem* item)
 	audioSources.find(item)->second->drawOutline();
 	videoSources.find(item)->second->drawOutline();
 }
-
 void TimeLine::LineSelected(MediaTrack * frame)
 {
 	auto  audioIt = audioSources.begin();
@@ -199,7 +192,6 @@ void TimeLine::LineSelected(MediaTrack * frame)
 		videoIt->second->deleteOutline();
 	}
 }
-
 VideoTrack* TimeLine::CreateVideoTrack(QString path)
 {
 	auto videoframe = new VideoTrack(this);
@@ -223,5 +215,3 @@ AudioTrack* TimeLine::CreateAudioTrack(QString path)
 	audioframe->installEventFilter(this);
 	return audioframe;
 }
-
-

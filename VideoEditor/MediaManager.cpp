@@ -120,6 +120,11 @@ void MediaManager::LoadWidget(VideoLoader* widget)
 	 }
  }
 
+ void MediaManager::ClearAllWidgets()
+ {
+	 widgets.clear();
+ }
+
  void MediaManager::LoadMediaToWidget(QString path)
  {
 	 for each (auto widget in widgets)

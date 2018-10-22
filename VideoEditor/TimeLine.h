@@ -1,5 +1,4 @@
 #pragma once
-
 #include <QWidget>
 #include "ui_TimeLine.h"
 #include <QDragEnterEvent>
@@ -50,6 +49,10 @@ public:
 	{
 		MediaManager::LoadWidget(&timeLine);
 		MediaManager::LoadMedia(QString::fromStdString(mediaPath));
+	}
+	~TimeLineTest()
+	{
+		MediaManager::ClearAllWidgets();
 	}
 	bool NewTrackTest()
 	{

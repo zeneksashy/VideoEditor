@@ -21,6 +21,7 @@ public:
 	static void Deserialize(std::string path);
 	static std::vector<std::string> getValuesFromString(std::string);
 	static void Deserialize(std::vector<std::string>&);
+	static void ClearAllWidgets();
 private:
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);
