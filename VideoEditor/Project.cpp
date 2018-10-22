@@ -1,12 +1,8 @@
 #include "Project.h"
-#include <sstream>
-#include<iostream>
-#include<map>
-#include<vector>
+
 Project::Project()
 {
 }
-
 
 Project::~Project()
 {

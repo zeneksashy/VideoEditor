@@ -47,5 +47,4 @@ AudioAnalyser* AudioRecognition::RrecognizeFrameType(QAudioFormat format)
 		break;
 	}
 	return nullptr;
-	//return QAudioFormat::SampleType();
 }

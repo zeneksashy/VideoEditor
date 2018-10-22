@@ -375,8 +375,8 @@ background:white;
     margin: 2px 0;
 }
 QSlider::handle:horizontal {
-    background: rgb(255, 170, 0);
-    width:6px;
+    background: red;
+    width:9px;
 	height: 15px;
 	margin: -8px 0 -1px 0;
 }</string>
@@ -477,14 +477,21 @@ QSlider::handle:horizontal {
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="moveButton">
+      <widget class="QToolButton" name="slideButton">
        <property name="text">
         <string>...</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="razzerButton">
+      <widget class="QToolButton" name="sliceButton">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="stretchButton">
        <property name="text">
         <string>...</string>
        </property>

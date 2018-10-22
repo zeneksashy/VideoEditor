@@ -5,7 +5,12 @@
 #include "VideoLoader.h"
 #include "GausianBlur.h"
 #include "Project.h"
-
+#include <Windows.h>
+#include <iostream>
+#include <sstream>
+#include<qmessagebox.h>
+#include<fstream>
+#include<string>
 class MediaManager
 {
 	friend class MediaManagerTest;

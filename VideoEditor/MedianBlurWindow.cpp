@@ -1,11 +1,9 @@
 #include "MedianBlurWindow.h"
-
 MedianBlurWindow::MedianBlurWindow(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
 }
-
 MedianBlurWindow::~MedianBlurWindow()
 {
 }

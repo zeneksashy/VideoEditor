@@ -48,8 +48,9 @@ public:
     QToolButton *playButton;
     QToolButton *pauseButton;
     QToolButton *stopButton;
-    QToolButton *moveButton;
-    QToolButton *razzerButton;
+    QToolButton *slideButton;
+    QToolButton *sliceButton;
+    QToolButton *stretchButton;
     QSpacerItem *horizontalSpacer_3;
 
     void setupUi(QWidget *TimeLine)
@@ -312,8 +313,8 @@ public:
 "    margin: 2px 0;\n"
 "}\n"
 "QSlider::handle:horizontal {\n"
-"    background: rgb(255, 170, 0);\n"
-"    width:6px;\n"
+"    background: red;\n"
+"    width:9px;\n"
 "	height: 15px;\n"
 "	margin: -8px 0 -1px 0;\n"
 "}"));
@@ -384,15 +385,20 @@ public:
 
         horizontalLayout_5->addWidget(stopButton);
 
-        moveButton = new QToolButton(TimeLine);
-        moveButton->setObjectName(QStringLiteral("moveButton"));
+        slideButton = new QToolButton(TimeLine);
+        slideButton->setObjectName(QStringLiteral("slideButton"));
 
-        horizontalLayout_5->addWidget(moveButton);
+        horizontalLayout_5->addWidget(slideButton);
 
-        razzerButton = new QToolButton(TimeLine);
-        razzerButton->setObjectName(QStringLiteral("razzerButton"));
+        sliceButton = new QToolButton(TimeLine);
+        sliceButton->setObjectName(QStringLiteral("sliceButton"));
 
-        horizontalLayout_5->addWidget(razzerButton);
+        horizontalLayout_5->addWidget(sliceButton);
+
+        stretchButton = new QToolButton(TimeLine);
+        stretchButton->setObjectName(QStringLiteral("stretchButton"));
+
+        horizontalLayout_5->addWidget(stretchButton);
 
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -414,8 +420,9 @@ public:
         playButton->setText(QApplication::translate("TimeLine", "...", nullptr));
         pauseButton->setText(QApplication::translate("TimeLine", "...", nullptr));
         stopButton->setText(QApplication::translate("TimeLine", "...", nullptr));
-        moveButton->setText(QApplication::translate("TimeLine", "...", nullptr));
-        razzerButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        slideButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        sliceButton->setText(QApplication::translate("TimeLine", "...", nullptr));
+        stretchButton->setText(QApplication::translate("TimeLine", "...", nullptr));
     } // retranslateUi
 
 };

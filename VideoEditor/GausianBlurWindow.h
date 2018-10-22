@@ -3,11 +3,11 @@
 #include <QDialog>
 #include<qbuttongroup.h>
 #include "ui_GausianBlurWindow.h"
-
+#include "GausianBlur.h"
+#include"MediaManager.h"
 class GausianBlurWindow : public QDialog
 {
 	Q_OBJECT
-
 public:
 	GausianBlurWindow(QWidget *parent = Q_NULLPTR);
 	~GausianBlurWindow();

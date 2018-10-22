@@ -132,7 +132,8 @@ bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 		painter.setPen(QPen(Qt::red, 1));
 		painter.setBrush(Qt::BrushStyle::SolidPattern);
 		if(media)
-			painter.drawLine(i, 0, i, ui.Content->rect().height());
+		{ }
+			//painter.drawLine(i, 0, i, ui.Content->rect().height());
 		else
 			painter.drawLine(i+87, 0, i+87, ui.Content->rect().height());
 		return true; // The event is already handled.
@@ -215,14 +216,12 @@ AudioTrack* TimeLine::CreateAudioTrack(QString path)
 	audioframe->installEventFilter(this);
 	return audioframe;
 }
-
 void TimeLine::ConfigureButtons()
 {
 	ui.playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 	ui.stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
 	ui.pauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
 }
-
 void TimeLine::ConnectUi()
 {
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);

@@ -7,7 +7,6 @@
 class MedianBlurWindow : public QDialog
 {
 	Q_OBJECT
-
 public:
 	MedianBlurWindow(QWidget *parent = Q_NULLPTR);
 	~MedianBlurWindow();

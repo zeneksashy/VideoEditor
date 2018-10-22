@@ -1,5 +1,4 @@
 #include "VideoTrack.h"
-
 VideoTrack::VideoTrack(QWidget *parent)
 	: MediaTrack(parent)
 {
@@ -9,7 +8,6 @@ VideoTrack::VideoTrack(QWidget *parent)
 	setMinimumWidth(120);
 	isSelected = false;
 }
-
 VideoTrack::~VideoTrack()
 {
 	capture.release();
@@ -45,7 +43,6 @@ void VideoTrack::Initliaize(QString filename)
 		setFixedWidth(lenght);
 	}
 }
-
 QImage VideoTrack::loadFrame(long pos)
 {
 	capture.set(CV_CAP_PROP_POS_MSEC, pos);
@@ -66,13 +63,11 @@ QImage VideoTrack::loadFrame(long pos)
 	}
 	return img;
 }
-
 void VideoTrack::drawOutline()
 {
 	isSelected = true;
 	repaint();
 }
-
 void VideoTrack::ResizeFrame(int p)
 {
 	try
@@ -86,7 +81,6 @@ void VideoTrack::ResizeFrame(int p)
 		e.what();
 	}
 }
-
 void VideoTrack::deleteOutline()
 {
 	isSelected = false;

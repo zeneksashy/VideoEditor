@@ -1,10 +1,5 @@
 #include "MediaManager.h"
-#include <Windows.h>
-#include <iostream>
-#include <sstream>
-#include<qmessagebox.h>
-#include<fstream>
-#include<string>
+
 
 Player* MediaManager::player = new Player();
 Project* MediaManager::project = new Project();

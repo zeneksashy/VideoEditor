@@ -1,7 +1,4 @@
 #include "EffectsContainer.h"
-
-
-
 EffectsContainer::EffectsContainer()
 {
 }

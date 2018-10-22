@@ -1,16 +1,5 @@
 #include "VideoEditor.h"
-#include<qmediaplayer.h>
-#include<qmediaplaylist.h>
-#include <QMediaMetaData>
-#include <QStandardPaths>
-#include<qfiledialog.h>
-#include <QStyle>
-#include "Player.h"
-#include<Qtime>
-#include <QFileDialog>
-#include <QMessageBox>
-#include"MediaManager.h"
-#include "StartPageWindow.h"
+
 
 VideoEditor::VideoEditor(QWidget *parent)
 	: QMainWindow(parent)
@@ -36,16 +25,11 @@ void VideoEditor::open()
 	}
 }
 
-
-
 void VideoEditor::saveProject()
 {
 	auto filename = QFileDialog::getSaveFileName(this, tr("Save Project"), ".",
 		tr("Project Files (*.ediproj)"));
 	MediaManager::Serialize(filename.toStdString());
-	/*QString filename = QFileDialog::getOpenFileName(this,
-		tr("Open Video"), ".",
-		tr("Video Files (*.avi *.mpg *.mp4)"));*/
 }
 
 void VideoEditor::connectWdigets()

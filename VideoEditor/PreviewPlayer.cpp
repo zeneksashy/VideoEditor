@@ -15,13 +15,10 @@ PreviewPlayer::PreviewPlayer(QWidget *parent)
 	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
 	connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
 	configureButtons();
-	//ui.previewLabel->setAlignment(Qt::AlignCenter);
 }
-
 PreviewPlayer::~PreviewPlayer()
 {
 }
-
 void PreviewPlayer::setMaxToTimeLine(int max)
 {
 	ui.timeLine->setRange(0, max);
@@ -55,17 +52,12 @@ void PreviewPlayer::onStopButtonClicked()
 		MediaManager::player->Stop();
 	}
 }
-
 void PreviewPlayer::onPauseButtonCLicked()
 {
 	if(!MediaManager::player->isStopped())
 	{
 		MediaManager::player->Pause();
 	}
-}
-void PreviewPlayer::setGausianBlur()
-{
-//	MediaManager::player->effect();
 }
 void PreviewPlayer::setVideoPosition(int pos)
 {

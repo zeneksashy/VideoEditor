@@ -1,9 +1,5 @@
 #include "Player.h"
-
 #pragma region Player class
-
-
-
 Player::Player(QObject *parent)
 	: QThread(parent)
 {
@@ -241,7 +237,6 @@ std::istream & operator>>(std::istream & is, const Player & player)
 	return is;
 }
 #pragma endregion
-
 #pragma region Buffer class
 Buffer::Buffer():stop(false)
 {
@@ -300,4 +295,3 @@ void Buffer::SetCapturePosition(int pos)
 	locker.unlock();
 }
 #pragma endregion
-

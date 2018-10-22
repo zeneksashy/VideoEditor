@@ -3,7 +3,7 @@
 #include<valarray>
 #include<vector>
 #include <ctime>
-
+#include<qmath.h>
 class FastFourierTransform
 {
 public:

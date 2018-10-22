@@ -4,12 +4,18 @@
 #include "ui_VideoEditor.h"
 #include<qmediaplayer.h>
 #include<qmediaplaylist.h>
-#include<opencv2/opencv.hpp>
 #include "Player.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include"GausianBlurWindow.h"
 #include "ProjectSettingsWIndow.h"
+#include <QMediaMetaData>
+#include <QStandardPaths>
+#include <QStyle>
+#include "Player.h"
+#include<Qtime>
+#include"MediaManager.h"
+#include "StartPageWindow.h"
 
 class VideoEditor : public QMainWindow
 {

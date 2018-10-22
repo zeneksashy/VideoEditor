@@ -50,8 +50,6 @@ private:
 	SpinLock locker;
 	bool stop;
 };
-
-
 ///
 ///Player class
 ///
@@ -121,9 +119,3 @@ private:
 	Buffer buffer;
 	std::thread worker;
 };
-
-
-
-
-
-

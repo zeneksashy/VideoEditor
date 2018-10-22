@@ -15,12 +15,6 @@ inline std::vector<double> AudioAnalyser::LoadDataFromBuffer(AudioAnalyser & ana
 }
 std::valarray<std::complex<double>> AudioAnalyser::Calculate(AudioAnalyser * analyser)
 {
-	////auto vector = LoadData();
-	//std::valarray<std::complex<double>> data(vector.data(), vector.size());
-	//FastFourierTransform* fft = new FastFourierTransform();
-	//fft->Execute(data);
-	//delete fft;
-	//return data;
 	std::valarray<std::complex<double>> vec;
 	return vec;
 }

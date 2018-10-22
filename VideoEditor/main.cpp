@@ -59,17 +59,17 @@ private:
 	{
 		SerializationTest cut;
 		passed= cut.SettingsSerialization();
-		(passed) ? std::cout << " TRUE == project serialization test passed\n" : std::cout << "FALSE == project serialization test not passed\n";
+		write_result("project serialization");
 		passed = cut.SettingsDeserialization();
-		(passed) ? std::cout << " TRUE == project deserialization test passed\n" : std::cout << "FALSE == project deserialization test not passed\n";
+		write_result("project deserialization");
 		passed = cut.EffectsSerialization();
-		(passed) ? std::cout << " TRUE == gaussian serialization test passed\n" : std::cout << "FALSE == gaussian serialization  test not passed\n";
+		write_result("gaussian serialization");
 		passed = cut.EffectsDeserialization();
-		(passed) ? std::cout << " TRUE == gaussian deserialization test passed\n" : std::cout << "FALSE == gaussian deserialization  test not passed\n";
+		write_result("gaussian deserialization");
 		passed = cut.EffectContainerSerialization();
-		(passed) ? std::cout << " TRUE == effect container serialization test passed\n" : std::cout << "FALSE == effect container serialization  test not passed\n";
+		write_result("effect container serialization");
 		passed = cut.MediaManagerDeserialization();
-		(passed) ? std::cout << " TRUE == effect container serialization test passed\n" : std::cout << "FALSE == effect container serialization  test not passed\n";
+		write_result("effect container deserialization");
 	}
 	void write_result(std::string name)
 	{
@@ -77,7 +77,6 @@ private:
 	}
 	bool passed;
 };
-
 //TODO
 //serialize effects  with settings
 // deserialize whole project -- player video path to serialize
@@ -90,7 +89,6 @@ private:
 //add rendering
 // create audio and video frames in another thread 
 //create buffer for player opencv mat based on queue- done
-
 int main(int argc, char *argv[])
 {
 	Tests t;

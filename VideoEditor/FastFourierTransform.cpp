@@ -1,6 +1,4 @@
 #include "FastFourierTransform.h"
-#include<qmath.h>
-#include <ctime>
 
 void FastFourierTransform::Execute(std::valarray<std::complex<double>> &x)
 {

@@ -1,7 +1,4 @@
 #include "GausianBlurWindow.h"
-#include "GausianBlur.h"
-
-#include"MediaManager.h"
 GausianBlurWindow::GausianBlurWindow(QWidget *parent)
 	: QDialog(parent)
 {
@@ -9,7 +6,6 @@ GausianBlurWindow::GausianBlurWindow(QWidget *parent)
 	connectWidgets();
 	setAttribute(Qt::WA_DeleteOnClose);
 }
-
 GausianBlurWindow::~GausianBlurWindow()
 {
 }
@@ -42,7 +38,6 @@ void GausianBlurWindow::applyEffect()
 	MediaManager::player->setEffect(blur);
 	this->hide();
 }
-
 void GausianBlurWindow::connectWidgets()
 {
 	connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &GausianBlurWindow::applyEffect);

@@ -1,5 +1,8 @@
 #pragma once
 #include<string>
+#include <sstream>
+#include<iostream>
+#include<map>
 #include<vector>
 struct ProjectSettings
 {
