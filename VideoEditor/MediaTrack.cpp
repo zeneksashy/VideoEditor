@@ -24,6 +24,21 @@ void MediaTrack::leaveEvent(QEvent *e)
 	unsetCursor();
 }
 
+void MediaTrack::PlayMedia()
+{
+	player->Play();
+}
+
+void MediaTrack::PauseMedia()
+{
+	player->Pause();
+}
+
+void MediaTrack::StopMedia()
+{
+	player->Stop();
+}
+
 void MediaTrack::mouseMoveEvent(QMouseEvent *)
 {
 	QDrag *drag = new QDrag(this);
@@ -32,4 +47,10 @@ void MediaTrack::mouseMoveEvent(QMouseEvent *)
 	mimeData->setText(QString::number(addr));
 	drag->setMimeData(mimeData);
 	Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
+}
+
+void MediaTrack::setPlayer(QString path,MediaType type)
+{
+	player = std::make_unique<Player>(new Player());
+	player->loadFile(path,type);
 }

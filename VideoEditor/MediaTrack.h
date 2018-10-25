@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include<qdrag.h>
 #include<qmimedata.h>
+#include<Player.h>
 class MediaTrack: public QWidget
 {
 	Q_OBJECT
@@ -18,6 +19,14 @@ public:
 	void mousePressEvent(QMouseEvent *);
 	void enterEvent(QEvent*);
 	void leaveEvent(QEvent*);
+	void PlayMedia();
+	void PauseMedia();
+	void StopMedia();
+
 	void mouseMoveEvent(QMouseEvent *);
+protected:
+	void setPlayer(QString,MediaType);
+private:
+	std::unique_ptr<Player>player;
 }; 
 

@@ -29,6 +29,7 @@ void VideoTrack::paintEvent(QPaintEvent*)
 }
 void VideoTrack::Initliaize(QString filename)
 {
+	setPlayer(filename, MediaType::Video);
 	capture.open(filename.toStdString());
 	if (capture.isOpened())
 	{

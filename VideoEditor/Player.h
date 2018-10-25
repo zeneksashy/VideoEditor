@@ -16,6 +16,11 @@
 #include<atomic>
 #include<queue>
 
+enum MediaType
+{
+	Video=0,Audio=1,Both=2
+};
+
 class SpinLock
 {
 public:
@@ -83,7 +88,7 @@ public:
 	//Destructor
 	~Player();
 	///Load a video from memory
-	bool loadFile(QString filename);
+	bool loadFile(QString filename,MediaType = MediaType::Both);
 	void Play();
 	void Stop();
 	void Pause();
@@ -92,6 +97,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 	friend std::istream& operator>>(std::istream& is, const Player& player);
 private:
+	void CheckMediaType(MediaType);
 	QScopedPointer<QMediaPlayer> mediaplayer;
 	bool stop;
 	QMutex mutex;

@@ -15,6 +15,7 @@ AudioTrack::~AudioTrack()
 
 void AudioTrack::Initialize(QString path)
 {
+	setPlayer(path, MediaType::Audio);
 	this->path = path;
 	decoder.reset(new QAudioDecoder());
 	decoder->setSourceFilename(path);

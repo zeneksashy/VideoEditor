@@ -1,7 +1,7 @@
 #include "Player.h"
 #pragma region Player class
 Player::Player(QObject *parent)
-	: QThread(parent)
+	: QThread(parent),audio(false),video(false)
 {
 	mediaplayer.reset(new QMediaPlayer);
 	stop = true;
@@ -10,15 +10,14 @@ Player::Player(QObject *parent)
 	isFirstFrame = true;
 	playerDelay = chrono::nanoseconds(0);
 }
-bool Player::loadFile(QString filename) 
+bool Player::loadFile(QString filename,MediaType type) 
 {
 	capture->open(filename.toStdString());
 	if (CheckFile())
 	{
 		mediaplayer->setMedia(QUrl::fromLocalFile(filename));
-		framceount =(int)capture->get(cv::CAP_PROP_FRAME_COUNT);
-		audio = CheckAudio();
-		video = CheckVideo();
+		CheckMediaType(type);
+		framceount = (int)capture->get(cv::CAP_PROP_FRAME_COUNT);
 		if(video)
 		{
 			capture->set(cv::CAP_PROP_BUFFERSIZE,12);
@@ -215,6 +214,30 @@ bool Player::isStopped() const {
 void Player::Deserialize(std::vector<std::string>&x)
 {
 	effects.Deserialize(x);
+}
+void Player::CheckMediaType(MediaType type)
+{
+	if (type == MediaType::Audio)
+	{
+		audio = CheckAudio();
+		if (!audio)
+		{
+			mediaplayer->~QMediaPlayer();
+		}
+	}
+	else if (type == MediaType::Video)
+	{
+		video = CheckVideo();
+		if (!video)
+		{
+			capture->release();
+		}
+	}
+	else
+	{
+		audio = CheckAudio();
+		video = CheckVideo();
+	}
 }
 Player::~Player()
 {

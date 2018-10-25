@@ -11,6 +11,8 @@
 #include<qmessagebox.h>
 #include<fstream>
 #include<string>
+#include"TracksIndexer.h"
+class TracksIndexer;
 class MediaManager
 {
 	friend class MediaManagerTest;
@@ -19,6 +21,7 @@ public:
 	MediaManager();
 	static void LoadWidget(VideoLoader*);
 	static void LoadMedia(QString);
+	static TracksIndexer indexer;
 	static  Player* player;
 //	static  GausianBlur* gBlur;
 	static Project* project;
@@ -28,6 +31,7 @@ public:
 	static void Deserialize(std::vector<std::string>&);
 	static void ClearAllWidgets();
 private:
+	
 	static void LoadMediaToWidget(QString);
 	static void LoadPlayer(QString);
 	static QList<VideoLoader*>widgets;

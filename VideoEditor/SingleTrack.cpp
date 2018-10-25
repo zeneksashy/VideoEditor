@@ -2,7 +2,7 @@
 uint SingleTrack::videoCounter = 0;
 uint SingleTrack::audioCounter = 0;
 
-SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true)
+SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true),tracksInLayout(0)
 {
 	ui.setupUi(this);
 	ConnectUi();
@@ -37,6 +37,7 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 	 }
 	 currentTrack = track;
 	ui.tracksLayout->addWidget(track);
+	++tracksInLayout;
 }
 
 void SingleTrack::dropEvent(QDropEvent * e)
@@ -54,7 +55,19 @@ void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
 
 void SingleTrack::PlayTrack()
 {
+	currentTrack->PlayMedia();
+}
 
+void SingleTrack::PauseTrack()
+{
+	currentTrack->PauseMedia();
+}
+
+void SingleTrack::StopTrack()
+{
+	currentTrack->StopMedia();
+	currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(0));
+	currentTrackId = 0;
 }
 
 void SingleTrack::OnButtonClick()
@@ -63,6 +76,20 @@ void SingleTrack::OnButtonClick()
 	ChangeButtonColor();
 	TurnOnOffTrack();
 
+}
+
+void SingleTrack::NextTrack()
+{
+	++currentTrackId;
+	currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(currentTrackId));
+	if (currentTrack)
+		PlayTrack();
+	else
+	{
+		auto interval = dynamic_cast<QSpacerItem*>(ui.tracksLayout->itemAt(currentTrackId))->sizeHint();
+		//std::this_thread::sleep_for();
+		NextTrack();
+	}
 }
 
 void SingleTrack::InsertToMediaTrack(MediaTrack *track)

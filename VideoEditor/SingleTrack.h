@@ -14,16 +14,20 @@ public:
 	void dropEvent(QDropEvent *e);
 	void dragEnterEvent(QDragEnterEvent *event);
 	void PlayTrack();
+	void PauseTrack();
+	void StopTrack();
 private slots:
 	void OnButtonClick();
 public slots:
 	void itemMoved();
+	void NextTrack();
 private:
 	void InsertToMediaTrack(MediaTrack*);
 	void ConnectUi();
 	void ChangeButtonColor();
 	void TurnOnOffTrack();
 	MediaTrack* currentTrack;
+	int currentTrackId;
 	bool isClicked;
 	bool AudioVideo; // true  = video, false = audio ,default is video
 	Ui::SingleTrack ui;
@@ -31,5 +35,6 @@ private:
 	uint videoTracks;
 	static uint videoCounter;
 	static uint audioCounter;
+	uint tracksInLayout;
 	uint opacity;
 };
