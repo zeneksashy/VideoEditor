@@ -14,7 +14,10 @@ public:
 	virtual void drawOutline() = 0;
 	virtual void deleteOutline() = 0;
 	virtual void ResizeFrame(int) = 0;
+	virtual void Concatenate(MediaTrack*) {}//to inplement
 	void mousePressEvent(QMouseEvent *);
+	void enterEvent(QEvent*);
+	void leaveEvent(QEvent*);
 	void mouseMoveEvent(QMouseEvent *);
 }; 
 

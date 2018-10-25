@@ -1,6 +1,7 @@
 #include "SingleTrack.h"
 uint SingleTrack::videoCounter = 0;
 uint SingleTrack::audioCounter = 0;
+
 SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true)
 {
 	ui.setupUi(this);
@@ -11,11 +12,13 @@ SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audi
 SingleTrack::~SingleTrack()
 {
 }
+
 void SingleTrack::itemMoved()
 {
 	ui.tracksLayout->removeWidget(currentTrack);
 	currentTrack->show();
 }
+
 void SingleTrack::CreateMediaTrack(MediaTrack * track)
 {
 	 auto audio = dynamic_cast<AudioTrack*>(track);
@@ -55,6 +58,7 @@ void SingleTrack::OnButtonClick()
 	TurnOnOffTrack();
 
 }
+
 void SingleTrack::InsertToMediaTrack(MediaTrack *track)
 {
 	auto audio = dynamic_cast<AudioTrack*>(track);
@@ -70,6 +74,7 @@ void SingleTrack::InsertToMediaTrack(MediaTrack *track)
 		ui.tracksLayout->addWidget(track);
 	}
 }
+
 void SingleTrack::ConnectUi()
 {
 	connect(ui.TrackButton, &QPushButton::clicked, this, &SingleTrack::OnButtonClick);

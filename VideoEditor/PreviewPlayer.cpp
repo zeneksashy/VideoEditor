@@ -72,7 +72,7 @@ void PreviewPlayer::loadFile(QString path)
 		msgBox.setText("The selected video could not be opened!");
 		msgBox.exec();
 	}
-	ui.timeLine->setRange(0, MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT));
+	ui.timeLine->setRange(0, MediaManager::player->getFrameCount());
 }
 void PreviewPlayer::updatePlayerUI()
 {

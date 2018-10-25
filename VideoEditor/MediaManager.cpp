@@ -3,7 +3,6 @@
 
 Player* MediaManager::player = new Player();
 Project* MediaManager::project = new Project();
-//GausianBlur* MediaManager::gBlur = new GausianBlur();
 QList<VideoLoader*> MediaManager::widgets;
 std::vector<std::string> MediaManager::mediaPaths;
 MediaManager::~MediaManager()

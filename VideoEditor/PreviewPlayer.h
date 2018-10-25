@@ -28,3 +28,10 @@ private:
 	Ui::PreviewPlayer ui;
 	void configureButtons();
 };
+class PreiviewPlayerTest
+{
+public:
+
+private:
+
+};

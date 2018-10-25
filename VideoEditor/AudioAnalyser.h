@@ -3,11 +3,8 @@
 #include<vector>
 #include<complex>
 #include"FastFourierTransform.h"
-#include<QVariant>
 
-//#define _ITERATOR_DEBUG_LEVEL 1
 
-#define ComplexVector std::vector<std::complex<double>>
 template<int N> class PowerOfTwo
 {
 public: static const int Result = PowerOfTwo<N - 1>::Result * 2;

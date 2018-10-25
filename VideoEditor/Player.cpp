@@ -191,9 +191,9 @@ bool Player::isVideoAvaible()
 	return video;
 }
 
-std::shared_ptr<cv::VideoCapture> Player::getVideCapture() const
+long Player::getFrameCount() const
 {
-	return capture;
+	return (long)capture->get(cv::CAP_PROP_FRAME_COUNT);
 }
 
 QMediaPlayer* Player::getMediaPlayer() const

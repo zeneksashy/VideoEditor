@@ -3,8 +3,7 @@
 AudioTrack::AudioTrack(QWidget *parent):MediaTrack(parent),lenght(0)
 {
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	setMinimumHeight(60);
-	setFixedHeight(60);
+	setFixedHeight(32);
 	setMinimumWidth(120);
 	isSelected = false;
 }

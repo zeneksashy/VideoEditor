@@ -1,13 +1,25 @@
 #include "MediaTrack.h"
 
-
 MediaTrack::~MediaTrack()
 {
 }
 
-void MediaTrack::mousePressEvent(QMouseEvent *)
+void MediaTrack::mousePressEvent(QMouseEvent *e)
+{
+	if (e->button() == Qt::RightButton)
+	{
+		//show menu
+	}
+}
+
+void MediaTrack::enterEvent(QEvent *e)
 {
 	this->drawOutline();
+}
+
+void MediaTrack::leaveEvent(QEvent *e)
+{
+	this->deleteOutline();
 }
 
 void MediaTrack::mouseMoveEvent(QMouseEvent *)

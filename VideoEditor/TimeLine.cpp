@@ -78,27 +78,20 @@ void TimeLine::loadFile(QString path)
 {
 	auto item = new QListWidgetItem();
 	//need to add format checker for item
-	framesCount = MediaManager::player->getVideCapture()->get(cv::CAP_PROP_FRAME_COUNT);
-//	auto item = new QListWidgetItem(path, ui.sourcesList);
-	//connect(ui.sourcesList, &QListWidget::itemClicked, this, &TimeLine::itemSelected);
+	framesCount = MediaManager::player->getFrameCount();
 	if (framesCount > ui.horizontalSlider->width())
 	{
 		ui.horizontalSlider->setRange(0, framesCount);
 		ui.horizontalSlider->setFixedWidth(framesCount);
 	}
-	
-	//QListWidgetItem &dl = *item;
 	QBrush brush(QColor::fromRgb(128, 130, 128));
-	//item->setBackground(brush);
 	if (MediaManager::player->isVideoAvaible())
 	{
 		videoSources.insert({ item , CreateVideoTrack(path) });
-		//auto  x = CreateVideoTrack(path);
 	}
 	if (MediaManager::player->isAudioAvaible())
 	{
 		audioSources.insert({ item , CreateAudioTrack(path) });
-		//auto x = CreateAudioTrack(path);
 	}
 	timeLineSizeMultipler = ui.widget->width();
 }
@@ -156,42 +149,42 @@ void TimeLine::itemSelected(QListWidgetItem* item)
 	{
 		source.second->deleteOutline();
 	}
-	audioSources.find(item)->second->drawOutline();
-	videoSources.find(item)->second->drawOutline();
+	//audioSources.find(item)->second->drawOutline();
+//	videoSources.find(item)->second->drawOutline();
 }
 void TimeLine::LineSelected(MediaTrack * frame)
 {
-	auto  audioIt = audioSources.begin();
-	auto  videoIt = videoSources.begin();
-	for (;audioIt!=audioSources.end(),videoIt!=videoSources.end();audioIt++,videoIt++)
-	{
-		if (audioIt->second == frame)
-		{
-			audioIt->first->setSelected(true);
-			audioIt->second->drawOutline();
+	//auto  audioIt = audioSources.begin();
+	//auto  videoIt = videoSources.begin();
+	//for (;audioIt!=audioSources.end(),videoIt!=videoSources.end();audioIt++,videoIt++)
+	//{
+	//	if (audioIt->second == frame)
+	//	{
+	//		audioIt->first->setSelected(true);
+	//	//	audioIt->second->drawOutline();
 
-			if (videoIt->first == audioIt->first)
-			{
-				videoIt->first->setSelected(true);
-				videoIt->second->drawOutline();
-			}
-			continue;
-		}
-		if (videoIt->second == frame)
-		{
-			videoIt->first->setSelected(true);
-			videoIt->second->drawOutline();
+	//		if (videoIt->first == audioIt->first)
+	//		{
+	//			videoIt->first->setSelected(true);
+	//	//		videoIt->second->drawOutline();
+	//		}
+	//		continue;
+	//	}
+	//	if (videoIt->second == frame)
+	//	{
+	//		videoIt->first->setSelected(true);
+	//	//	videoIt->second->drawOutline();
 
-			if (audioIt->first == audioIt->first)
-			{
-				audioIt->first->setSelected(true);
-				audioIt->second->drawOutline();
-			}
-			continue;
-		}
-		audioIt->second->deleteOutline();
-		videoIt->second->deleteOutline();
-	}
+	//		if (audioIt->first == audioIt->first)
+	//		{
+	//			audioIt->first->setSelected(true);
+	//		//	audioIt->second->drawOutline();
+	//		}
+	//		continue;
+	//	}
+	////	audioIt->second->deleteOutline();
+	////	videoIt->second->deleteOutline();
+	//}
 }
 VideoTrack* TimeLine::CreateVideoTrack(QString path)
 {
@@ -209,7 +202,7 @@ AudioTrack* TimeLine::CreateAudioTrack(QString path)
 	auto singleTrack = new SingleTrack(this);
 	auto audioframe = new AudioTrack(this);
 	singleTrack->CreateMediaTrack(audioframe);
-	connect(audioframe, &AudioTrack::Moving, singleTrack, &SingleTrack::itemMoved);
+	//connect(audioframe, &AudioTrack::Moving, singleTrack, &SingleTrack::itemMoved);
 	audioframe->Initialize(path);
 	audioframe->show();
 	ui.timeline->addWidget(singleTrack);

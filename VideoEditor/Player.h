@@ -73,7 +73,8 @@ public:
 	float getFrameRate();
 	bool isAudioAvaible();
 	bool isVideoAvaible();
-	std::shared_ptr<cv::VideoCapture> getVideCapture()const;
+	//std::shared_ptr<cv::VideoCapture> getVideCapture()const;
+	long getFrameCount()const;
 	QMediaPlayer* getMediaPlayer() const;
 	void setEffect(VideoEffect*);
 	void setEffect(std::vector<cv::Mat>);
@@ -97,7 +98,7 @@ private:
 	QWaitCondition condition;
 	cv::Mat frame;
 	float frameRate;
-	std::shared_ptr<cv::VideoCapture> capture;
+	std::unique_ptr<cv::VideoCapture> capture;
 	cv::Mat RGBframe;
 	QImage img;
 	bool isFirstFrame;

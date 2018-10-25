@@ -1,22 +1,8 @@
 #include "GausianBlur.h"
 #include <ctime>
 
-GausianBlur::GausianBlur(std::shared_ptr<cv::VideoCapture> capture, GausianBlurParam param)
-{
-	Initialize(capture, param);
-}
-
 GausianBlur::GausianBlur()
 {
-}
-
-void GausianBlur::Initialize(std::shared_ptr<cv::VideoCapture> capture, GausianBlurParam param)
-{
-	/*this->capture = capture;
-	framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
-	convertedFrames.resize(framecount);
-	data.resize(framecount);
-	this->parameters = param;*/
 }
 
 void GausianBlur::Initialize(GausianBlurParam param)

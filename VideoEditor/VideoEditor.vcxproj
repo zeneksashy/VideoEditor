@@ -157,7 +157,6 @@
     <ClCompile Include="VideoEditor.cpp" />
     <ClCompile Include="VideoEffect.cpp" />
     <ClCompile Include="VideoTrack.cpp" />
-    <ClCompile Include="VideoLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h" />

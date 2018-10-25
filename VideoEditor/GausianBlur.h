@@ -32,9 +32,7 @@ struct GausianBlurParam
 class GausianBlur :public VideoEffect
 {
 public:
-	GausianBlur(std::shared_ptr<cv::VideoCapture>, GausianBlurParam);
 	GausianBlur();
-	void Initialize(std::shared_ptr<cv::VideoCapture>, GausianBlurParam);
 	void Initialize(GausianBlurParam);
 	~GausianBlur();
 	std::vector<cv::Mat> ExecuteEffect() override;

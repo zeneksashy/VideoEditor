@@ -20,8 +20,6 @@ std::valarray<std::complex<double>> AudioAnalyser::Calculate(AudioAnalyser * ana
 }
 #pragma endregion
 #pragma region S8SAnalyser
-
-
 std::vector<double> S8SAudioAnalyser::LoadDataFromBuffer(QAudioBuffer buffer)
 {
 	return AudioAnalyser::LoadDataFromBuffer<QAudioBuffer::S8S>(*this,buffer);
