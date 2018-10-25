@@ -7,6 +7,7 @@ SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audi
 	ui.setupUi(this);
 	ConnectUi();
 	setAcceptDrops(true);
+	opacity = 100;
 }
 
 SingleTrack::~SingleTrack()
@@ -49,6 +50,11 @@ void SingleTrack::dropEvent(QDropEvent * e)
 void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
 {
 	event->acceptProposedAction();
+}
+
+void SingleTrack::PlayTrack()
+{
+
 }
 
 void SingleTrack::OnButtonClick()

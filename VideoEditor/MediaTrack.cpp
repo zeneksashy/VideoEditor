@@ -15,11 +15,13 @@ void MediaTrack::mousePressEvent(QMouseEvent *e)
 void MediaTrack::enterEvent(QEvent *e)
 {
 	this->drawOutline();
+	setCursor(Qt::PointingHandCursor);
 }
 
 void MediaTrack::leaveEvent(QEvent *e)
 {
 	this->deleteOutline();
+	unsetCursor();
 }
 
 void MediaTrack::mouseMoveEvent(QMouseEvent *)

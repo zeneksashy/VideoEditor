@@ -134,6 +134,9 @@
     <ClCompile Include="VideoEffect.cpp">
       <Filter>Interfaces</Filter>
     </ClCompile>
+    <ClCompile Include="TracksIndexer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -249,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="VideoLoader.h">
       <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TracksIndexer.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ public:
 	void CreateMediaTrack(MediaTrack*);
 	void dropEvent(QDropEvent *e);
 	void dragEnterEvent(QDragEnterEvent *event);
+	void PlayTrack();
 private slots:
 	void OnButtonClick();
 public slots:
@@ -30,4 +31,5 @@ private:
 	uint videoTracks;
 	static uint videoCounter;
 	static uint audioCounter;
+	uint opacity;
 };
