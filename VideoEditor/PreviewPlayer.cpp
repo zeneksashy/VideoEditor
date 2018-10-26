@@ -6,15 +6,10 @@ PreviewPlayer::PreviewPlayer(QWidget *parent)
 	: QWidget(parent)
 {
 	i = 0;
+	
 	ui.setupUi(this);
-	auto media = MediaManager::player->getMediaPlayer();
-	connect(MediaManager::player, &Player::processedImage, ui.canvas, &QGLCanvas::setImage);
-	connect(MediaManager::player, &Player::positionChanged, this, &PreviewPlayer::updatePlayerUI);
-	connect(MediaManager::player, &Player::videoStopped, this, &PreviewPlayer::stopTimeLine);
-	connect(ui.volumeSlider, &QSlider::valueChanged, media, &QMediaPlayer::setVolume);
-	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
-	connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
 	configureButtons();
+	ConnectUi();
 }
 PreviewPlayer::~PreviewPlayer()
 {
@@ -25,10 +20,10 @@ void PreviewPlayer::setMaxToTimeLine(int max)
 }
 void PreviewPlayer::onPlayButtonClicked()
 {
-	if (MediaManager::player->isStopped())
-	{
-		MediaManager::player->Play();
-	}
+	/*if (MediaManager::indexer->isPlayerStopped())
+	{*/
+		MediaManager::indexer->Play();
+	//}
 }
 void PreviewPlayer::updateTimeLine(int value)
 {
@@ -47,16 +42,16 @@ void PreviewPlayer::stopTimeLine()
 }
 void PreviewPlayer::onStopButtonClicked()
 {
-	if (!MediaManager::player->isStopped())
+	if (!MediaManager::indexer->isPlayerStopped())
 	{
-		MediaManager::player->Stop();
+		MediaManager::indexer->Stop();
 	}
 }
 void PreviewPlayer::onPauseButtonCLicked()
 {
-	if(!MediaManager::player->isStopped())
+	if(!MediaManager::indexer->isPlayerStopped())
 	{
-		MediaManager::player->Pause();
+		MediaManager::indexer->Pause();
 	}
 }
 void PreviewPlayer::setVideoPosition(int pos)
@@ -78,6 +73,17 @@ void PreviewPlayer::updatePlayerUI()
 {
 	updateTimeLine(i);
 	++i; 
+}
+void PreviewPlayer::ConnectUi()
+{
+	//auto media = MediaManager::player->getMediaPlayer();
+
+	connect(MediaManager::indexer, &TracksIndexer::positionChanged, this, &PreviewPlayer::updatePlayerUI);
+	connect(MediaManager::indexer, &TracksIndexer::videoStopped, this, &PreviewPlayer::stopTimeLine);
+	//connect(ui.volumeSlider, &QSlider::valueChanged, media, &QMediaPlayer::setVolume);
+	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
+	connect(MediaManager::indexer, &TracksIndexer::playerProcessedImage, ui.canvas, &QGLCanvas::setImage);
+	//connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
 }
 void PreviewPlayer::configureButtons()
 {

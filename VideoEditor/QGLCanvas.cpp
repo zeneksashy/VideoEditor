@@ -17,7 +17,6 @@ void QGLCanvas::setImage(const QImage & image)
 	auto end = std::chrono::system_clock::now();
 	auto nano = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
 	emit sendTime(nano);
-	//std::cout << "czas wykonania " << nano.count() << "\n";
 }
 
 void QGLCanvas::paintEvent(QPaintEvent *)

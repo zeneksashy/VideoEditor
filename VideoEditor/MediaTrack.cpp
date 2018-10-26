@@ -47,6 +47,7 @@ void MediaTrack::mouseMoveEvent(QMouseEvent *)
 	mimeData->setText(QString::number(addr));
 	drag->setMimeData(mimeData);
 	Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
+	emit itemMoved(this);
 }
 
 void MediaTrack::setPlayer(QString path,MediaType type)

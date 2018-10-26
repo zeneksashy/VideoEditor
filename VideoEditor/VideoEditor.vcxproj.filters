@@ -57,6 +57,15 @@
     <Filter Include="Interfaces">
       <UniqueIdentifier>{bddb41d1-bcdc-49d2-af19-96106aa42190}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{3121004a-4479-4b98-8e6e-8461898d3111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{e30d1530-b2c5-4ca9-bc55-12db68add65d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Custom Widgets\Time Line">
+      <UniqueIdentifier>{4ba54769-4dde-454a-b79a-6678e8836eac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VideoEditor.cpp">
@@ -65,25 +74,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AudioAnalyser.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioRecognition.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="EffectsContainer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="FastFourierTransform.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="MediaManager.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="StartPageWindow.cpp">
@@ -110,19 +107,7 @@
     <ClCompile Include="QGLCanvas.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="TimeLine.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
     <ClCompile Include="TimeLineSlider.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioTrack.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="VideoTrack.cpp">
-      <Filter>Custom Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="SingleTrack.cpp">
       <Filter>Custom Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Tester.cpp">
@@ -134,19 +119,37 @@
     <ClCompile Include="VideoEffect.cpp">
       <Filter>Interfaces</Filter>
     </ClCompile>
+    <ClCompile Include="AudioAnalyser.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioRecognition.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Project.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
     <ClCompile Include="TracksIndexer.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioTrack.cpp">
+      <Filter>Custom Widgets\Time Line</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeLine.cpp">
+      <Filter>Custom Widgets\Time Line</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTrack.cpp">
+      <Filter>Custom Widgets\Time Line</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoTrack.cpp">
+      <Filter>Custom Widgets\Time Line</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
       <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Player.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="AudioRecognition.h">
-      <Filter>Generated Files</Filter>
     </QtMoc>
     <QtMoc Include="Tester.h">
       <Filter>Generated Files</Filter>
@@ -169,20 +172,29 @@
     <QtMoc Include="QGLCanvas.h">
       <Filter>Custom Widgets</Filter>
     </QtMoc>
-    <QtMoc Include="TimeLine.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="VideoTrack.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="AudioTrack.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="SingleTrack.h">
-      <Filter>Custom Widgets</Filter>
-    </QtMoc>
     <QtMoc Include="MediaTrack.h">
       <Filter>Interfaces</Filter>
+    </QtMoc>
+    <QtMoc Include="AudioRecognition.h">
+      <Filter>Audio</Filter>
+    </QtMoc>
+    <QtMoc Include="Player.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TracksIndexer.h">
+      <Filter>Core</Filter>
+    </QtMoc>
+    <QtMoc Include="AudioTrack.h">
+      <Filter>Custom Widgets\Time Line</Filter>
+    </QtMoc>
+    <QtMoc Include="TimeLine.h">
+      <Filter>Custom Widgets\Time Line</Filter>
+    </QtMoc>
+    <QtMoc Include="SingleTrack.h">
+      <Filter>Custom Widgets\Time Line</Filter>
+    </QtMoc>
+    <QtMoc Include="VideoTrack.h">
+      <Filter>Custom Widgets\Time Line</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -223,16 +235,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AudioAnalyser.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="FastFourierTransform.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MediaManager.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="MedianBlur.h">
@@ -253,8 +256,14 @@
     <ClInclude Include="VideoLoader.h">
       <Filter>Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="TracksIndexer.h">
-      <Filter>Generated Files</Filter>
+    <ClInclude Include="AudioAnalyser.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Project.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

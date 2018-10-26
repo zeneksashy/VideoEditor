@@ -69,6 +69,7 @@ signals:
 	void processedImage(const QImage &image);
 	void videoStopped();
 	void positionChanged();
+	void EndOfVideo();
 protected:
 	void run();
 	void msleep(double ms);

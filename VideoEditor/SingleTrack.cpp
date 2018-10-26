@@ -2,7 +2,7 @@
 uint SingleTrack::videoCounter = 0;
 uint SingleTrack::audioCounter = 0;
 
-SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true),tracksInLayout(0)
+SingleTrack::SingleTrack(QWidget *parent) :isClicked(false),QWidget(parent),audioTracks(0),videoTracks(0),AudioVideo(true),isFirst(true),isAvaible(false)
 {
 	ui.setupUi(this);
 	ConnectUi();
@@ -14,10 +14,9 @@ SingleTrack::~SingleTrack()
 {
 }
 
-void SingleTrack::itemMoved()
+void SingleTrack::itemRemoved(MediaTrack* track)
 {
-	ui.tracksLayout->removeWidget(currentTrack);
-	currentTrack->show();
+	//ui.tracksLayout->removeWidget(track);
 }
 
 void SingleTrack::CreateMediaTrack(MediaTrack * track)
@@ -29,28 +28,41 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 		 ++audioCounter;
 		 ui.TrackButton->setText(tr("A") + QString::number(audioCounter));
 		 AudioVideo = false;
+		 connect(audio->player.get(), &Player::EndOfVideo, this, &SingleTrack::NextTrack);
 	 }
 	 if (video)
 	 {
 		 ++videoCounter;
 		 ui.TrackButton->setText(tr("V")+ QString::number(videoCounter));
+		 connect(video->player.get(), &Player::EndOfVideo, this, &SingleTrack::NextTrack);
+		 connect(video->player.get(), &Player::processedImage, this, &SingleTrack::OnImageProcessed);
 	 }
-	 currentTrack = track;
 	ui.tracksLayout->addWidget(track);
-	++tracksInLayout;
+	AssignCurrentToFirst();
+	isFirst = false;
+}
+void SingleTrack::OnImageProcessed(const QImage& img)
+{
+	emit ImageProcessed(img);
 }
 
 void SingleTrack::dropEvent(QDropEvent * e)
 {
 	auto str = e->mimeData()->text();
 	auto i = str.toLongLong();
-	AudioTrack*  track = (AudioTrack*)i;
+	MediaTrack*  track = (MediaTrack*)i;
 	InsertToMediaTrack(track);
 }
 
 void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
 {
 	event->acceptProposedAction();
+
+}
+
+void SingleTrack::dragLeaveEvent(QDragLeaveEvent * event)
+{
+
 }
 
 void SingleTrack::PlayTrack()
@@ -66,8 +78,7 @@ void SingleTrack::PauseTrack()
 void SingleTrack::StopTrack()
 {
 	currentTrack->StopMedia();
-	currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(0));
-	currentTrackId = 0;
+	AssignCurrentToFirst();
 }
 
 void SingleTrack::OnButtonClick()
@@ -81,14 +92,30 @@ void SingleTrack::OnButtonClick()
 void SingleTrack::NextTrack()
 {
 	++currentTrackId;
-	currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(currentTrackId));
-	if (currentTrack)
-		PlayTrack();
+	if (ui.tracksLayout->count()> currentTrackId)
+	{
+		currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(currentTrackId)->widget());
+		if (currentTrack)
+		{
+			isAvaible = true;
+			emit MediaAvailability(true, this);
+			PlayTrack();
+		}
+
+		else
+		{
+			isAvaible = false;
+			//currentTrack = nullptr;
+			emit MediaAvailability(false, this);
+			auto interval = dynamic_cast<QSpacerItem*>(ui.tracksLayout->itemAt(currentTrackId))->sizeHint();
+			//std::this_thread::sleep_for();
+			NextTrack();
+		}
+	}
 	else
 	{
-		auto interval = dynamic_cast<QSpacerItem*>(ui.tracksLayout->itemAt(currentTrackId))->sizeHint();
-		//std::this_thread::sleep_for();
-		NextTrack();
+		isAvaible = false;
+		emit MediaAvailability(false, this);
 	}
 }
 
@@ -98,14 +125,13 @@ void SingleTrack::InsertToMediaTrack(MediaTrack *track)
 	auto video = dynamic_cast<VideoTrack*>(track);
 	if (audio && !AudioVideo)
 	{
-		currentTrack = track;
 		ui.tracksLayout->addWidget(track);
 	}
 	if (video && AudioVideo)
 	{
-		currentTrack = track;
 		ui.tracksLayout->addWidget(track);
 	}
+	track->show();
 }
 
 void SingleTrack::ConnectUi()
@@ -130,4 +156,25 @@ void SingleTrack::TurnOnOffTrack()
 		return;
 	}
 	// implement it !!!!!!!!!
+}
+
+void SingleTrack::AssignCurrentToFirst()
+{
+	if (isFirst)
+	{
+		
+		currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(0)->widget());
+		if (currentTrack)
+		{
+			isAvaible=true;
+			emit MediaAvailability(true, this);
+		}
+		else
+		{
+			isAvaible = false;
+			emit MediaAvailability(false, this);
+		}
+			
+		currentTrackId = 0;
+	}
 }

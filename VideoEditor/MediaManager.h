@@ -21,7 +21,7 @@ public:
 	MediaManager();
 	static void LoadWidget(VideoLoader*);
 	static void LoadMedia(QString);
-	static TracksIndexer indexer;
+	static TracksIndexer* indexer;
 	static  Player* player;
 //	static  GausianBlur* gBlur;
 	static Project* project;

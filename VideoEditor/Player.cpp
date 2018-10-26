@@ -95,8 +95,12 @@ void Player::run()
 	auto nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
 	while (true)
 	{
-		if (!buffer.GetNextFrame(frame)||stop)
+		if (!buffer.GetNextFrame(frame) || stop)
+		{
+			emit EndOfVideo();
 			break;
+		}
+			
 		start = std::chrono::high_resolution_clock::now();
 		if (isEffectApplied)
 		{
@@ -108,7 +112,8 @@ void Player::run()
 		}
 		end = std::chrono::high_resolution_clock::now();
 		nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
-		this->msleep((del - nano) -chrono::nanoseconds(1077152)-playerDelay); //1077152 is time of singe while iteration 
+		this->msleep(del);
+		//this->msleep((del - nano) -chrono::nanoseconds(1077152)-playerDelay); //1077152 is time of singe while iteration 
 	}
 	auto nend = std::chrono::high_resolution_clock::now();
 	auto nnano = std::chrono::duration_cast<chrono::milliseconds>(nend - nstart);
@@ -148,6 +153,7 @@ bool Player::CheckNextFrame()
 	if (!capture->read(frame))
 	{
 		stop = true;
+		emit EndOfVideo();
 		return false;
 	}
 	return true;
@@ -285,6 +291,7 @@ void Buffer::LoadToBuffer()
 				if (!capture.read(frame))
 				{
 					stop = true;
+					locker.unlock();
 					break;
 				}
 				else
@@ -294,11 +301,15 @@ void Buffer::LoadToBuffer()
 			}
 		}
 		locker.unlock();
-	}
+	}	
 }
 bool Buffer::GetNextFrame(cv::Mat & frame)
 {
 	locker.lock();
+	if (buff.size() == 5)
+	{
+		auto x = 5;
+	}
 	if (buff.size() > 1)
 	{
 	    frame = buff.front();

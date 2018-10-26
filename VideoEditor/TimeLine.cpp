@@ -61,7 +61,8 @@ void TimeLine::stopTimeLine()
 void TimeLine::UpdateTimeLabel(int pos)
 {
 	std::stringstream s;
-	int sec = pos / MediaManager::player->getFrameRate();
+	//int sec = pos / MediaManager::player->getFrameRate();
+	int sec = 25;
 	int min = sec / 60;
 	int h = min / 60;
 	if (sec >= 60)
@@ -188,25 +189,26 @@ void TimeLine::LineSelected(MediaTrack * frame)
 }
 VideoTrack* TimeLine::CreateVideoTrack(QString path)
 {
-	auto videoframe = new VideoTrack(this);
 	auto singleTrack = new SingleTrack(this);
+	auto videoframe = new VideoTrack(this);
+	videoframe->Initliaize(path);	
 	singleTrack->CreateMediaTrack(videoframe);
-	//connect(videoframe, &VideoTrack::LineSelected, this, &TimeLine::LineSelected);
-	videoframe->Initliaize(path);
 	ui.timeline->addWidget(singleTrack);
 	videoframe->installEventFilter(this);
+	connect(videoframe, &MediaTrack::itemMoved, singleTrack, &SingleTrack::itemRemoved);
+	MediaManager::indexer->AddNewTrack(singleTrack);
 	return videoframe;
 }
 AudioTrack* TimeLine::CreateAudioTrack(QString path)
 {
 	auto singleTrack = new SingleTrack(this);
 	auto audioframe = new AudioTrack(this);
-	singleTrack->CreateMediaTrack(audioframe);
-	//connect(audioframe, &AudioTrack::Moving, singleTrack, &SingleTrack::itemMoved);
 	audioframe->Initialize(path);
-	audioframe->show();
+	singleTrack->CreateMediaTrack(audioframe);
 	ui.timeline->addWidget(singleTrack);
 	audioframe->installEventFilter(this);
+	connect(audioframe, &MediaTrack::itemMoved, singleTrack, &SingleTrack::itemRemoved);
+	MediaManager::indexer->AddNewTrack(singleTrack);
 	return audioframe;
 }
 void TimeLine::ConfigureButtons()
@@ -220,7 +222,7 @@ void TimeLine::ConnectUi()
 	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
 	connect(MediaManager::player, &Player::videoStopped, this, &TimeLine::stopTimeLine);
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
-	connect(ui.playButton, &QToolButton::clicked, this, [this]() {if (MediaManager::player->isStopped()) MediaManager::player->Play(); });
-	connect(ui.pauseButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::player->isStopped()) MediaManager::player->Pause(); });
-	connect(ui.stopButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::player->isStopped()) MediaManager::player->Stop(); });
+	connect(ui.playButton, &QToolButton::clicked, this, [this]() {if (MediaManager::indexer->isPlayerStopped()) MediaManager::indexer->Play(); });
+	connect(ui.pauseButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::indexer->isPlayerStopped()) MediaManager::indexer->Pause(); });
+	connect(ui.stopButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::indexer->isPlayerStopped()) MediaManager::indexer->Stop(); });
 }

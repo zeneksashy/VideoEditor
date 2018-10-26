@@ -3,6 +3,7 @@
 
 Player* MediaManager::player = new Player();
 Project* MediaManager::project = new Project();
+TracksIndexer* MediaManager::indexer = new TracksIndexer();
 QList<VideoLoader*> MediaManager::widgets;
 std::vector<std::string> MediaManager::mediaPaths;
 MediaManager::~MediaManager()

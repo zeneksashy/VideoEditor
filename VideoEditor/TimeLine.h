@@ -51,10 +51,12 @@ public:
 	{
 		MediaManager::LoadWidget(&timeLine);
 		MediaManager::LoadMedia(QString::fromStdString(mediaPath));
+		
 	}
 	~TimeLineTest()
 	{
 		MediaManager::ClearAllWidgets();
+		MediaManager::indexer->ClearAllTracks();
 	}
 	bool NewTrackTest()
 	{

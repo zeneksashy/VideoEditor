@@ -22,11 +22,13 @@ public:
 	void PlayMedia();
 	void PauseMedia();
 	void StopMedia();
-
+	std::unique_ptr<Player>player;
 	void mouseMoveEvent(QMouseEvent *);
+signals:
+	void itemMoved(MediaTrack*);
 protected:
 	void setPlayer(QString,MediaType);
 private:
-	std::unique_ptr<Player>player;
+	
 }; 
 

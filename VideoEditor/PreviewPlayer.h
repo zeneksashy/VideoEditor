@@ -26,6 +26,7 @@ private slots:
 private:
 	int i;
 	Ui::PreviewPlayer ui;
+	void ConnectUi();
 	void configureButtons();
 };
 class PreiviewPlayerTest
