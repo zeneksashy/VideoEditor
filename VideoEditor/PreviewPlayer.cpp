@@ -20,10 +20,10 @@ void PreviewPlayer::setMaxToTimeLine(int max)
 }
 void PreviewPlayer::onPlayButtonClicked()
 {
-	/*if (MediaManager::indexer->isPlayerStopped())
-	{*/
+	if (MediaManager::indexer->isPlayerStopped())
+	{
 		MediaManager::indexer->Play();
-	//}
+	}
 }
 void PreviewPlayer::updateTimeLine(int value)
 {
@@ -83,7 +83,6 @@ void PreviewPlayer::ConnectUi()
 	//connect(ui.volumeSlider, &QSlider::valueChanged, media, &QMediaPlayer::setVolume);
 	connect(ui.timeLine, &QSlider::valueChanged, this, &PreviewPlayer::setVideoPosition);
 	connect(MediaManager::indexer, &TracksIndexer::playerProcessedImage, ui.canvas, &QGLCanvas::setImage);
-	//connect(ui.canvas, &QGLCanvas::sendTime, MediaManager::player, &Player::recieveTime);
 }
 void PreviewPlayer::configureButtons()
 {

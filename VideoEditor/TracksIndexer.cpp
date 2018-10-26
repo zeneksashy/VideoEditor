@@ -5,46 +5,58 @@ void TracksIndexer::AddNewTrack(SingleTrack *track)
 {
 	tracks.emplace_back(track);
 	//if(track->isVideoTrack())
-		connect(track, &SingleTrack::ImageProcessed, this, &TracksIndexer::imageProcessed);
+	connect(track, &SingleTrack::ImageProcessed, this, &TracksIndexer::imageProcessed);
 	connect(track, &SingleTrack::MediaAvailability, this, &TracksIndexer::MediaAvailabilityChanged);
 }
 
 bool TracksIndexer::isPlayerStopped()
 {
-
-	return false;
+	return stop;
 }
 
 void TracksIndexer::Pause()
 {
-	for each (auto track in tracks)
+	if (!stop)
 	{
-		track->PauseTrack();
+		for each (auto track in tracks)
+		{
+			track->PauseTrack();
+		}
+		stop = true;
 	}
+		
 }
 
 void TracksIndexer::Stop()
 {
-	for each (auto track in tracks)
+	if (!stop)
 	{
-		track->StopTrack();
+		for each (auto track in tracks)
+		{
+			track->StopTrack();
+		}
+		stop = true;
 	}
 }
 
 void TracksIndexer::Play()
 {
-	bool videoTracksAvaible = true;
-	for each (auto track in tracks)
+	if (stop)
 	{
-		if (track->isVideoTrack()&&videoTracksAvaible&& track->isTtrackAvaible())
+		bool videoTracksAvaible = true;
+		for each (auto track in tracks)
 		{
-			track->PlayTrack();
-			videoTracksAvaible = false;
+			if (track->isVideoTrack() && videoTracksAvaible&& track->isTtrackAvaible())
+			{
+				track->PlayTrack();
+				videoTracksAvaible = false;
+			}
+			else if (!track->isVideoTrack() && track->isTtrackAvaible())
+			{
+				track->PlayTrack();
+			}
 		}
-		else if (!track->isVideoTrack() &&  track->isTtrackAvaible())
-		{
-			track->PlayTrack();
-		}
+		stop = false;
 	}
 }
 

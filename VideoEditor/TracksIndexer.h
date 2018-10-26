@@ -5,6 +5,7 @@ class TracksIndexer: public QObject
 {
 	Q_OBJECT
 public:
+	TracksIndexer():stop(true){}
 	void ClearAllTracks();
 	void AddNewTrack(SingleTrack*);
 	bool isPlayerStopped();
@@ -20,6 +21,7 @@ signals:
 	void videoStopped();
 	void playerProcessedImage(const QImage& img);
 private:
+	bool stop;
 	void CheckNextMedia(long pos);
 	std::vector<SingleTrack*>tracks;
 };

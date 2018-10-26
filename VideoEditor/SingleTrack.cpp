@@ -57,7 +57,6 @@ void SingleTrack::dropEvent(QDropEvent * e)
 void SingleTrack::dragEnterEvent(QDragEnterEvent * event)
 {
 	event->acceptProposedAction();
-
 }
 
 void SingleTrack::dragLeaveEvent(QDragLeaveEvent * event)
@@ -86,7 +85,6 @@ void SingleTrack::OnButtonClick()
 	isClicked = !isClicked;
 	ChangeButtonColor();
 	TurnOnOffTrack();
-
 }
 
 void SingleTrack::NextTrack()
@@ -98,25 +96,23 @@ void SingleTrack::NextTrack()
 		if (currentTrack)
 		{
 			isAvaible = true;
-			emit MediaAvailability(true, this);
 			PlayTrack();
 		}
-
 		else
 		{
 			isAvaible = false;
 			//currentTrack = nullptr;
-			emit MediaAvailability(false, this);
 			auto interval = dynamic_cast<QSpacerItem*>(ui.tracksLayout->itemAt(currentTrackId))->sizeHint();
 			//std::this_thread::sleep_for();
 			NextTrack();
 		}
+		
 	}
 	else
 	{
 		isAvaible = false;
-		emit MediaAvailability(false, this);
 	}
+	emit MediaAvailability(isAvaible, this);
 }
 
 void SingleTrack::InsertToMediaTrack(MediaTrack *track)
@@ -156,6 +152,7 @@ void SingleTrack::TurnOnOffTrack()
 	{
 		isAvaible = true;
 	}
+	emit MediaAvailability(isAvaible, this);
 	// implement it !!!!!!!!!
 }
 
@@ -168,13 +165,12 @@ void SingleTrack::AssignCurrentToFirst()
 		if (currentTrack)
 		{
 			isAvaible=true;
-			emit MediaAvailability(true, this);
 		}
 		else
 		{
 			isAvaible = false;
-			emit MediaAvailability(false, this);
 		}
+		emit MediaAvailability(isAvaible, this);
 		currentTrackId = 0;
 	}
 }

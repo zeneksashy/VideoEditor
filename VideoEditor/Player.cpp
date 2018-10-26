@@ -16,10 +16,11 @@ bool Player::loadFile(QString filename,MediaType type)
 	if (CheckFile())
 	{
 		mediaplayer->setMedia(QUrl::fromLocalFile(filename));
+		//connect(mediaplayer,&QMediaPlayer::durationChanged)
 		CheckMediaType(type);
-		framceount = (int)capture->get(cv::CAP_PROP_FRAME_COUNT);
 		if(video)
 		{
+			framceount = (int)capture->get(cv::CAP_PROP_FRAME_COUNT);
 			frameRate = capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
 			auto mili = std::chrono::milliseconds(delay);
@@ -91,7 +92,7 @@ void Player::run()
 	{
 		if (!buffer.GetNextFrame(frame) )
 		{
-			emit EndOfVideo();
+			emit EndOfMedia();
 			break;
 		}
 		if (stop)
@@ -135,7 +136,6 @@ void Player::PlayEffect()
 	emit processedImage(std::move(img));
 	emit positionChanged();
 }
-
 
 void Player::CaptureNextFrame()
 {

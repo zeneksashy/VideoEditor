@@ -70,6 +70,7 @@ signals:
 	void videoStopped();
 	void positionChanged();
 	void EndOfVideo();
+	void EndOfMedia();
 protected:
 	void run();
 	void msleep(double ms);
