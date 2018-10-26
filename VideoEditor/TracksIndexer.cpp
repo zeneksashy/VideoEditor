@@ -41,7 +41,7 @@ void TracksIndexer::Play()
 			track->PlayTrack();
 			videoTracksAvaible = false;
 		}
-		else if (!track->isVideoTrack())
+		else if (!track->isVideoTrack() &&  track->isTtrackAvaible())
 		{
 			track->PlayTrack();
 		}
@@ -52,6 +52,7 @@ void TracksIndexer::MediaAvailabilityChanged(bool availability, SingleTrack* tra
 {
 	Pause();
 	Play();
+	//emit message with position that track has finished
 }
 
 void TracksIndexer::CheckNextMedia(long pos)

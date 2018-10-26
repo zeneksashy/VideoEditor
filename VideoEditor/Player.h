@@ -113,7 +113,6 @@ private:
 	bool audio;
 	bool video;
 	bool isEffectApplied;
-	bool CheckNextFrame();
 	void CaptureNextFrame();
 	bool CheckVideo();
 	bool CheckAudio();

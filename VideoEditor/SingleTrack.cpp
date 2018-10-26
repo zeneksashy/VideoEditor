@@ -149,11 +149,12 @@ void SingleTrack::ChangeButtonColor()
 
 void SingleTrack::TurnOnOffTrack()
 {
+	StopTrack();
 	if (isClicked)
-		return;
+		isAvaible = false;
 	else
 	{
-		return;
+		isAvaible = true;
 	}
 	// implement it !!!!!!!!!
 }
@@ -174,7 +175,6 @@ void SingleTrack::AssignCurrentToFirst()
 			isAvaible = false;
 			emit MediaAvailability(false, this);
 		}
-			
 		currentTrackId = 0;
 	}
 }

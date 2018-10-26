@@ -20,7 +20,6 @@ bool Player::loadFile(QString filename,MediaType type)
 		framceount = (int)capture->get(cv::CAP_PROP_FRAME_COUNT);
 		if(video)
 		{
-			capture->set(cv::CAP_PROP_BUFFERSIZE,12);
 			frameRate = capture->get(CV_CAP_PROP_FPS);
 			delay = (1000 / frameRate);
 			auto mili = std::chrono::milliseconds(delay);
@@ -28,7 +27,6 @@ bool Player::loadFile(QString filename,MediaType type)
 			buffer.SetVideoCapture(*capture);
 			worker = std::thread([this]() {buffer.LoadToBuffer(); });
 			worker.detach();
-			auto x = 5;
 		}
 		this->filename = filename.toStdString();
 		return true;
@@ -89,19 +87,17 @@ void Player::recieveTime(std::chrono::nanoseconds nano)
 
 void Player::run()
 {
-	auto nstart = std::chrono::high_resolution_clock::now();
-	auto start = std::chrono::high_resolution_clock::now();
-	auto end = std::chrono::high_resolution_clock::now();
-	auto nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
 	while (true)
 	{
-		if (!buffer.GetNextFrame(frame) || stop)
+		if (!buffer.GetNextFrame(frame) )
 		{
 			emit EndOfVideo();
 			break;
 		}
-			
-		start = std::chrono::high_resolution_clock::now();
+		if (stop)
+		{
+			break;
+		}
 		if (isEffectApplied)
 		{
 			PlayEffect();
@@ -110,17 +106,9 @@ void Player::run()
 		{
 			CaptureNextFrame();
 		}
-		end = std::chrono::high_resolution_clock::now();
-		nano = std::chrono::duration_cast<chrono::nanoseconds>(end - start);
 		this->msleep(del);
 		//this->msleep((del - nano) -chrono::nanoseconds(1077152)-playerDelay); //1077152 is time of singe while iteration 
 	}
-	auto nend = std::chrono::high_resolution_clock::now();
-	auto nnano = std::chrono::duration_cast<chrono::milliseconds>(nend - nstart);
-	cout << "execution time "<< nnano.count() << "\n";
-	//13872
-	//13800
-	// should be 13480
 }
 
 void Player::Stop()
@@ -148,16 +136,7 @@ void Player::PlayEffect()
 	emit positionChanged();
 }
 
-bool Player::CheckNextFrame()
-{
-	if (!capture->read(frame))
-	{
-		stop = true;
-		emit EndOfVideo();
-		return false;
-	}
-	return true;
-}
+
 void Player::CaptureNextFrame()
 {
 	cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
