@@ -140,53 +140,7 @@ void TimeLine::dropEvent(QDropEvent * e)
 		MediaManager::LoadMedia(url.toLocalFile());
 	}
 }
-void TimeLine::itemSelected(QListWidgetItem* item)
-{
-	for each (auto source in audioSources)
-	{
-		source.second->deleteOutline();
-	}
-	for each (auto source in videoSources)
-	{
-		source.second->deleteOutline();
-	}
-	//audioSources.find(item)->second->drawOutline();
-//	videoSources.find(item)->second->drawOutline();
-}
-void TimeLine::LineSelected(MediaTrack * frame)
-{
-	//auto  audioIt = audioSources.begin();
-	//auto  videoIt = videoSources.begin();
-	//for (;audioIt!=audioSources.end(),videoIt!=videoSources.end();audioIt++,videoIt++)
-	//{
-	//	if (audioIt->second == frame)
-	//	{
-	//		audioIt->first->setSelected(true);
-	//	//	audioIt->second->drawOutline();
 
-	//		if (videoIt->first == audioIt->first)
-	//		{
-	//			videoIt->first->setSelected(true);
-	//	//		videoIt->second->drawOutline();
-	//		}
-	//		continue;
-	//	}
-	//	if (videoIt->second == frame)
-	//	{
-	//		videoIt->first->setSelected(true);
-	//	//	videoIt->second->drawOutline();
-
-	//		if (audioIt->first == audioIt->first)
-	//		{
-	//			audioIt->first->setSelected(true);
-	//		//	audioIt->second->drawOutline();
-	//		}
-	//		continue;
-	//	}
-	////	audioIt->second->deleteOutline();
-	////	videoIt->second->deleteOutline();
-	//}
-}
 VideoTrack* TimeLine::CreateVideoTrack(QString path)
 {
 	auto singleTrack = new SingleTrack(this);
@@ -195,7 +149,8 @@ VideoTrack* TimeLine::CreateVideoTrack(QString path)
 	singleTrack->CreateMediaTrack(videoframe);
 	ui.timeline->addWidget(singleTrack);
 	videoframe->installEventFilter(this);
-	connect(videoframe, &MediaTrack::itemMoved, singleTrack, &SingleTrack::itemRemoved);
+	//connect(videoframe, &MediaTrack::itemMoved, singleTrack, &SingleTrack::itemRemoved);
+	connect(videoframe, &MediaTrack::PostioonChanged, this, &TimeLine::updateTime);
 	MediaManager::indexer->AddNewTrack(singleTrack);
 	return videoframe;
 }
@@ -207,9 +162,14 @@ AudioTrack* TimeLine::CreateAudioTrack(QString path)
 	singleTrack->CreateMediaTrack(audioframe);
 	ui.timeline->addWidget(singleTrack);
 	audioframe->installEventFilter(this);
-	connect(audioframe, &MediaTrack::itemMoved, singleTrack, &SingleTrack::itemRemoved);
+	//connect(audioframe, &MediaTrack::itemMoved, singleTrack, &SingleTrack::itemRemoved);
+	connect(audioframe, &MediaTrack::PostioonChanged, this, &TimeLine::updateTime);
 	MediaManager::indexer->AddNewTrack(singleTrack);
 	return audioframe;
+}
+void TimeLine::ConnectMediaTrack(MediaTrack * track)
+{
+	connect(track, &MediaTrack::PostioonChanged, this, &TimeLine::updateTime);
 }
 void TimeLine::ConfigureButtons()
 {
@@ -219,8 +179,7 @@ void TimeLine::ConfigureButtons()
 }
 void TimeLine::ConnectUi()
 {
-	connect(MediaManager::player, &Player::positionChanged, this, &TimeLine::updateTime);
-	connect(MediaManager::player, &Player::videoStopped, this, &TimeLine::stopTimeLine);
+	
 	connect(ui.zoomingSlider, &QSlider::valueChanged, this, &TimeLine::ResizeFrames);
 	connect(ui.playButton, &QToolButton::clicked, this, [this]() {if (MediaManager::indexer->isPlayerStopped()) MediaManager::indexer->Play(); });
 	connect(ui.pauseButton, &QToolButton::clicked, this, [this]() {if (!MediaManager::indexer->isPlayerStopped()) MediaManager::indexer->Pause(); });

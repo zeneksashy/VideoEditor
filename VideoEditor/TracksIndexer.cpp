@@ -62,8 +62,8 @@ void TracksIndexer::Play()
 
 void TracksIndexer::MediaAvailabilityChanged(bool availability, SingleTrack* track)
 {
-	Pause();
-	Play();
+//	Pause();
+	//Play();
 	//emit message with position that track has finished
 }
 

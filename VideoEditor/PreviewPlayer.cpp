@@ -6,7 +6,6 @@ PreviewPlayer::PreviewPlayer(QWidget *parent)
 	: QWidget(parent)
 {
 	i = 0;
-	
 	ui.setupUi(this);
 	configureButtons();
 	ConnectUi();

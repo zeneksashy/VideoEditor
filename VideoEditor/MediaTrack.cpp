@@ -1,5 +1,5 @@
 #include "MediaTrack.h"
-
+#include<qpainter.h>
 MediaTrack::~MediaTrack()
 {
 }
@@ -49,9 +49,20 @@ void MediaTrack::mouseMoveEvent(QMouseEvent *)
 	Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
 	emit itemMoved(this);
 }
+void MediaTrack::PlayerChangedPosition()
+{
+	// paint the red line here
+	QPainter painter(this);
+	painter.setPen(QPen(Qt::red, 1));
+	painter.setBrush(Qt::BrushStyle::SolidPattern);
+	painter.drawLine(painterPosition, 0, painterPosition,this->rect().height());
+	++painterPosition;
+	emit PostioonChanged();
+}
 
 void MediaTrack::setPlayer(QString path,MediaType type)
 {
 	player = std::make_unique<Player>(new Player());
 	player->loadFile(path,type);
+	connect(player.get(), &Player::positionChanged,this, &MediaTrack::PlayerChangedPosition);
 }

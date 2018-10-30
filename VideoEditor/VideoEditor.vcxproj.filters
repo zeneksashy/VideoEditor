@@ -80,9 +80,6 @@
     <ClCompile Include="FastFourierTransform.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="StartPageWindow.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
@@ -146,6 +143,9 @@
     <ClCompile Include="VideoTrack.cpp">
       <Filter>Custom Widgets\Time Line</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VideoEditor.h">
@@ -178,9 +178,6 @@
     <QtMoc Include="AudioRecognition.h">
       <Filter>Audio</Filter>
     </QtMoc>
-    <QtMoc Include="Player.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
     <QtMoc Include="TracksIndexer.h">
       <Filter>Core</Filter>
     </QtMoc>
@@ -195,6 +192,9 @@
     </QtMoc>
     <QtMoc Include="VideoTrack.h">
       <Filter>Custom Widgets\Time Line</Filter>
+    </QtMoc>
+    <QtMoc Include="Player.h">
+      <Filter>Core</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

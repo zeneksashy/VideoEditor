@@ -10,7 +10,7 @@ class MediaTrack: public QWidget
 {
 	Q_OBJECT
 public:
-	MediaTrack(QWidget* parent) :QWidget(parent) {}
+	MediaTrack(QWidget* parent) :QWidget(parent),painterPosition(0) {}
 	virtual ~MediaTrack();
 	virtual void drawOutline() = 0;
 	virtual void deleteOutline() = 0;
@@ -24,11 +24,14 @@ public:
 	void StopMedia();
 	std::unique_ptr<Player>player;
 	void mouseMoveEvent(QMouseEvent *);
+private slots:
+	void PlayerChangedPosition();
 signals:
+	void PostioonChanged();
 	void itemMoved(MediaTrack*);
 protected:
 	void setPlayer(QString,MediaType);
 private:
-	
+	uint painterPosition;
 }; 
 

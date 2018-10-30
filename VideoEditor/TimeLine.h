@@ -25,8 +25,8 @@ public:
 
 private slots:
 	void updateTime();
-	void itemSelected(QListWidgetItem*);
-	void LineSelected(MediaTrack*);
+//	void itemSelected(QListWidgetItem*);
+//	void LineSelected(MediaTrack*);
 	void ResizeFrames(int);
 	void stopTimeLine();
 private:
@@ -37,6 +37,7 @@ private:
 	void UpdateTimeLabel(int);
 	VideoTrack* CreateVideoTrack(QString);
 	AudioTrack* CreateAudioTrack(QString);
+	void ConnectMediaTrack(MediaTrack*);
 	void ConfigureButtons();
 	void ConnectUi();
 	Ui::TimeLine ui;

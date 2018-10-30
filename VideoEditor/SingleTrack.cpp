@@ -34,7 +34,7 @@ void SingleTrack::CreateMediaTrack(MediaTrack * track)
 	 {
 		 ++videoCounter;
 		 ui.TrackButton->setText(tr("V")+ QString::number(videoCounter));
-		 connect(video->player.get(), &Player::EndOfVideo, this, &SingleTrack::NextTrack);
+		 connect(video->player.get(), &Player::EndOfMedia, this, &SingleTrack::NextTrack);
 		 connect(video->player.get(), &Player::processedImage, this, &SingleTrack::OnImageProcessed);
 	 }
 	ui.tracksLayout->addWidget(track);
@@ -111,6 +111,7 @@ void SingleTrack::NextTrack()
 	else
 	{
 		isAvaible = false;
+		
 	}
 	emit MediaAvailability(isAvaible, this);
 }
@@ -170,7 +171,7 @@ void SingleTrack::AssignCurrentToFirst()
 		{
 			isAvaible = false;
 		}
-		emit MediaAvailability(isAvaible, this);
+	//	emit MediaAvailability(isAvaible, this);
 		currentTrackId = 0;
 	}
 }
