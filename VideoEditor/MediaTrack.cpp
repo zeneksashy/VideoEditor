@@ -52,11 +52,6 @@ void MediaTrack::mouseMoveEvent(QMouseEvent *)
 void MediaTrack::PlayerChangedPosition()
 {
 	// paint the red line here
-	QPainter painter(this);
-	painter.setPen(QPen(Qt::red, 1));
-	painter.setBrush(Qt::BrushStyle::SolidPattern);
-	painter.drawLine(painterPosition, 0, painterPosition,this->rect().height());
-	++painterPosition;
 	emit PostioonChanged();
 }
 

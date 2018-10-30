@@ -118,7 +118,6 @@ bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 {//for now is 1 move per frames,  25 frames per second
 	if (event->type() == QEvent::Paint)
 	{
-		//int timelineMultipler = i/(multipler/scale) ;
 		watched->event(event);
 		auto widget = dynamic_cast<QWidget*>(watched);
 		auto media = dynamic_cast<MediaTrack*>(watched);
@@ -126,8 +125,11 @@ bool TimeLine::eventFilter(QObject * watched, QEvent * event)
 		painter.setPen(QPen(Qt::red, 1));
 		painter.setBrush(Qt::BrushStyle::SolidPattern);
 		if(media)
-		{ }
-			//painter.drawLine(i, 0, i, ui.Content->rect().height());
+		{
+			int pos = widget->mapToParent(widget->rect().topLeft()).x()-87;
+			if(pos<= i)
+				painter.drawLine(i-pos, 0, i - pos, ui.Content->rect().height());
+		}
 		else
 			painter.drawLine(i+87, 0, i+87, ui.Content->rect().height());
 		return true; // The event is already handled.
