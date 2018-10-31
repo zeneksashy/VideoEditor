@@ -51,7 +51,6 @@ void MediaTrack::mouseMoveEvent(QMouseEvent *)
 }
 void MediaTrack::PlayerChangedPosition()
 {
-	// paint the red line here
 	emit PostioonChanged();
 }
 

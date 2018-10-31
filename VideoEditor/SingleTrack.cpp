@@ -90,6 +90,7 @@ void SingleTrack::OnButtonClick()
 void SingleTrack::NextTrack()
 {
 	++currentTrackId;
+	isAvaible = false;
 	if (ui.tracksLayout->count()> currentTrackId)
 	{
 		currentTrack = dynamic_cast<MediaTrack*>(ui.tracksLayout->itemAt(currentTrackId)->widget());
@@ -100,18 +101,11 @@ void SingleTrack::NextTrack()
 		}
 		else
 		{
-			isAvaible = false;
 			//currentTrack = nullptr;
 			auto interval = dynamic_cast<QSpacerItem*>(ui.tracksLayout->itemAt(currentTrackId))->sizeHint();
 			//std::this_thread::sleep_for();
 			NextTrack();
 		}
-		
-	}
-	else
-	{
-		isAvaible = false;
-		
 	}
 	emit MediaAvailability(isAvaible, this);
 }

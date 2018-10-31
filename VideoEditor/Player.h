@@ -49,10 +49,13 @@ public:
 	void SetCapturePosition(int pos);
 private:
 	std::queue<cv::Mat> buff;
+	void LoadNext();
 	cv::Mat frame;
+	cv::Mat newFrame;
 	const uint bufferMaxSize = 30;
 	cv::VideoCapture capture;
-	SpinLock locker;
+	//SpinLock locker;
+	std::mutex locker;
 	bool stop;
 };
 ///
@@ -64,6 +67,8 @@ class Player : public QThread
 public  slots:
 	void setVideoPosition(int pos);
 	void recieveTime(std::chrono::nanoseconds);
+private slots:
+	void MediaStatusChanged(QMediaPlayer::MediaStatus);
 signals:
 	//Signal to output frame to be displayed
 	void processedImage(const QImage &image);
@@ -126,4 +131,5 @@ private:
 	std::chrono::nanoseconds playerDelay;
 	Buffer buffer;
 	std::thread worker;
+	
 };

@@ -45,6 +45,7 @@ void Player::Play()
 			start(LowPriority);
 		if (audio)
 		{
+			connect(mediaplayer.data(), &QMediaPlayer::mediaStatusChanged, this, &Player::MediaStatusChanged);
 			mediaplayer->play();
 		}
 	}
@@ -55,6 +56,13 @@ bool Player::CheckFile()
 		return true;
 	return false;
 
+}
+void Player::MediaStatusChanged(QMediaPlayer::MediaStatus status)
+{
+	if (status == QMediaPlayer::MediaStatus::EndOfMedia)
+	{
+		emit EndOfMedia();
+	}
 }
 bool Player::CheckVideo()
 {
@@ -262,38 +270,39 @@ void Buffer::LoadToBuffer()
 {	
 	while (true)
 	{
-		locker.lock();
+		//locker.lock();
 		if (!stop)
 		{
-			if (buff.size() < bufferMaxSize)
+			if (buff.size() <= bufferMaxSize)
 			{
-				if (!capture.read(frame))
+				if (!capture.read(newFrame))
 				{
 					stop = true;
-					locker.unlock();
+			//		locker.unlock();
 					break;
 				}
 				else
 				{
-					buff.emplace(frame);
+					buff.emplace(newFrame);
 				}
 			}
+			else
+			{
+				break;
+			}
 		}
-		locker.unlock();
+		//locker.unlock();
 	}	
 }
 bool Buffer::GetNextFrame(cv::Mat & frame)
 {
 	locker.lock();
-	if (buff.size() == 5)
-	{
-		auto x = 5;
-	}
-	if (buff.size() > 1)
+	if (buff.size() > 0)
 	{
 	    frame = buff.front();
 		buff.pop();
 		locker.unlock();
+		LoadNext();
 		return true;
 	}
 	locker.unlock();
@@ -306,5 +315,11 @@ void Buffer::SetCapturePosition(int pos)
 	capture.set(CV_CAP_PROP_POS_MSEC, pos);
 	stop = false;
 	locker.unlock();
+}
+void Buffer::LoadNext()
+{
+	if(capture.read(newFrame))
+		buff.emplace(newFrame);
+
 }
 #pragma endregion
